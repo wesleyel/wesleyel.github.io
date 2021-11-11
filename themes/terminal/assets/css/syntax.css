@@ -57,7 +57,7 @@ code.language-html,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: rgba(255, 255, 255, .3) !important;
+  color: rgba(227, 255, 253, 0.6) !important;
 }
 
 .token.namespace {

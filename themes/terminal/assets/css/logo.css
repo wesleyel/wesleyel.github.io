@@ -6,3 +6,45 @@
   color: black;
   padding: 5px 10px;
 }
+
+
+.logo::after {
+  content: "";
+  animation: cursor 1000ms infinite;
+  background: var(--background);
+  border-radius: 0;
+  display: inline-block;
+  height: 1em;
+  margin-left: 0.4em;
+  width: 3px;
+  bottom: 1px;
+  position: relative;
+}
+
+@-webkit-keyframes cursor {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

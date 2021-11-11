@@ -64,7 +64,6 @@ a.read-more,
 a.read-more:hover,
 a.read-more:active {
   display: inline-flex;
-  background: none;
   box-shadow: none;
   padding: 0;
   margin: 20px 0;

@@ -57,12 +57,21 @@ body {
 }
 
 a {
-  color: inherit;
-
+  /* color: inherit; */
+  cursor: pointer;
+  color: color-mod(var(--color) blend(#1D1E28 2%));
+  text-decoration: none;
+  padding: 4px;
   /* Waiting for a better times... */
   /* &:has(code) {
     text-decoration-color: var(--accent);
   } */
+}
+
+
+a:hover {
+  background-color: var(--accent);
+  color: var(--invert-font-color);
 }
 
 img {
@@ -296,7 +305,7 @@ mark {
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 40px;
   max-width: 864px;
   min-height: 100vh;
@@ -343,4 +352,14 @@ hr {
 
 sup {
  line-height: 0;
+}
+
+.aside-toc {
+  flex: 0 0 20rem;
+}
+
+.aside-toc .table-of-contents {
+  margin: 20px;
+  position: fixed;
+  top: 13vh;
 }

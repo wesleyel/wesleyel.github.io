@@ -28,22 +28,6 @@
   {{ end }}
   {{ partial "cover.html" . }}
 
-  {{ if .Params.Toc }}
-  <aside class="aside-toc">
-    <div class="table-of-contents">
-      <h3>
-        {{ if .Params.TocTitle }}
-          {{ .Params.TocTitle }}
-        {{ else if $.Site.Params.TocTitle }}
-          {{ $.Site.Params.TocTitle }}
-        {{ else }}
-          Contents
-        {{ end }}
-      </h3>
-      {{ .TableOfContents }}
-    </div>
-  </aside>
-  {{ end }}
 
   <div class="post-content">
     {{- with .Content -}}
