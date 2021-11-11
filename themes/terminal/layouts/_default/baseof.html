@@ -11,7 +11,7 @@
 
 <div class="{{- $container -}}{{- cond ($.Site.Params.oneHeadingSize | default true) " headings--one-size" "" }}">
 
-  <div style="flex: auto;">
+
   {{ partial "header.html" . }}
 
   <div class="content">
@@ -22,7 +22,7 @@
   {{ block "footer" . }}
     {{ partial "footer.html" . }}
   {{ end }}
-  </div>
+
   {{ if .Params.Toc }}
   <aside class="aside-toc">
     <div class="table-of-contents">
@@ -39,6 +39,7 @@
     </div>
   </aside>
   {{ end }}
+
 </div>
 
 </body>

@@ -9,7 +9,9 @@
   /* variables for js, must be the same as these in @custom-media queries */
   --phoneWidth: (max-width: 684px);
   --tabletWidth: (max-width: 900px);
+  --laptopWidth: (max-width: 1300px);
 }
 
 @custom-media --phone (max-width: 684px);
 @custom-media --tablet (max-width: 900px);
+@custom-media --laptop (max-width: 1300px);
