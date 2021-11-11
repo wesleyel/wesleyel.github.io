@@ -9,7 +9,7 @@
 @import 'post.css';
 @import 'pagination.css';
 @import 'footer.css';
-/* @import 'toc.css'; */
+@import 'autospacing.css';
 
 @import 'prism.css';
 @import 'syntax.css';

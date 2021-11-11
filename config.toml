@@ -2,6 +2,7 @@ baseurl = "/"
 languageCode = "en-us"
 theme = "terminal"
 paginate = 5
+hasCJKLanguage = true
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -41,6 +42,8 @@ paginate = 5
   # set all headings to their default size (depending on browser settings)
   # it's set to `true` by default
   # oneHeadingSize = false
+
+  math = true
 
 
 [params.twitter]
