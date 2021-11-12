@@ -14,15 +14,12 @@
 
   {{ partial "header.html" . }}
 
+
   <div class="content">
+    <div style="max-width: 100%;">
     {{ block "main" . }}
     {{ end }}
   </div>
-
-  {{ block "footer" . }}
-    {{ partial "footer.html" . }}
-  {{ end }}
-
   {{ if .Params.Toc }}
   <aside class="aside-toc">
     <div class="table-of-contents">
@@ -39,6 +36,13 @@
     </div>
   </aside>
   {{ end }}
+  </div>
+
+  {{ block "footer" . }}
+    {{ partial "footer.html" . }}
+  {{ end }}
+
+
 
 </div>
 

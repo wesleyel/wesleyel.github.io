@@ -62,7 +62,21 @@ a {
   color: color-mod(var(--color) blend(#1D1E28 2%));
   text-decoration: none;
   padding: 4px;
+  
+  overflow-wrap: break-word;
   word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
   /* Waiting for a better times... */
   /* &:has(code) {
     text-decoration-color: var(--accent);
@@ -333,7 +347,7 @@ mark {
 
 .content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   @media print {
     display: initial;
@@ -356,16 +370,14 @@ sup {
 }
 
 .aside-toc {
-  flex: 0 0 20rem;
+  flex: 0 0 15rem;
 
-  @media (--laptop) {
+  @media (--tablet) {
     display: none;
   }
 }
 
 .aside-toc .table-of-contents {
-  margin: 20px;
+  margin-left: 20px;
   position: fixed;
-  top: 13vh;
-  left: 0;
 }
