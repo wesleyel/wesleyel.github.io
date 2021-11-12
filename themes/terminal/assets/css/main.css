@@ -62,7 +62,7 @@ a {
   color: color-mod(var(--color) blend(#1D1E28 2%));
   text-decoration: none;
   padding: 4px;
-  
+
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -371,6 +371,7 @@ sup {
 
 .aside-toc {
   flex: 0 0 15rem;
+  max-width: 0;
 
   @media (--tablet) {
     display: none;
