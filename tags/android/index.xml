@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android on Great Expectations</title><link>/tags/android/</link><description>Recent content in Android on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 26 Nov 2021 02:37:41 +0800</lastBuildDate><atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Android 抓包之歪路</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>最佳实践 Android 5.1 安装夜神模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。 下载Fiddler Everywhere。</description><content>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
 &lt;h3 id="android-51">Android 5.1&lt;/h3>
 &lt;ol>
-&lt;li>安装&lt;code>夜神&lt;/code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。&lt;/li>
-&lt;li>下载&lt;code>Fiddler Everywhere&lt;/code>。Setting—Https—Advanced Setting—Export root certificate.&lt;/li>
-&lt;li>将桌面的&lt;code>FiddlerRootCertificate.crt&lt;/code>复制到&lt;code>C:\Users\&amp;lt;UserName&amp;gt;\Nox_share\Download&lt;/code>，此处为共享路径。&lt;/li>
-&lt;li>在模拟器中手动安装证书。设置—安全—从SD卡安装。&lt;/li>
-&lt;/ol>
+&lt;li>
+&lt;p>安装&lt;code>夜神&lt;/code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载&lt;code>Fiddler Everywhere&lt;/code>。Setting—Https—Advanced Setting—Export root certificate.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>将桌面的&lt;code>FiddlerRootCertificate.crt&lt;/code>复制到&lt;code>C:\Users\&amp;lt;UserName&amp;gt;\Nox_share\Download&lt;/code>，此处为共享路径。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在模拟器中手动安装证书。设置—安全—从SD卡安装。&lt;/p>
 &lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-12-38.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p>
-&lt;ol start="5">
-&lt;li>设置WiFi代理。&lt;/li>
-&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>设置WiFi代理。&lt;/p>
 &lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-17-55">&lt;/p>
-&lt;ol start="6">
-&lt;li>OK&lt;/li>
-&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>OK&lt;/p>
 &lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-27-55.png" alt="Snipaste_2021-11-26_01-27-55">&lt;/p>
+&lt;/li>
+&lt;/ol>
 &lt;h3 id="android-70">Android 7.0&lt;/h3>
 &lt;p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。&lt;/p>
-&lt;p>通过adb工具将用户证书添加到&lt;strong>系统证书&lt;/strong>中，先确保adb已连接，见&lt;a href="#ADB">ADB&lt;/a>。&lt;/p>
+&lt;p>通过adb工具将用户证书添加到&lt;strong>系统证书&lt;/strong>中，先确保adb已连接，见&lt;a href="#adb">ADB&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
 HASH_FILE_NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>adb shell ls /data/misc/user/0/cacerts-added&lt;span style="color:#66d9ef">)&lt;/span>
 echo &lt;span style="color:#e6db74">&amp;#34;HASH_FILE_NAME: &lt;/span>$HASH_FILE_NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span>

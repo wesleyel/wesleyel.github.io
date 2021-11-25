@@ -76,23 +76,31 @@ Magicwenli $
 <h2 id=最佳实践>最佳实践<a href=#最佳实践 class=hanchor arialabel=Anchor>&#8983;</a> </h2>
 <h3 id=android-51>Android 5.1<a href=#android-51 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
 <ol>
-<li>安装<code>夜神</code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。</li>
-<li>下载<code>Fiddler Everywhere</code>。Setting—Https—Advanced Setting—Export root certificate.</li>
-<li>将桌面的<code>FiddlerRootCertificate.crt</code>复制到<code>C:\Users\&lt;UserName>\Nox_share\Download</code>，此处为共享路径。</li>
-<li>在模拟器中手动安装证书。设置—安全—从SD卡安装。</li>
-</ol>
+<li>
+<p>安装<code>夜神</code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。</p>
+</li>
+<li>
+<p>下载<code>Fiddler Everywhere</code>。Setting—Https—Advanced Setting—Export root certificate.</p>
+</li>
+<li>
+<p>将桌面的<code>FiddlerRootCertificate.crt</code>复制到<code>C:\Users\&lt;UserName>\Nox_share\Download</code>，此处为共享路径。</p>
+</li>
+<li>
+<p>在模拟器中手动安装证书。设置—安全—从SD卡安装。</p>
 <p><img src=/img/Snipaste_2021-11-26_01-12-38.png alt=Snipaste_2021-11-26_01-12-38></p>
-<ol start=5>
-<li>设置WiFi代理。</li>
-</ol>
+</li>
+<li>
+<p>设置WiFi代理。</p>
 <p><img src=/img/Snipaste_2021-11-26_01-17-55.png alt=Snipaste_2021-11-26_01-17-55></p>
-<ol start=6>
-<li>OK</li>
-</ol>
+</li>
+<li>
+<p>OK</p>
 <p><img src=/img/Snipaste_2021-11-26_01-27-55.png alt=Snipaste_2021-11-26_01-27-55></p>
+</li>
+</ol>
 <h3 id=android-70>Android 7.0<a href=#android-70 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
 <p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。</p>
-<p>通过adb工具将用户证书添加到<strong>系统证书</strong>中，先确保adb已连接，见<a href=#ADB>ADB</a>。</p>
+<p>通过adb工具将用户证书添加到<strong>系统证书</strong>中，先确保adb已连接，见<a href=#adb>ADB</a>。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e># WSL ubuntu 18.04</span>
 HASH_FILE_NAME<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>adb shell ls /data/misc/user/0/cacerts-added<span style=color:#66d9ef>)</span>
 echo <span style=color:#e6db74>&#34;HASH_FILE_NAME: </span>$HASH_FILE_NAME<span style=color:#e6db74>&#34;</span>
