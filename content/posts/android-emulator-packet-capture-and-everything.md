@@ -23,21 +23,21 @@ Toc = true
 3. 将桌面的`FiddlerRootCertificate.crt`复制到`C:\Users\<UserName>\Nox_share\Download`，此处为共享路径。
 4. 在模拟器中手动安装证书。设置—安全—从SD卡安装。
 
-![Snipaste_2021-11-26_01-12-38](/img/Snipaste_2021-11-26_01-12-38.png)
+   ![Snipaste_2021-11-26_01-12-38](/img/Snipaste_2021-11-26_01-12-38.png)
 
 5. 设置WiFi代理。
 
-![Snipaste_2021-11-26_01-17-55](/img/Snipaste_2021-11-26_01-17-55.png)
+   ![Snipaste_2021-11-26_01-17-55](/img/Snipaste_2021-11-26_01-17-55.png)
 
 6. OK
 
-![Snipaste_2021-11-26_01-27-55](/img/Snipaste_2021-11-26_01-27-55.png)
+   ![Snipaste_2021-11-26_01-27-55](/img/Snipaste_2021-11-26_01-27-55.png)
 
 ### Android 7.0
 
 安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。
 
-通过adb工具将用户证书添加到**系统证书**中，先确保adb已连接，见[ADB](#ADB)。
+通过adb工具将用户证书添加到**系统证书**中，先确保adb已连接，见[ADB](#adb)。
 
 ```shell
 # WSL ubuntu 18.04
@@ -92,8 +92,9 @@ Fiddler现在分了`classic`和`everywhere`两个版本，这两版基本功能�
 
 1. 直接安装5.1系统，随后安装证书（设置-安全-从SDCard安装证书）。
 
-1. 安装7.0或以上的系统，想办法将我们的证书添加到**系统证书**[4]。
-2. 安装7.0或以上的系统，安装`xposed`，hook certificate pinning，使得app跳过证书校验[7]。
+2. 安装7.0或以上的系统，想办法将我们的证书添加到**系统证书**[4]。
+
+3. 安装7.0或以上的系统，安装`xposed`，hook certificate pinning，使得app跳过证书校验[7]。
 
 ### Android虚拟机
 
@@ -150,20 +151,18 @@ LocalAddress    LocalPort RemoteAddress   RemotePort State   AppliedSetting
 
 依次尝试连接这些`LocalPort`，验证`adb devices`是否正常。
 
-
-
 ## 参考文档
 
-[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” *知乎专栏*, 2019. https://zhuanlan.zhihu.com/p/56397466 (accessed Nov. 25, 2021).
+[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” *知乎专栏*, 2019. <https://zhuanlan.zhihu.com/p/56397466> (accessed Nov. 25, 2021).
 
-[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” *知乎专栏*, 2021. https://zhuanlan.zhihu.com/p/349267640 (accessed Nov. 25, 2021).
+[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” *知乎专栏*, 2021. <https://zhuanlan.zhihu.com/p/349267640> (accessed Nov. 25, 2021).
 
-[3]Mateusz, “ADB can’t connect to Nox,” *Stack Overflow*, Jul. 06, 2018. https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox (accessed Nov. 25, 2021).
+[3]Mateusz, “ADB can’t connect to Nox,” *Stack Overflow*, Jul. 06, 2018. <https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox> (accessed Nov. 25, 2021).
 
-[4]pwlin, “Android : add cert to system store,” *Gist*, Mar. 07, 2016. https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb (accessed Nov. 25, 2021).
+[4]pwlin, “Android : add cert to system store,” *Gist*, Mar. 07, 2016. <https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb> (accessed Nov. 25, 2021).
 
-[5]“Capturing HTTP requests,” *Postman Learning Center*, 2021. https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy (accessed Nov. 25, 2021).
+[5]“Capturing HTTP requests,” *Postman Learning Center*, 2021. <https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy> (accessed Nov. 25, 2021).
 
-[6]用户1470878743, “7.x系统的夜神安装Xposed - 辅助工具 夜神游戏论坛,” *Yeshen.com*, 2021. https://bbs.yeshen.com/forum.php?mod=viewthread&tid=33446 (accessed Nov. 25, 2021).
+[6]用户1470878743, “7.x系统的夜神安装Xposed - 辅助工具 夜神游戏论坛,” *Yeshen.com*, 2021. <https://bbs.yeshen.com/forum.php?mod=viewthread&tid=33446> (accessed Nov. 25, 2021).
 
-[7]ac-pm, “SSLUnpinning_Xposed: Android Xposed Module to bypass SSL certificate validation (Certificate Pinning).,” *GitHub*, 2021. https://github.com/ac-pm/SSLUnpinning_Xposed (accessed Nov. 25, 2021).
+[7]ac-pm, “SSLUnpinning_Xposed: Android Xposed Module to bypass SSL certificate validation (Certificate Pinning).,” *GitHub*, 2021. <https://github.com/ac-pm/SSLUnpinning_Xposed> (accessed Nov. 25, 2021).
