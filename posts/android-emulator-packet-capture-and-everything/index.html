@@ -81,15 +81,15 @@ Magicwenli $
 <li>将桌面的<code>FiddlerRootCertificate.crt</code>复制到<code>C:\Users\&lt;UserName>\Nox_share\Download</code>，此处为共享路径。</li>
 <li>在模拟器中手动安装证书。设置—安全—从SD卡安装。</li>
 </ol>
-<p><img src=../../static/img/Snipaste_2021-11-26_01-12-38.png alt=Snipaste_2021-11-26_01-12-38></p>
+<p><img src=/img/Snipaste_2021-11-26_01-12-38.png alt=Snipaste_2021-11-26_01-12-38></p>
 <ol start=5>
 <li>设置WiFi代理。</li>
 </ol>
-<p><img src=../../static/img/Snipaste_2021-11-26_01-17-55.png alt=Snipaste_2021-11-26_01-17-55></p>
+<p><img src=/img/Snipaste_2021-11-26_01-17-55.png alt=Snipaste_2021-11-26_01-17-55></p>
 <ol start=6>
 <li>OK</li>
 </ol>
-<p><img src=../../static/img/Snipaste_2021-11-26_01-27-55.png alt=Snipaste_2021-11-26_01-27-55></p>
+<p><img src=/img/Snipaste_2021-11-26_01-27-55.png alt=Snipaste_2021-11-26_01-27-55></p>
 <h3 id=android-70>Android 7.0<a href=#android-70 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
 <p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。</p>
 <p>通过adb工具将用户证书添加到<strong>系统证书</strong>中，先确保adb已连接，见<a href=#ADB>ADB</a>。</p>
@@ -113,14 +113,14 @@ rm $HASH_FILE_NAME
 <p>它们的使用过程都是打开代理—允许远程访问—生成证书。不过我在用<code>classic</code>版时，远程应用无论如何都连接不到代理上，用新版没有问题。</p>
 <h4 id=postman>Postman<a href=#postman class=hanchor arialabel=Anchor>&#8983;</a> </h4>
 <p>感觉这个公司的工具非常有极客精神，他们的产品既好用，又<code>Free of use</code>。通过代理抓包只是它的一个小功能，设置好端口，按照<a href=https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy>官方文档</a>里说的做就好。记得下载安装 <a href=https://slproweb.com/products/Win32OpenSSL.html>OpenSSL v1.1.1L</a>的时候不要选带Light的版本，安装完毕后重启Postman，随后就能在<code>%APPDATA%\Postman\proxy</code>找到证书<code>postman-proxy-ca.crt</code>。</p>
-<p><img src=../../static/img/Snipaste_2021-11-26_01-57-36.png alt=Snipaste_2021-11-26_01-57-36></p>
+<p><img src=/img/Snipaste_2021-11-26_01-57-36.png alt=Snipaste_2021-11-26_01-57-36></p>
 <h4 id=proxifier>Proxifier<a href=#proxifier class=hanchor arialabel=Anchor>&#8983;</a> </h4>
 <p>这个工具是专门给程序设置代理的。有时有为每个程序分别设置代理的需求，程序本身提供代理设置的还好说（但手工管理它们也不轻松），没有这个选项的那就只能使用<code>Proxifier</code>这类工具了。</p>
 <p>手工设置Android代理，就是填写WiFi设置中的高级选项。</p>
 <h3 id=证书>证书<a href=#证书 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
 <p>用自己的手机是可行的，不过用虚拟机是更稳妥的选择。抓包的时候会安装证书，手机自带的证书是<strong>系统证书</strong>，而我们之后安装的证书是<strong>用户证书</strong>，两者的级别和权限是不一样的。</p>
 <p>7.0之后的Android就不再<strong>信任用户证书</strong>了。所以在进行抓包时，数据并不走<strong>用户证书</strong>，App也会发出一个不再信任证书的警告，也就抓不到包。而5.1版本，系统信任<strong>用户证书</strong>。</p>
-<p><img src=../../static/img/Snipaste_2021-11-26_01-18-05.png alt=Snipaste_2021-11-26_01-18-05></p>
+<p><img src=/img/Snipaste_2021-11-26_01-18-05.png alt=Snipaste_2021-11-26_01-18-05></p>
 <p>这里我走了一些弯路，不过总结一下可以找到3种使得证书信任的方法：</p>
 <ol>
 <li>
