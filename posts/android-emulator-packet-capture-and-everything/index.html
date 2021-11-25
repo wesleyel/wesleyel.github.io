@@ -1,0 +1,238 @@
+<!doctype html><html lang=en class=han-la>
+<head>
+<title>Android 抓包之歪路 :: Great Expectations</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="最佳实践 Android 5.1 安装夜神模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。 下载Fiddler Everywhere。">
+<meta name=keywords content=",">
+<meta name=robots content="noodp">
+<link rel=canonical href=/posts/android-emulator-packet-capture-and-everything/>
+<link rel=stylesheet href=/assets/style.css>
+<link rel=apple-touch-icon href=/img/apple-touch-icon-192x192.png>
+<link rel="shortcut icon" href=/img/favicon/favicon.ico>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content>
+<meta name=twitter:creator content="Magicewenli">
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 抓包之歪路">
+<meta property="og:description" content="最佳实践 Android 5.1 安装夜神模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。 下载Fiddler Everywhere。">
+<meta property="og:url" content="/posts/android-emulator-packet-capture-and-everything/">
+<meta property="og:site_name" content="Great Expectations">
+<meta property="og:image" content="/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:published_time" content="2021-11-26 02:37:41 +0800 +0800">
+<script src=https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js></script>
+<script type=text/javascript src=https://cdn.jsdelivr.net/gh/mastermay/text-autospace.js/text-autospace.min.js></script>
+<style>html.han-la hanla:after{content:" ";display:inline;font-family:Arial;font-size:.89em}html.han-la code hanla,html.han-la pre hanla,html.han-la kbd hanla,html.han-la samp hanla{display:none}html.han-la ol>hanla,html.han-la ul>hanla{display:none}</style>
+<link href=https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/katex.min.css rel=stylesheet>
+<script src=https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/katex.min.js></script>
+<script defer src=https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/contrib/auto-render.min.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+</head>
+<body class=orange>
+<div class="container center headings--one-size">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+Magicwenli $
+</div>
+</a>
+</div>
+<div class=menu-trigger>menu</div>
+</div>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/about>About</a></li>
+<li><a href=https://github.com/magicwenli>Github</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/about>About</a></li>
+<li><a href=https://github.com/magicwenli>Github</a></li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<div style=min-width:100%>
+<div class=post>
+<h1 class=post-title>
+<a href=/posts/android-emulator-packet-capture-and-everything/>Android 抓包之歪路</a></h1>
+<div class=post-meta>
+<span class=post-date>
+2021-11-26
+[Updated: 2021-11-26]
+</span>
+<span class=post-author>:: Magicewenli</span>
+<span class=post-reading-time>:: 5 min read (2141 words)</span>
+</div>
+<span class=post-tags>
+#<a href=/tags/webpacket/>webpacket</a>&nbsp;
+#<a href=/tags/android/>Android</a>&nbsp;
+</span>
+<div class=post-content><div>
+<h2 id=最佳实践>最佳实践<a href=#最佳实践 class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<h3 id=android-51>Android 5.1<a href=#android-51 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<ol>
+<li>安装<code>夜神</code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。</li>
+<li>下载<code>Fiddler Everywhere</code>。Setting—Https—Advanced Setting—Export root certificate.</li>
+<li>将桌面的<code>FiddlerRootCertificate.crt</code>复制到<code>C:\Users\&lt;UserName>\Nox_share\Download</code>，此处为共享路径。</li>
+<li>在模拟器中手动安装证书。设置—安全—从SD卡安装。</li>
+</ol>
+<p><img src=../../static/img/Snipaste_2021-11-26_01-12-38.png alt=Snipaste_2021-11-26_01-12-38></p>
+<ol start=5>
+<li>设置WiFi代理。</li>
+</ol>
+<p><img src=../../static/img/Snipaste_2021-11-26_01-17-55.png alt=Snipaste_2021-11-26_01-17-55></p>
+<ol start=6>
+<li>OK</li>
+</ol>
+<p><img src=../../static/img/Snipaste_2021-11-26_01-27-55.png alt=Snipaste_2021-11-26_01-27-55></p>
+<h3 id=android-70>Android 7.0<a href=#android-70 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。</p>
+<p>通过adb工具将用户证书添加到<strong>系统证书</strong>中，先确保adb已连接，见<a href=#ADB>ADB</a>。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e># WSL ubuntu 18.04</span>
+HASH_FILE_NAME<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>adb shell ls /data/misc/user/0/cacerts-added<span style=color:#66d9ef>)</span>
+echo <span style=color:#e6db74>&#34;HASH_FILE_NAME: </span>$HASH_FILE_NAME<span style=color:#e6db74>&#34;</span>
+
+adb pull /data/misc/user/0/cacerts-added/$HASH_FILE_NAME
+adb push $HASH_FILE_NAME /system/etc/security/cacerts/
+adb shell ls -lt /system/etc/security/cacerts/ | head -5
+
+echo <span style=color:#e6db74>&#34;Add system certs successful&#34;</span>
+rm $HASH_FILE_NAME
+</code></pre></div><p>设置代理，或者通过<code>Proxifier</code>添加一个端口为8866的http代理服务器，与一条<code>nox*.exe</code> proxy的代理规则。</p>
+<h2 id=防止失忆做的补充>防止失忆做的补充<a href=#防止失忆做的补充 class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<h3 id=抓包工具>抓包工具<a href=#抓包工具 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<h4 id=fiddler>Fiddler<a href=#fiddler class=hanchor arialabel=Anchor>&#8983;</a> </h4>
+<p>Fiddler现在分了<code>classic</code>和<code>everywhere</code>两个版本，这两版基本功能都一样，各有特点。</p>
+<p>后者在UI上做了升级，显示内容比较直观，更加Accessible。新UI给人一股Postman味，这是一句夸奖的话。必须<strong>登录账户</strong>才能使使用，提供了云服务，同时以订阅制收费。</p>
+<p>老版本也能照常使用，有很多强大的开源插件，比如<a href=https://github.com/lulianqi/FreeHttp>FreeHttp</a>。在网页中访问<code>http://localhost:&lt;proxy-port></code>，里面就有证书的下载链接。</p>
+<p>它们的使用过程都是打开代理—允许远程访问—生成证书。不过我在用<code>classic</code>版时，远程应用无论如何都连接不到代理上，用新版没有问题。</p>
+<h4 id=postman>Postman<a href=#postman class=hanchor arialabel=Anchor>&#8983;</a> </h4>
+<p>感觉这个公司的工具非常有极客精神，他们的产品既好用，又<code>Free of use</code>。通过代理抓包只是它的一个小功能，设置好端口，按照<a href=https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy>官方文档</a>里说的做就好。记得下载安装 <a href=https://slproweb.com/products/Win32OpenSSL.html>OpenSSL v1.1.1L</a>的时候不要选带Light的版本，安装完毕后重启Postman，随后就能在<code>%APPDATA%\Postman\proxy</code>找到证书<code>postman-proxy-ca.crt</code>。</p>
+<p><img src=../../static/img/Snipaste_2021-11-26_01-57-36.png alt=Snipaste_2021-11-26_01-57-36></p>
+<h4 id=proxifier>Proxifier<a href=#proxifier class=hanchor arialabel=Anchor>&#8983;</a> </h4>
+<p>这个工具是专门给程序设置代理的。有时有为每个程序分别设置代理的需求，程序本身提供代理设置的还好说（但手工管理它们也不轻松），没有这个选项的那就只能使用<code>Proxifier</code>这类工具了。</p>
+<p>手工设置Android代理，就是填写WiFi设置中的高级选项。</p>
+<h3 id=证书>证书<a href=#证书 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>用自己的手机是可行的，不过用虚拟机是更稳妥的选择。抓包的时候会安装证书，手机自带的证书是<strong>系统证书</strong>，而我们之后安装的证书是<strong>用户证书</strong>，两者的级别和权限是不一样的。</p>
+<p>7.0之后的Android就不再<strong>信任用户证书</strong>了。所以在进行抓包时，数据并不走<strong>用户证书</strong>，App也会发出一个不再信任证书的警告，也就抓不到包。而5.1版本，系统信任<strong>用户证书</strong>。</p>
+<p><img src=../../static/img/Snipaste_2021-11-26_01-18-05.png alt=Snipaste_2021-11-26_01-18-05></p>
+<p>这里我走了一些弯路，不过总结一下可以找到3种使得证书信任的方法：</p>
+<ol>
+<li>
+<p>直接安装5.1系统，随后安装证书（设置-安全-从SDCard安装证书）。</p>
+</li>
+<li>
+<p>安装7.0或以上的系统，想办法将我们的证书添加到<strong>系统证书</strong>[4]。</p>
+</li>
+<li>
+<p>安装7.0或以上的系统，安装<code>xposed</code>，hook certificate pinning，使得app跳过证书校验[7]。</p>
+</li>
+</ol>
+<h3 id=android虚拟机>Android虚拟机<a href=#android虚拟机 class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>这方面尝试的不多，自己仅用过<code>蓝叠(Bluestacks)</code>，<code>夜神(Nox)</code>和<code>Genymotion</code>。听说网易<code>MoMo</code>也不错，最后用的是夜神。</p>
+<p>刚好三种都分别安装、卸载了一遍。</p>
+<p><code>Genymotion</code>安装好了直接无法启动虚拟机，G了。</p>
+<p><code>蓝叠</code>的Rom定制化程度很高，换句话说就是与原生系统差别比较大。系统设置里许多地方缺失了，好像没找到添加证书的入口。它除广告外还自带了Chrome和另一些常用工具，甚好。</p>
+<p><code>夜神</code>这款基本上满足了抓包的需要。自带Root权限，这样就可以装<code>Xposed</code>，还可以装<code>Termux</code>玩玩。有个官方论坛有许多交流帖子，国外也有很多人用。遇到问题比较容易解决。</p>
+<h3 id=adb>ADB<a href=#adb class=hanchor arialabel=Anchor>&#8983;</a> </h3>
+<p>打开USB调试。<code>夜神</code>的USB调试并不通过默认的5037 端口与adb客户端通信，可能是考虑多开也许超过16个客户端的官方限制。</p>
+<p>一般情况下，只需以下步骤就能连接adb</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e># WSL ubuntu 18.04</span>
+wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+List of devices attached
+
+wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
+connected to 127.0.0.1:62001
+wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+List of devices attached
+127.0.0.1:62001 device
+</code></pre></div><p>虚拟机比较多时就无效了，需要手动找到端口[3]。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=color:#75715e># Powershell</span>
+PS C:\Users\Vita&gt; Get-Process | where name <span style=color:#f92672>-like</span> <span style=color:#e6db74>&#34;Nox*&#34;</span>
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1037     184   177620      49000     161.20  28604   1 Nox
+   2006     173  1046392      46020     251.53   4716   1 NoxVMHandle
+   3058      16     6268      19040       0.67  27528   1 NoxVMSVC
+   
+PS C:\Users\Vita&gt; Get-NetTcpConnection -OwningProcess 4716 -State Listen
+
+
+LocalAddress    LocalPort RemoteAddress   RemotePort State   AppliedSetting
+------------    --------- -------------   ---------- -----   --------------
+127.0.0.1       64001     0.0.0.0         0          Listen
+127.0.0.1       63001     0.0.0.0         0          Listen
+127.0.0.1       62001     0.0.0.0         0          Listen
+127.0.0.1       61001     0.0.0.0         0          Listen
+</code></pre></div><p>依次尝试连接这些<code>LocalPort</code>，验证<code>adb devices</code>是否正常。</p>
+<h2 id=参考文档>参考文档<a href=#参考文档 class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” <em>知乎专栏</em>, 2019. <a href=https://zhuanlan.zhihu.com/p/56397466>https://zhuanlan.zhihu.com/p/56397466</a> (accessed Nov. 25, 2021).</p>
+<p>[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” <em>知乎专栏</em>, 2021. <a href=https://zhuanlan.zhihu.com/p/349267640>https://zhuanlan.zhihu.com/p/349267640</a> (accessed Nov. 25, 2021).</p>
+<p>[3]Mateusz, “ADB can’t connect to Nox,” <em>Stack Overflow</em>, Jul. 06, 2018. <a href=https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox>https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox</a> (accessed Nov. 25, 2021).</p>
+<p>[4]pwlin, “Android : add cert to system store,” <em>Gist</em>, Mar. 07, 2016. <a href=https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb>https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb</a> (accessed Nov. 25, 2021).</p>
+<p>[5]“Capturing HTTP requests,” <em>Postman Learning Center</em>, 2021. <a href=https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy>https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy</a> (accessed Nov. 25, 2021).</p>
+<p>[6]用户1470878743, “7.x系统的夜神安装Xposed - 辅助工具 夜神游戏论坛,” <em>Yeshen.com</em>, 2021. <a href="https://bbs.yeshen.com/forum.php?mod=viewthread&tid=33446">https://bbs.yeshen.com/forum.php?mod=viewthread&tid=33446</a> (accessed Nov. 25, 2021).</p>
+<p>[7]ac-pm, “SSLUnpinning_Xposed: Android Xposed Module to bypass SSL certificate validation (Certificate Pinning).,” <em>GitHub</em>, 2021. <a href=https://github.com/ac-pm/SSLUnpinning_Xposed>https://github.com/ac-pm/SSLUnpinning_Xposed</a> (accessed Nov. 25, 2021).</p>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button next">
+<a href=/posts/r-lang-useful-tricks/>
+<span class=button__text>R语言列表操作和连接MongoDB经验之谈</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+</div>
+</div>
+<aside class=aside-toc>
+<div class=table-of-contents>
+<h4>
+Contents
+</h4>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#最佳实践>最佳实践</a>
+<ul>
+<li><a href=#android-51>Android 5.1</a></li>
+<li><a href=#android-70>Android 7.0</a></li>
+</ul>
+</li>
+<li><a href=#防止失忆做的补充>防止失忆做的补充</a>
+<ul>
+<li><a href=#抓包工具>抓包工具</a></li>
+<li><a href=#证书>证书</a></li>
+<li><a href=#android虚拟机>Android虚拟机</a></li>
+<li><a href=#adb>ADB</a></li>
+</ul>
+</li>
+<li><a href=#参考文档>参考文档</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2021 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=/assets/main.js></script>
+<script src=/assets/prism.js></script>
+</div>
+</body>
+</html>
