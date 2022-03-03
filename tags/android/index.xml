@@ -26,15 +26,17 @@
 &lt;h3 id="android-70">Android 7.0&lt;/h3>
 &lt;p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。&lt;/p>
 &lt;p>通过adb工具将用户证书添加到&lt;strong>系统证书&lt;/strong>中，先确保adb已连接，见&lt;a href="#adb">ADB&lt;/a>。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
-HASH_FILE_NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>adb shell ls /data/misc/user/0/cacerts-added&lt;span style="color:#66d9ef">)&lt;/span>
-echo &lt;span style="color:#e6db74">&amp;#34;HASH_FILE_NAME: &lt;/span>$HASH_FILE_NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
-adb pull /data/misc/user/0/cacerts-added/$HASH_FILE_NAME
-adb push $HASH_FILE_NAME /system/etc/security/cacerts/
-adb shell ls -lt /system/etc/security/cacerts/ | head -5
-echo &lt;span style="color:#e6db74">&amp;#34;Add system certs successful&amp;#34;&lt;/span>
-rm $HASH_FILE_NAME
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置代理，或者通过&lt;code>Proxifier&lt;/code>添加一个端口为8866的http代理服务器，与一条&lt;code>nox*.exe&lt;/code> proxy的代理规则。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HASH_FILE_NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>adb shell ls /data/misc/user/0/cacerts-added&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;HASH_FILE_NAME: &lt;/span>$HASH_FILE_NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb pull /data/misc/user/0/cacerts-added/$HASH_FILE_NAME
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb push $HASH_FILE_NAME /system/etc/security/cacerts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell ls -lt /system/etc/security/cacerts/ | head -5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;Add system certs successful&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm $HASH_FILE_NAME
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置代理，或者通过&lt;code>Proxifier&lt;/code>添加一个端口为8866的http代理服务器，与一条&lt;code>nox*.exe&lt;/code> proxy的代理规则。&lt;/p>
 &lt;h2 id="防止失忆做的补充">防止失忆做的补充&lt;/h2>
 &lt;h3 id="抓包工具">抓包工具&lt;/h3>
 &lt;h4 id="fiddler">Fiddler&lt;/h4>
@@ -73,30 +75,35 @@ rm $HASH_FILE_NAME
 &lt;h3 id="adb">ADB&lt;/h3>
 &lt;p>打开USB调试。&lt;code>夜神&lt;/code>的USB调试并不通过默认的5037 端口与adb客户端通信，可能是考虑多开也许超过16个客户端的官方限制。&lt;/p>
 &lt;p>一般情况下，只需以下步骤就能连接adb&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
-wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
-List of devices attached
-wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
-connected to 127.0.0.1:62001
-wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
-List of devices attached
-127.0.0.1:62001 device
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口[3]。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="color:#75715e"># Powershell&lt;/span>
-PS C:\Users\Vita&amp;gt; Get-Process | where name &lt;span style="color:#f92672">-like&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nox*&amp;#34;&lt;/span>
-Handles NPM(K) PM(K) WS(K) CPU(s) Id SI ProcessName
-------- ------ ----- ----- ------ -- -- -----------
-1037 184 177620 49000 161.20 28604 1 Nox
-2006 173 1046392 46020 251.53 4716 1 NoxVMHandle
-3058 16 6268 19040 0.67 27528 1 NoxVMSVC
-PS C:\Users\Vita&amp;gt; Get-NetTcpConnection -OwningProcess 4716 -State Listen
-LocalAddress LocalPort RemoteAddress RemotePort State AppliedSetting
------------- --------- ------------- ---------- ----- --------------
-127.0.0.1 64001 0.0.0.0 0 Listen
-127.0.0.1 63001 0.0.0.0 0 Listen
-127.0.0.1 62001 0.0.0.0 0 Listen
-127.0.0.1 61001 0.0.0.0 0 Listen
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>connected to 127.0.0.1:62001
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1:62001 device
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口[3]。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Powershell&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-Process | where name &lt;span style="color:#f92672">-like&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nox*&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Handles NPM(K) PM(K) WS(K) CPU(s) Id SI ProcessName
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------- ------ ----- ----- ------ -- -- -----------
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1037 184 177620 49000 161.20 28604 1 Nox
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 2006 173 1046392 46020 251.53 4716 1 NoxVMHandle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 3058 16 6268 19040 0.67 27528 1 NoxVMSVC
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-NetTcpConnection -OwningProcess 4716 -State Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LocalAddress LocalPort RemoteAddress RemotePort State AppliedSetting
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------------ --------- ------------- ---------- ----- --------------
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 64001 0.0.0.0 0 Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 63001 0.0.0.0 0 Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 62001 0.0.0.0 0 Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 61001 0.0.0.0 0 Listen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;p>[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” &lt;em>知乎专栏&lt;/em>, 2019. &lt;a href="https://zhuanlan.zhihu.com/p/56397466">https://zhuanlan.zhihu.com/p/56397466&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
 &lt;p>[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” &lt;em>知乎专栏&lt;/em>, 2021. &lt;a href="https://zhuanlan.zhihu.com/p/349267640">https://zhuanlan.zhihu.com/p/349267640&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
