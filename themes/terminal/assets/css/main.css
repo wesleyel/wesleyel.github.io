@@ -89,9 +89,14 @@ a:hover {
   color: var(--invert-font-color);
 }
 
+.copyright a {
+  text-decoration: underline var(--accent);
+}
+
 img {
   display: block;
   max-width: 100%;
+  border-radius: 8px 8px 0 0;
 
   &.left {
     margin-right: auto;
@@ -106,6 +111,7 @@ img {
     margin-left: auto;
   }
 }
+
 
 p {
   margin-bottom: 20px;
@@ -132,9 +138,11 @@ figure {
   figcaption {
     font-size: 14px;
     padding: 5px 10px;
-    margin-top: 5px;
+    margin-top: 2px;
     background: var(--accent);
     color: var(--background);
+    border-radius: 0 0 8px 8px;
+
     /* opacity: .8; */
 
     &.left {
