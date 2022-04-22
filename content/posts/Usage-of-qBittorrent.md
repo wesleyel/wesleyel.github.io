@@ -5,7 +5,7 @@ author = "Magicewenli"
 cover = ""
 tags = ["qBittorrent", "PT"]
 keywords = ["", ""]
-description = ""
+description = "有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。"
 showFullContent = false
 readingTime = true
 Toc = true
@@ -56,19 +56,21 @@ qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://
 
 要寻找合适的版本，参考PT站的常见问题和[sourceforge](https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/).
 
-## qBittorrent 跳过检测
+## Skip hash detection
 
-根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11), `torrent_parser.py#L46`
+### Bug fix
 
+根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11), torrent_parser.py#L46
 ```
 from typing_extensions import OrderedDict
 ```
-
 是误加入，应该手动删除。
 
 `BitTorrent`fastresume文件的解析包`bencode`似乎不支持python3了，这里使用`bencodepy`作为替代。
 
-{{< code language="python" title="完整代码" id="1" expand="Show" collapse="Hide" isCollapsed="false" >}}
+### Full code
+
+{{< code language="python" title="qb-skip.py" id="1" expand="Show" collapse="Hide" isCollapsed="true" >}}
 from qbittorrentapi import Client, LoginFailed
 import torrent_parser as tp
 from yaml import load
@@ -164,6 +166,7 @@ if __name__ == '__main__':
 {{< /code >}}
 
 ```
+# result
 qBittorrent: v4.1.4
 qBittorrent Web API: 2.1.1
 
@@ -172,7 +175,7 @@ qBittorrent Web API: 2.1.1
 种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
 ```
 
-{{< code language="yaml" title="config.yml" id="2" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="yaml" title="config.yml" id="2" expand="Show" collapse="Hide" isCollapsed="true" >}}
 qb:
   ip: '192.168.123.189'
   port: '12345'
