@@ -43,16 +43,18 @@
 &lt;li>&lt;code>v4.1.*&lt;/code>的login接口为&lt;code>http://localhost:8080/api/v2/auth/login&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/">sourceforge&lt;/a>.&lt;/p>
-&lt;h2 id="qbittorrent-跳过检测">qBittorrent 跳过检测&lt;/h2>
-&lt;p>根据&lt;a href="https://github.com/7sDream/torrent_parser/issues/11">torrent_parser issue#11&lt;/a>, &lt;code>torrent_parser.py#L46&lt;/code>&lt;/p>
+&lt;h2 id="skip-hash-detection">Skip hash detection&lt;/h2>
+&lt;h3 id="bug-fix">Bug fix&lt;/h3>
+&lt;p>根据&lt;a href="https://github.com/7sDream/torrent_parser/issues/11">torrent_parser issue#11&lt;/a>, torrent_parser.py#L46&lt;/p>
 &lt;pre tabindex="0">&lt;code>from typing_extensions import OrderedDict
 &lt;/code>&lt;/pre>&lt;p>是误加入，应该手动删除。&lt;/p>
 &lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
+&lt;h3 id="full-code">Full code&lt;/h3>
 &lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" />
+&lt;input id="1" type="checkbox" checked />
 &lt;label for="1">
 &lt;span class="collapsable-code__language">python&lt;/span>
-&lt;span class="collapsable-code__title">完整代码&lt;/span>
+&lt;span class="collapsable-code__title">qb-skip.py&lt;/span>
 &lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
 &lt;/label>
 &lt;pre class="language-python" >&lt;code>
@@ -136,14 +138,15 @@ qb.torrents_add(torrent_files=torrent_path, save_path=save_path, is_skip_checkin
 print(&amp;#39;种子检验完毕，保存路径为%s，已经添加！！&amp;#39; % save_path)
 &lt;/code>&lt;/pre>
 &lt;/div>
-&lt;pre tabindex="0">&lt;code>qBittorrent: v4.1.4
+&lt;pre tabindex="0">&lt;code># result
+qBittorrent: v4.1.4
 qBittorrent Web API: 2.1.1
 *********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
 种子文件包含9个文件
 种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
 &lt;/code>&lt;/pre>
 &lt;div class="collapsable-code">
-&lt;input id="2" type="checkbox" />
+&lt;input id="2" type="checkbox" checked />
 &lt;label for="2">
 &lt;span class="collapsable-code__language">yaml&lt;/span>
 &lt;span class="collapsable-code__title">config.yml&lt;/span>
@@ -511,8 +514,8 @@ d[3][1]
 &lt;h3 id="字符串">字符串&lt;/h3>
 &lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
 &lt;div class="collapsable-code">
-&lt;input id="347852916" type="checkbox" />
-&lt;label for="347852916">
+&lt;input id="768429135" type="checkbox" />
+&lt;label for="768429135">
 &lt;span class="collapsable-code__language">R&lt;/span>
 &lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
 &lt;/label>
