@@ -60,7 +60,7 @@ a {
   /* color: inherit; */
   cursor: pointer;
   color: color-mod(var(--color) blend(#1D1E28 2%));
-  text-decoration: underline wavy var(--accent);
+  /* text-decoration: underline wavy var(--accent); */
   padding: 4px;
 
   overflow-wrap: break-word;
@@ -160,7 +160,7 @@ figure {
 }
 
 code, kbd {
-  font-family: 'Fira Code', Monaco, Consolas, Ubuntu Mono, monospace !important;
+  font-family: 'Fira Code', Monaco,"Source Code Pro", Terminus, Consolas, Ubuntu Mono, monospace !important;
   font-feature-settings: normal;
   background: color-mod(var(--accent) a(20%));
   color: var(--accent);
@@ -173,6 +173,18 @@ code, kbd {
     padding: 0;
     margin: 0;
   }
+}
+
+kbd {
+  font-family: Helvetica, Arial, sans-serif !important;
+  border: 1px solid color-mod(var(--accent) a(80%));
+  box-shadow: 0 1px 0 color-mod(var(--accent) a(40%)), 0 0 0 2px color-mod(var(--accent) a(40%)) inset;
+  display: inline-block;
+  font-size: 0.875rem;
+  margin: .25rem;
+  padding: .1rem .6rem;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 0 color-mod(var(--accent) a(40%));
 }
 
 pre {
