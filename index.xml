@@ -1,4 +1,284 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Great Expectations</title><link>/</link><description>Recent content on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉</description><content>&lt;h2 id="introduction">Introduction&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Great Expectations</title><link>/</link><description>Recent content on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>译自： (Emacs) Keyboard Shortcuts for Editing Text Fields in OS X by JASON BLEVINS (JULY 17, 2015) 众所周知，MacOS 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑</description><content>&lt;blockquote>
+&lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
+&lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
+&lt;/blockquote>
+&lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
+&lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
+&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd>和Function &lt;kbd>Fn&lt;/kbd>键，并且将所有字母用大写表示。&lt;/p>
+&lt;p>Emacs 按键绑定以 Control &lt;kbd>C&lt;/kbd>、Meta (Alt) &lt;kbd>M&lt;/kbd>、Shift &lt;kbd>S&lt;/kbd> 前缀和 Delete &lt;kbd>DEL&lt;/kbd> 键，并且将所有字母用小写表示。&lt;/p>
+&lt;table>
+&lt;caption id="tab">Emacs and &lt;abbr class="abbr">OS&lt;/abbr> X Keyboard Shortcuts Compared&lt;/caption>
+&lt;colgroup>
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;/colgroup>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;">对象&lt;/th>
+&lt;th style="text-align:left;">方向&lt;/th>
+&lt;th style="text-align:left;">Emacs&lt;/th>
+&lt;th style="text-align:left;" colspan="2">&lt;abbr class="abbr">MacOS&lt;/abbr>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>光标移动:&lt;/strong> 移动光标 by character, word, line, etc.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃B&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃F&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⌥B&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌥←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⌥F&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌥→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+&lt;td style="text-align:left;">begin&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃A&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">end&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃E&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">up&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃P&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">down&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃N&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">doc&lt;/td>
+&lt;td style="text-align:left;">begin&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-&amp;lt;&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">end&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-&amp;gt;&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>文本选中:&lt;/strong> 扩展选中文本 by character, word, paragraph, and line&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧B&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧F&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧B&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌥⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧F&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌥⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+&lt;td style="text-align:left;">begin&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧A&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">end&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧E&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">up&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧P&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">down&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃⇧N&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>文本删除:&lt;/strong> 移除 characters, words, and lines&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-h&lt;/kbd>, &lt;kbd>DEL&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃H&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-d&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃D&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+&lt;td style="text-align:left;">left&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-DEL&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">right&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-d&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="2">line&lt;/td>
+&lt;td style="text-align:left;">backwards&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C–0 C-k&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">forwards&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-k&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>搜索:&lt;/strong> 查找文本和在结果间移动&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="3">result&lt;/td>
+&lt;td style="text-align:left;">first&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘F&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">next&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">previous&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-r&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⇧⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>滚动:&lt;/strong> 滚动编辑窗口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;" rowspan="3">page&lt;/td>
+&lt;td style="text-align:left;">up&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>M-v&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">down&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-v&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃V&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">recenter&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-l&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃L&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">char&lt;/td>
+&lt;td style="text-align:left;">transpose&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-t&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃T&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">line&lt;/td>
+&lt;td style="text-align:left;">insert&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-o&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃O&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">kill&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-w&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;td style="text-align:left;">yank&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>C-y&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;kbd>⌃Y&lt;/kbd>&lt;/td>
+&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>参考：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html">Text System Defaults and Key Bindings&lt;/a> from the Cocoa Event Handling Guide in the Mac Developer Library.&lt;/li>
+&lt;li>&lt;a href="https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict">Additional Emacs keyboard shortcuts&lt;/a> via a &lt;code>DefaultKeyBinding.dict&lt;/code> file on GitHub that can be placed in &lt;code>~/Library/KeyBindings&lt;/code>.&lt;/li>
+&lt;/ul></content></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉</description><content>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
 &lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
 &lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
@@ -514,8 +794,8 @@ d[3][1]
 &lt;h3 id="字符串">字符串&lt;/h3>
 &lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
 &lt;div class="collapsable-code">
-&lt;input id="768429135" type="checkbox" />
-&lt;label for="768429135">
+&lt;input id="413698752" type="checkbox" />
+&lt;label for="413698752">
 &lt;span class="collapsable-code__language">R&lt;/span>
 &lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
 &lt;/label>
