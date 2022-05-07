@@ -813,8 +813,8 @@ d[3][1]
 &lt;h3 id="字符串">字符串&lt;/h3>
 &lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
 &lt;div class="collapsable-code">
-&lt;input id="976248351" type="checkbox" />
-&lt;label for="976248351">
+&lt;input id="247593618" type="checkbox" />
+&lt;label for="247593618">
 &lt;span class="collapsable-code__language">R&lt;/span>
 &lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
 &lt;/label>
