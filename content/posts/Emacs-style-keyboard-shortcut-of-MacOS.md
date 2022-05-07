@@ -8,7 +8,7 @@ keywords = ["", ""]
 description = "众所周知，MacOS有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， <kbd>⌘←</kbd>将光标移动到当前行的开头。"
 showFullContent = false
 readingTime = true
-Toc = true
+Toc = false
 
 +++
 > 译自： [(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X](https://jblevins.org/log/kbd)
@@ -24,7 +24,7 @@ Toc = true
 Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kbd>S</kbd> 前缀和 Delete <kbd>DEL</kbd> 键，并且将所有字母用小写表示。
 
 <table>
-<caption id="tab">Emacs and <abbr class="abbr">OS</abbr> X Keyboard Shortcuts Compared</caption>
+<caption id="tab">Emacs 和 <abbr class="abbr">MacOS</abbr> 键盘快捷键对比</caption>
 <colgroup>
 <col style="text-align:left;">
 <col style="text-align:left;">
@@ -266,7 +266,7 @@ Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kb
 
 <tbody>
 <tr>
-	<td style="text-align:left;" colspan="5"><strong>杂项:</strong> 其他的插入、编辑等操作</td>
+	<td style="text-align:left;" colspan="4"><strong>杂项:</strong> 其他的插入、编辑等操作</td>
 </tr>
 <tr>
 	<td style="text-align:left;">char</td>
@@ -301,5 +301,6 @@ Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kb
 
 参考：
 *   [Text System Defaults and Key Bindings](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html) from the Cocoa Event Handling Guide in the Mac Developer Library.
+*   
 *   [Additional Emacs keyboard shortcuts](https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict) via a `DefaultKeyBinding.dict` file on GitHub that can be placed in `~/Library/KeyBindings`.
 
