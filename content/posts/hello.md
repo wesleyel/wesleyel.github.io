@@ -10,6 +10,6 @@ description = "辗转反复多次，最后终于意识到比写博客有意思�
 
 > 下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜
 
-{{< code language="js" title="新的开始" id="1" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```js
 console.log("Hello World");
-{{< /code >}}
+```

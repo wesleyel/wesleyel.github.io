@@ -4,8 +4,8 @@ date = "2022-05-07T00:00:00+08:00"
 author = "Magicewenli"
 cover = ""
 tags = ["MacOS"]
-keywords = ["", ""]
-description = "众所周知，MacOS有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， <kbd>⌘←</kbd>将光标移动到当前行的开头。"
+categories = "机巧"
+description = "众所周知，MacOS有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。但似乎不太为人所知的是，MacOS还原生支持某些 Emacs 键盘快捷键。"
 showFullContent = false
 readingTime = true
 Toc = false
@@ -15,16 +15,18 @@ Toc = false
 > 
 > by JASON BLEVINS (JULY 17, 2015)
 
+
 众所周知，<abbr class="abbr" title="操作系统">MacOS</abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， <kbd>⌘←</kbd>将光标移动到当前行的开头。
 
 尽管它们在官方的文档中有提及[(Mac 键盘快捷键)](https://support.apple.com/en-us/HT201236)，但似乎不太为人所知的是， <abbr class="abbr">MacOS</abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 <kbd>⌃A</kbd> 或 <kbd>⌃E</kbd>。 要删除光标后当前行上的所有内容，请使用 <kbd>⌃K</kbd>。 要调换光标左右两侧的字符的位置，请按 <kbd>⌃T</kbd>。 要在当前行上居中视口，请按 <kbd>⌃L</kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。
 
-下表比较了 Emacs 按键绑定与 <abbr class="abbr">MacOS</abbr> 按键绑定（类似 Emacs 的子集）。 对于 <abbr class="abbr">MacOS</abbr> 快捷键，我们使用常用符号来表示 Command <kbd>⌘</kbd>、Shift <kbd>⇧</kbd>、Option <kbd>⌥</kbd>、Control <kbd>⌃</kbd>、Caps Lock <kbd>⇪</kbd>、Delete <kbd>⌫</kbd>和Function <kbd>Fn</kbd>键，并且将所有字母用大写表示。 
+下表比较了 Emacs 按键绑定与 <abbr class="abbr">MacOS</abbr> 按键绑定（类似 Emacs 的子集）。 对于 <abbr class="abbr">MacOS</abbr> 快捷键，我们使用常用符号来表示 Command <kbd>⌘</kbd>、Shift <kbd>⇧</kbd>、Option <kbd>⌥</kbd>、Control <kbd>⌃</kbd>、Caps Lock <kbd>⇪</kbd>、Delete <kbd>⌫</kbd> 和 Function <kbd>Fn</kbd> 键，并且将所有字母用大写表示。 
 
 Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kbd>S</kbd> 前缀和 Delete <kbd>DEL</kbd> 键，并且将所有字母用小写表示。
 
+## Emacs 和 <abbr class="abbr">MacOS</abbr> 键盘快捷键对比
+
 <table>
-<caption id="tab">Emacs 和 <abbr class="abbr">MacOS</abbr> 键盘快捷键对比</caption>
 <colgroup>
 <col style="text-align:left;">
 <col style="text-align:left;">

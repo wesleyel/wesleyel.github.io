@@ -4,7 +4,7 @@ date = "2022-04-22T00:00:00+08:00"
 author = "Magicewenli"
 cover = ""
 tags = ["qBittorrent", "PT"]
-keywords = ["", ""]
+catgories = "机巧"
 description = "有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。"
 showFullContent = false
 readingTime = true
@@ -36,7 +36,10 @@ from qbittorrentapi import Version
 versions = Version.supported_app_versions()
 print(sorted(versions))
 
-# ['v4.1.0', 'v4.1.1', 'v4.1.2', 'v4.1.3', 'v4.1.4', 'v4.1.5', 'v4.1.6', 'v4.1.7', 'v4.1.8', 'v4.1.9', 'v4.1.9.1', 'v4.2.0', 'v4.2.1', 'v4.2.2', 'v4.2.3', 'v4.2.4', 'v4.2.5', 'v4.3.0', 'v4.3.0.1', 'v4.3.1', 'v4.3.2', 'v4.3.3', 'v4.3.4.1', 'v4.3.5', 'v4.3.6', 'v4.3.7', 'v4.3.8', 'v4.3.9', 'v4.4.0', 'v4.4.1', 'v4.4.2']
+# ['v4.1.0', 'v4.1.1', 'v4.1.2', 'v4.1.3', 'v4.1.4', 'v4.1.5', 'v4.1.6', 'v4.1.7', 
+#  'v4.1.8', 'v4.1.9', 'v4.1.9.1', 'v4.2.0', 'v4.2.1', 'v4.2.2', 'v4.2.3', 'v4.2.4', 
+#  'v4.2.5', 'v4.3.0', 'v4.3.0.1', 'v4.3.1', 'v4.3.2', 'v4.3.3', 'v4.3.4.1', 'v4.3.5', 
+#  'v4.3.6', 'v4.3.7', 'v4.3.8', 'v4.3.9', 'v4.4.0', 'v4.4.1', 'v4.4.2']
 ```
 
 qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api)中将WebUI API划为三个版本。
@@ -60,17 +63,17 @@ qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://
 
 ### Bug fix
 
-根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11), torrent_parser.py#L46
-```
-from typing_extensions import OrderedDict
-```
-是误加入，应该手动删除。
+根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11), 
+
+torrent_parser.py#L46: `from typing_extensions import OrderedDict`
+
+这一行是误加入，运行前应该手动在源码中删除。
 
 `BitTorrent`fastresume文件的解析包`bencode`似乎不支持python3了，这里使用`bencodepy`作为替代。
 
 ### Full code
 
-{{< code language="python" title="qb-skip.py" id="1" expand="Show" collapse="Hide" isCollapsed="true" >}}
+```python
 from qbittorrentapi import Client, LoginFailed
 import torrent_parser as tp
 from yaml import load
@@ -163,7 +166,7 @@ if __name__ == '__main__':
             if flag == True:
                 qb.torrents_add(torrent_files=torrent_path, save_path=save_path, is_skip_checking=True, is_paused=True)
                 print('种子检验完毕，保存路径为%s，已经添加！！' % save_path)
-{{< /code >}}
+```
 
 ```
 # result
@@ -175,7 +178,7 @@ qBittorrent Web API: 2.1.1
 种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
 ```
 
-{{< code language="yaml" title="config.yml" id="2" expand="Show" collapse="Hide" isCollapsed="true" >}}
+```yaml
 qb:
   ip: '192.168.123.189'
   port: '12345'
@@ -183,4 +186,4 @@ qb:
   pwd: adminadmin
 save_path:
     - Y:\Transmission\DOWNLOADS
-{{< /code >}}
+```

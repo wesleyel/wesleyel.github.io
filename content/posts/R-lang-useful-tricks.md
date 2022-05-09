@@ -4,7 +4,7 @@ date = "2021-11-10T17:28:19+08:00"
 author = "Magicewenli"
 cover = ""
 tags = ["R", "database"]
-keywords = ["R", "database"]
+categories = "机巧"
 description = "在做Teamfight Tactics分析时，我先通过Riot's API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？"
 showFullContent = false
 readingTime = true
@@ -31,7 +31,7 @@ Toc = true
 
 向量是将若干个基础类型**相同**的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如
 
-{{<code language="R" title="" id="1" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 # 数值型
 marks <- c(10, 6, 4, 7, 8)
 x <- c(1:3, 10:13)
@@ -39,17 +39,17 @@ x <- c(1:3, 10:13)
 c(1, 3, 5) > 2  # [1] FALSE  TRUE  TRUE
 # 字符型
 s1 <- c('abc', '', 'a cat', NA, '李明')
-{{</code >}}
+```
 
 内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。
 
-{{<code language="R" title="" id="2" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 sqrt(c(1, 4, 6.25)) # [1] 1.0 2.0 2.5
 
 x <- c(33, 55, 11)
 order(x)    # [1] 3 1 2
 x[order(x)] # [1] 11 33 55
-{{</code >}}
+```
 
 ### 列表
 
@@ -57,7 +57,7 @@ R中列表(`list`)类型来保存**不同**类型的数据。一个主要目的�
 
 列表可以命名，命名后类似字典，可以通过名字访问。
 
-{{<code language="R" title="" id="3" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 rec <- list(name="李明", age=30,
   scores=c(85, 76, 90))
 rec
@@ -71,11 +71,11 @@ rec
 ## [1] 85 76 90
 
 rec$age # 或 rec[["age"]]
-{{</code >}}
+```
 
 也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。
 
-{{<code language="R" title="" id="4" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 rec[[3]]
 ## [1] 85 76 90
 rec[[3]][2]
@@ -84,11 +84,11 @@ rec[[3]][2]
 rec[3]
 ## $scores
 ## [1] 85 76 90
-{{</code >}}
+```
 
 要删除某个元素，直接将该元素赋值为`NULL`；添加元素则是直接为该元素赋值。
 
-{{<code language="R" title="" id="5" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 rec[["age"]] <- NULL
 rec[["身高"]] <- 178
 ## $name
@@ -99,7 +99,7 @@ rec[["身高"]] <- 178
 ## 
 ## $身高
 ## [1] 178
-{{</code >}}
+```
 
 ### 数据框
 
@@ -107,7 +107,7 @@ rec[["身高"]] <- 178
 
 数据框可以说是处理数据的最佳方式，利用它可以轻松按列或按行取值，并且可以直接用向量化的方式计算。
 
-{{<code language="R" title="" id="6" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 d<-data.frame(TraitsComb=character(0),Top4=double(0),Winner=double(0),AvgPlacement=double(0),PickTimes=integer(0))
 print(d)
 ## [1] TraitsComb   Top4         Winner       AvgPlacement PickTimes   
@@ -129,7 +129,7 @@ d[3]
 d[3][1]
 ##   Winner
 ## 1    2.3
-{{</code >}}
+```
 
 ## R语言函数
 
@@ -137,7 +137,7 @@ d[3][1]
 
 观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。
 
-{{<code language="R" title="" id="" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 tiers<-rev(c("DIAMOND","PLATINUM","GOLD","SILVER","BRONZE","IRON"))
 ranks<-rev(c("I","II","III","IV","V"))
 tire_order<-lapply(tiers,function(x) paste(x,ranks,sep="-")) %>% unlist
@@ -147,7 +147,7 @@ tire_order<-lapply(tiers,function(x) paste(x,ranks,sep="-")) %>% unlist
 ## [13] "SILVER-III"      "SILVER-II"       "SILVER-I"        "GOLD-V"          "GOLD-IV"         "GOLD-III"       
 ## [19] "GOLD-II"         "GOLD-I"          "PLATINUM-V"      "PLATINUM-IV"     "PLATINUM-III"    "PLATINUM-II"    
 ## [25] "PLATINUM-I"      "DIAMOND-V"       "DIAMOND-IV"      "DIAMOND-III"     "DIAMOND-II"      "DIAMOND-I"      
-{{</code >}}
+```
 
 这里`lapply`是对列表遍历，将每个元素先赋值为`x`，然后应用`function(x)`函数。`paste`函数是将两个参数连接起来，`sep`是连接符。
 
@@ -157,7 +157,7 @@ tire_order<-lapply(tiers,function(x) paste(x,ranks,sep="-")) %>% unlist
 
 对一张以下格式的数据框排序，可以使用`order`函数。倒序只需要在排序的列名前加`-`号。
 
-{{<code language="R" title="" id="7" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 head(traits_comp_discribe)
 ##                                  TraitsComb  Top4 Winner AvgPlacement PickTimes
 ## 1                               Transformer 0.253  0.025        5.696        79
@@ -175,7 +175,7 @@ head(traits_comp_discribe[order(-traits_comp_discribe$Top4),])
 ## 34                           Mercenary    1  0.071        7.286        14
 ## 37 Bruiser,Sister,Transformer,Twinshot    1  0.333        3.000         3
 ## 38          Bodyguard,Cuddly,Syndicate    1  0.250        3.500         4
-{{</code>}}
+```
 
 ## MongoDB
 
@@ -183,7 +183,7 @@ MongoDB是一个介于关系数据库和非关系数据库之间的产品，是�
 
 在R语言中，连接MongoDB可以使用`mongolite`库
 
-{{<code language="R" title="" id="8" expand="Show" collapse="Hide" isCollapsed="false" >}}
+```r
 install.packages("mongolite")
 library(mongolite)
 
@@ -205,4 +205,4 @@ head(summoners)
 ## 4  8    ********             1     PLATINUM           IV
 ## 5  9    ********            20     PLATINUM           II
 ## 6 12    ********            19     PLATINUM           II
-{{</code>}}
+```
