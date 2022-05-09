@@ -242,7 +242,7 @@
 &lt;/tbody>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align:left;" colspan="4">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
+&lt;td style="text-align:left;" colspan="5">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align:left;">char&lt;/td>
@@ -277,7 +277,6 @@
 &lt;p>参考：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html">Text System Defaults and Key Bindings&lt;/a> from the Cocoa Event Handling Guide in the Mac Developer Library.&lt;/li>
-&lt;li>&lt;/li>
 &lt;li>&lt;a href="https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict">Additional Emacs keyboard shortcuts&lt;/a> via a &lt;code>DefaultKeyBinding.dict&lt;/code> file on GitHub that can be placed in &lt;code>~/Library/KeyBindings&lt;/code>.&lt;/li>
 &lt;/ul>
 - /posts/emacs-style-keyboard-shortcut-of-macos/ -</description></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Magical trees, take me home. /posts/usage-of-qbittorrent/ -&lt;h2 id="introduction">Introduction&lt;/h2>
