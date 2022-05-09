@@ -268,7 +268,7 @@ Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kb
 
 <tbody>
 <tr>
-	<td style="text-align:left;" colspan="4"><strong>杂项:</strong> 其他的插入、编辑等操作</td>
+	<td style="text-align:left;" colspan="5"><strong>杂项:</strong> 其他的插入、编辑等操作</td>
 </tr>
 <tr>
 	<td style="text-align:left;">char</td>
@@ -303,6 +303,5 @@ Emacs 按键绑定以 Control <kbd>C</kbd>、Meta (Alt) <kbd>M</kbd>、Shift <kb
 
 参考：
 *   [Text System Defaults and Key Bindings](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html) from the Cocoa Event Handling Guide in the Mac Developer Library.
-*   
 *   [Additional Emacs keyboard shortcuts](https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict) via a `DefaultKeyBinding.dict` file on GitHub that can be placed in `~/Library/KeyBindings`.
 
