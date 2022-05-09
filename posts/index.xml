@@ -1,907 +1,115 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Great Expectations</title><link>/posts/</link><description>Recent content in Posts on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>译自： (Emacs) Keyboard Shortcuts for Editing Text Fields in OS X by JASON BLEVINS (JULY 17, 2015) 众所周知，MacOS 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑</description><content>&lt;blockquote>
-&lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
-&lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
-&lt;/blockquote>
-&lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
-&lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
-&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd>和Function &lt;kbd>Fn&lt;/kbd>键，并且将所有字母用大写表示。&lt;/p>
-&lt;p>Emacs 按键绑定以 Control &lt;kbd>C&lt;/kbd>、Meta (Alt) &lt;kbd>M&lt;/kbd>、Shift &lt;kbd>S&lt;/kbd> 前缀和 Delete &lt;kbd>DEL&lt;/kbd> 键，并且将所有字母用小写表示。&lt;/p>
-&lt;table>
-&lt;caption id="tab">Emacs 和 &lt;abbr class="abbr">MacOS&lt;/abbr> 键盘快捷键对比&lt;/caption>
-&lt;colgroup>
-&lt;col style="text-align:left;">
-&lt;col style="text-align:left;">
-&lt;col style="text-align:left;">
-&lt;col style="text-align:left;">
-&lt;col style="text-align:left;">
-&lt;/colgroup>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align:left;">对象&lt;/th>
-&lt;th style="text-align:left;">方向&lt;/th>
-&lt;th style="text-align:left;">Emacs&lt;/th>
-&lt;th style="text-align:left;" colspan="2">&lt;abbr class="abbr">MacOS&lt;/abbr>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="5">&lt;strong>光标移动:&lt;/strong> 移动光标 by character, word, line, etc.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃B&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃F&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⌥B&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌥←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⌥F&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌥→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
-&lt;td style="text-align:left;">begin&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃A&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">end&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃E&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">up&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃P&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>↑&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">down&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃N&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>↓&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">doc&lt;/td>
-&lt;td style="text-align:left;">begin&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-&amp;lt;&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘↑&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">end&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-&amp;gt;&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘↓&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="5">&lt;strong>文本选中:&lt;/strong> 扩展选中文本 by character, word, paragraph, and line&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧B&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧F&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧B&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌥⇧←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧F&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌥⇧→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
-&lt;td style="text-align:left;">begin&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧A&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧⌘←&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">end&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧E&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧⌘→&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">up&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧P&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧↑&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">down&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃⇧N&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧↓&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="5">&lt;strong>文本删除:&lt;/strong> 移除 characters, words, and lines&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-h&lt;/kbd>, &lt;kbd>DEL&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃H&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌫&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-d&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃D&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
-&lt;td style="text-align:left;">left&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-DEL&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">right&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-d&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="2">line&lt;/td>
-&lt;td style="text-align:left;">backwards&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C–0 C-k&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘⌫&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">forwards&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-k&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="5">&lt;strong>搜索:&lt;/strong> 查找文本和在结果间移动&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="3">result&lt;/td>
-&lt;td style="text-align:left;">first&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘F&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">next&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌘G&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">previous&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-r&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⇧⌘G&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="5">&lt;strong>滚动:&lt;/strong> 滚动编辑窗口&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;" rowspan="3">page&lt;/td>
-&lt;td style="text-align:left;">up&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>M-v&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↑&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">down&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-v&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃V&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↓&lt;/kbd>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">recenter&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-l&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃L&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:left;" colspan="4">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">char&lt;/td>
-&lt;td style="text-align:left;">transpose&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-t&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃T&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">line&lt;/td>
-&lt;td style="text-align:left;">insert&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-o&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃O&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">kill&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-w&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;td style="text-align:left;">yank&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>C-y&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;kbd>⌃Y&lt;/kbd>&lt;/td>
-&lt;td style="text-align:left;">&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>参考：&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html">Text System Defaults and Key Bindings&lt;/a> from the Cocoa Event Handling Guide in the Mac Developer Library.&lt;/li>
-&lt;li>&lt;/li>
-&lt;li>&lt;a href="https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict">Additional Emacs keyboard shortcuts&lt;/a> via a &lt;code>DefaultKeyBinding.dict&lt;/code> file on GitHub that can be placed in &lt;code>~/Library/KeyBindings&lt;/code>.&lt;/li>
-&lt;/ul></content></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉</description><content>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
-&lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
-&lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
-&lt;p>之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。&lt;/p>
-&lt;p>今天看到了&lt;a href="https://tomorrow505.xyz/%E5%9F%BA%E4%BA%8Eqbittorrentapi%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%8A%A0%E8%BD%BD%E7%A7%8D%E5%AD%90%E8%B7%B3%E6%A3%80/">这篇文章&lt;/a>，感觉很有参考意义。本文就是在此基础上做的一点修改。&lt;/p>
-&lt;h2 id="qbittorrent-api">qbittorrent-api&lt;/h2>
-&lt;p>&lt;a href="https://github.com/rmartin16/qbittorrent-api">qbittorrent-api&lt;/a> 是qBittorrent Web API的Python实现。&lt;a href="https://qbittorrent-api.readthedocs.io/en/latest/introduction.html">RTD&lt;/a>&lt;/p>
-&lt;p>它支持qBittorrent v4.1.0+版本，基本实现了所有API。&lt;/p>
-&lt;p>支持的版本：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> qbittorrentapi &lt;span style="color:#f92672">import&lt;/span> Version
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>versions &lt;span style="color:#f92672">=&lt;/span> Version&lt;span style="color:#f92672">.&lt;/span>supported_app_versions()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print(sorted(versions))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;, &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api">官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>State&lt;/th>
-&lt;th>Version&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Current&lt;/td>
-&lt;td>qBittorrent v4.1+&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Previous&lt;/td>
-&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Obsolete&lt;/td>
-&lt;td>qBittorrent v3.1.x&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p>
-&lt;p>例如&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>v3.*.*&lt;/code>的login接口为 &lt;code>http://localhost:8080/login&lt;/code>&lt;/li>
-&lt;li>&lt;code>v4.1.*&lt;/code>的login接口为&lt;code>http://localhost:8080/api/v2/auth/login&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/">sourceforge&lt;/a>.&lt;/p>
-&lt;h2 id="skip-hash-detection">Skip hash detection&lt;/h2>
-&lt;h3 id="bug-fix">Bug fix&lt;/h3>
-&lt;p>根据&lt;a href="https://github.com/7sDream/torrent_parser/issues/11">torrent_parser issue#11&lt;/a>, torrent_parser.py#L46&lt;/p>
-&lt;pre tabindex="0">&lt;code>from typing_extensions import OrderedDict
-&lt;/code>&lt;/pre>&lt;p>是误加入，应该手动删除。&lt;/p>
-&lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
-&lt;h3 id="full-code">Full code&lt;/h3>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" checked />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">python&lt;/span>
-&lt;span class="collapsable-code__title">qb-skip.py&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-python" >&lt;code>
-from qbittorrentapi import Client, LoginFailed
-import torrent_parser as tp
-from yaml import load
-import os
-import hashlib
-import bencodepy
-try:
-from yaml import CLoader as Loader
-except ImportError:
-from yaml import Loader
-def get_qb(config):
-# 获取客户端实例
-qb = Client(host=&amp;#39;%s:%s&amp;#39; % (config[&amp;#39;ip&amp;#39;], config[&amp;#39;port&amp;#39;]), username=config[&amp;#39;user&amp;#39;], password=config[&amp;#39;pwd&amp;#39;])
-# 客户端进行登录
-try:
-qb.auth_log_in()
-except LoginFailed as e:
-print(e)
-# 输出客户端信息
-print(f&amp;#39;qBittorrent: {qb.app.version}&amp;#39;)
-print(f&amp;#39;qBittorrent Web API: {qb.app.web_api_version}&amp;#39;)
-print()
-return qb
-# 根据种子路径获取其hash值
-def get_hash(filename):
-with open(filename, &amp;#39;rb&amp;#39;) as f:
-torrent_data = f.read()
-metainfo = bencodepy.decode(torrent_data)
-info = metainfo[b&amp;#39;info&amp;#39;]
-return hashlib.sha1(bencodepy.encode(info)).hexdigest()
-# 加载配置文件
-def load_config():
-data = load(open(&amp;#39;./config.yml&amp;#39;, &amp;#39;rb&amp;#39;), Loader=Loader)
-return data
-# 获取种子文件列表信息
-def pars_torrent(path):
-file_paths = []
-data = tp.parse_torrent_file(path)
-info = dict(data[&amp;#39;info&amp;#39;])
-if &amp;#39;files&amp;#39; in info.keys():
-for item in info[&amp;#39;files&amp;#39;]:
-file_paths.append(info[&amp;#39;name&amp;#39;] &amp;#43; &amp;#39;\\&amp;#39; &amp;#43; &amp;#39;\\&amp;#39;.join(item[&amp;#39;path&amp;#39;]))
-else:
-file_paths.append(info[&amp;#39;name&amp;#39;])
-return file_paths
-# 主程序入口
-if __name__ == &amp;#39;__main__&amp;#39;:
-user_info = load_config()
-qb = get_qb(user_info[&amp;#39;qb&amp;#39;])
-save_paths = user_info[&amp;#39;save_path&amp;#39;]
-# 输入种子所在目录
-torrents_path = input(&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;)
-files = os.listdir(torrents_path)
-# 循环处理种子信息
-for file in files:
-if not file.endswith(&amp;#39;.torrent&amp;#39;):
-continue
-print(&amp;#34;*********************** 当前处理种子文件：%s ***********************&amp;#34; % file)
-torrent_path = os.path.join(torrents_path, file)
-# 种子已经存在于客户端，跳过
-hash_value = get_hash(torrent_path)
-torrent = qb.torrents_info(torrent_hashes=hash_value)
-if len(torrent) == 1:
-print(&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;)
-continue
-# 判断种子文件是否存在于常用的保存路径
-torrent_files = pars_torrent(torrent_path)
-print(&amp;#39;种子文件包含%d个文件&amp;#39;%len(torrent_files))
-for save_path in save_paths:
-flag = True
-for torrent_file in torrent_files:
-if not os.path.isfile(os.path.join(save_path, torrent_file)):
-print(&amp;#39;%s 文件不存在，跳出……&amp;#39; % os.path.join(save_path, torrent_file))
-flag = False
-break
-if flag == True:
-qb.torrents_add(torrent_files=torrent_path, save_path=save_path, is_skip_checking=True, is_paused=True)
-print(&amp;#39;种子检验完毕，保存路径为%s，已经添加！！&amp;#39; % save_path)
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;pre tabindex="0">&lt;code># result
-qBittorrent: v4.1.4
-qBittorrent Web API: 2.1.1
-*********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
-种子文件包含9个文件
-种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
-&lt;/code>&lt;/pre>
-&lt;div class="collapsable-code">
-&lt;input id="2" type="checkbox" checked />
-&lt;label for="2">
-&lt;span class="collapsable-code__language">yaml&lt;/span>
-&lt;span class="collapsable-code__title">config.yml&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-yaml" >&lt;code>
-qb:
-ip: &amp;#39;192.168.123.189&amp;#39;
-port: &amp;#39;12345&amp;#39;
-user: admin
-pwd: adminadmin
-save_path:
-- Y:\Transmission\DOWNLOADS
-&lt;/code>&lt;/pre>
-&lt;/div></content></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。 日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代</description><content>&lt;p>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。&lt;/p>
-&lt;p>日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代，这里仍然是一片苦寒之地。土地广袤，但产出贫乏，狂风骤雨的夏季，雪虐风饕的冬季，无不摧残着生活在这里的人们。&lt;/p>
-&lt;p>女主人公风见民子既要独自支撑养牛场，还要抚养儿子武志。年轻时的她为了爱情，毅然断绝家里的联系，与一个即将去北海道开荒的人私奔。两人白手起家建立起这座农场，本来日子虽然苦，却还过得去。但几年前，丈夫撒手人寰，农场一下成了难以支撑的负担。她，勤劳、倔强、柔弱却坚强，默默承受所有的苦楚，却能用一颗善良的心教育孩子。&lt;/p>
-&lt;p>表弟胜男带着新婚妻子佳代子来农场看望。饭桌上，民子开玩笑地说着表弟小时候的糗事，胜男说着表姐高中时多么年轻漂亮，气氛是轻松喜悦的。临别时，胜男笑着对表姐说：“祝你幸福”。但镜头随着汽车渐行渐远后，佳代子察觉到胜男异样的神情。眼泪湿润了胜男的脸庞，他感叹道：“表姐，过得真辛苦啊”。&lt;/p>
-&lt;p>含蓄地表达，却刻画出了最动人的深情。内心深处最柔软的角落都被触动，在酸楚中一遍又一遍回味着最本初的真情。&lt;/p>
-&lt;p>男主人公田岛耕作，结实肯干、沉默寡言。他用宽阔的肩膀为民子撑起了一片天，如同一只默默耕耘的黄牛一般，沉默，不求回报。他替民子照顾牲畜、教育武志要像男子汉一样勇敢。在武志心里，他慢慢地填补了父亲的缺失。潜移默化中，他的英武、潇洒使民子产生了一种暧昧的情愫。在他告知即将离开的那个夜晚，民子再也无法保持坚强。她卸下了自己勇敢无惧，将柔弱的一面暴露出来。是他给了民子久违的安全感，民子扑在他怀里，恳求不要离去。但他还是克制着自己的感情，还是沉默着，始终保持一段距离。&lt;/p>
-&lt;p>之所以隐身于这个人烟稀少的小镇，勤勤恳恳的过着不求回报的生活，是因为一次冲动。彼时，他曾经的妻由于偿还不清贷款而自缢，在妻子的灵堂前他忍受不了债主对妻子的谩骂，冲动下铸成大错，自那以后就亡命天涯。但在这里，他重新找到了家人的感觉。但理性告诉他，他没有资格再享受这种快乐。&lt;/p>
-&lt;p>“叔叔，你去哪儿啊？”武志追在警车后边跑边喊，他并不知道内情，只是牵挂这个像父亲一样的人。田岛挥了挥手，以歉意、困窘的眼神回应，然后进入了警车。&lt;/p>
-&lt;p>镜头一转，又是一个冬天。风雪吹破农场窗户的塑料纸，农场的大门敞开着，一片破败萧条。&lt;/p>
-&lt;p>火车上，两名警员押送着田岛前去服刑，此时正停在农场附近的火车站。出乎意料地，她找到了被判四年有期徒刑并正被押去服刑的他。两人似乎不知道要如何开口，虻田急中生智，以一种借喻的口吻和民子对话，完成了民子对田岛亲情和爱情的告白。&lt;/p>
-&lt;blockquote>
-&lt;p>虻田问道：太太，好久不见，听说您不养奶牛，到镇上去工作了。&lt;/p>
-&lt;p>此时，民子望向耕作回答：对。&lt;/p>
-&lt;p>虻田又问：听说您跟您儿子在等您丈夫回来，要等他好几年，这是真的吗？&lt;/p>
-&lt;p>民子笃定温柔地点了点头，临座一直望着民子的耕作早已眼含泪光。&lt;/p>
-&lt;p>虻田回复并又问：真了不起啊！生活上有没有困难呐？&lt;/p>
-&lt;p>民子答：有虻田先生照顾。&lt;/p>
-&lt;p>虻田：啊，那混蛋，是他呀，是他在照顾你们啦？&lt;/p>
-&lt;p>民子又肯定地答到：是。&lt;/p>
-&lt;p>虻田：那好啊，太好呐！&lt;/p>
-&lt;/blockquote>
-&lt;p>说完，虻田掩面而泣。田岛已是泪如雨下，他接过民子的手绢擦干眼泪、对着民子郑重地点头，接受了民子的告白。火车继续急驰，窗外一片白茫茫的大地。&lt;/p>
-&lt;p>如此含蓄、简单、又温情的告白来自导演山田洋次对电影情节匠心的把握。没有刻意催泪，他只是在情节的自然发展中，把东方人对爱情的表白，用最生活、最朴实的仪式感呈现出来，是东方式的；是非常契合整个影片北海道牧场天高云远的基调的；是符合民子、耕作这样在日常劳作中情愫渐生、但又羞于言语直接表达的人设的。朝夕相处的日常已让耕作成为了自己生活的一部分，再含蓄的民子，在面对即将得到却又马上要失去的爱情的时候，她也必须要做点什么以告慰自己内心的呼唤。哪怕这意味着等待，但有等待就有希望。于是，在虻田的帮助下，她告白了耕作，这样的告白是属于普通人也许一生一次的伟大之举。&lt;/p></content></item><item><title>《希腊古瓮颂》浅析</title><link>/posts/impression-of-ode-on-a-grecian-urn/</link><pubDate>Fri, 14 Jan 2022 00:00:00 +0800</pubDate><guid>/posts/impression-of-ode-on-a-grecian-urn/</guid><description>希腊古瓮颂 〔英国〕济慈 你——“平静”的保持着童贞的新娘， “沉默”和漫长的“时间”领养的少女， 山林的历史家，你如此美妙地叙讲 如花的故事，胜过我</description><content>&lt;div style="float: right;margin-left: 16px;">
-&lt;h3 style="
-font-size: 1.2rem;
-">希腊古瓮颂 &lt;/h3>
-&lt;p>〔英国〕济慈&lt;/p>
-&lt;p>你——“平静”的保持着童贞的新娘，&lt;br>
-“沉默”和漫长的“时间”领养的少女，&lt;br>
-山林的历史家，你如此美妙地叙讲&lt;br>
-如花的故事，胜过我们的诗句：&lt;br>
-绿叶镶边的传说在你的身上缠，&lt;br>
-讲的可是神，或人，或神人在一道，&lt;br>
-活跃在滕坡，或者阿卡狄谷地?&lt;br>
-什么人，什么神?什么样姑娘不情愿?&lt;br>
-怎样疯狂的追求?竭力的脱逃?&lt;br>
-什么笛，铃鼓?怎样忘情的狂喜?&lt;/p>
-&lt;p>听见的乐曲是悦耳，听不见的旋律&lt;br>
-更甜美;风笛呵，你该继续吹奏;&lt;br>
-不是对耳朵，而是对心灵奏出&lt;br>
-无声的乐曲，送上更多的温柔：&lt;br>
-树下的美少年，你永远不停止歌唱，&lt;br>
-那些树木也永远不可能凋枯;&lt;br>
-大胆的情郎，你永远得不到一吻，&lt;br>
-虽然接近了目标——你可别悲伤，&lt;br>
-她永远不衰老，尽管你摘不到幸福，&lt;br>
-你永远在爱着，她永远美丽动人!&lt;/p>
-&lt;p>啊，幸运的树枝!你永远不掉下&lt;br>
-你的绿叶，永不向春光告别;&lt;br>
-幸福的乐手，你永远不知道疲乏，&lt;br>
-永远奏出永远新鲜的音乐;&lt;br>
-幸福的爱情!更加幸福的爱情!&lt;br>
-永远热烈，永远等待着享受，&lt;br>
-永远喘息着，永远是青春年少，&lt;br>
-这一切情态，都这样超凡入圣，&lt;br>
-永远不会让心灵餍足，发愁，&lt;br>
-不会让额头发烧，舌蔽唇焦。&lt;/p>
-&lt;p>这些前来祭祀的都是什么人?&lt;br>
-神秘的祭司，你的牛向上天哀唤，&lt;br>
-让花环挂满在她那光柔的腰身，&lt;br>
-你要牵她去哪一座青葱的祭坛?&lt;br>
-这是哪一座小城，河边的，海边的，&lt;br>
-还是靠山的，筑一座护卫的城砦——&lt;br>
-居尼们倾城而出，赶清早去敬神?&lt;br>
-小城呵，你的大街小巷将永远地&lt;br>
-寂静无声，没有一个灵魂会回来&lt;br>
-说明你何以从此变成了荒城。&lt;/p>
-&lt;p>啊，雅典的形状!美的仪态!&lt;br>
-身上雕满大理石少女和男人，&lt;br>
-树林伸枝柯，脚下倒伏着草莱：&lt;br>
-你呵，缄口的形体!你冷嘲如“永恒”&lt;br>
-教我们超脱思虑。冷色的牧歌!&lt;br>
-等老年摧毁了我们这一代，那时，&lt;br>
-你将仍然是人类的朋友，&lt;br>
-并且会见到另一些哀愁，你会这样说：&lt;br>
-“美即是真，真即是美”——这就是&lt;br>
-我们在地上所知道、该知道的一切。&lt;/p>
-&lt;/div>
-&lt;p>英国浪漫主义诗人济慈于1819年5月写下这首富有创造力的《希腊古瓮颂》，由于十四行诗的形式和他想要的音调不符，于是他开始发展自己的颂歌类型，这首颂歌是最早使用这种新形式的作品之一，它由五节组成，每节十行。颂歌的形式使诗人能更多地描绘古瓮上场景，并为提出疑问和发出感叹留出空间。&lt;/p>
-&lt;p>在每一节，济慈都描绘或谈论了古瓮上的画面，特别是两个着重描述的场景，一个是情人追求爱人，一个是村民与牧师聚集祭祀。这两个场景都隐含着死亡与永生这一对范畴。在颂歌的最后，济慈提出“‘美即是真，真即是美’——这就是我们在地上所知道、也该知道的一切。”，这句话后来引起了许多阐释者的讨论。总之，全诗的一条明线是生命短促，情感易变，唯有艺术长存。下面结合颂词大意谈谈所思所感。&lt;/p>
-&lt;h2 id="颂歌大意">颂歌大意&lt;/h2>
-&lt;p>这是一首复杂而又神秘的颂歌，它的赞颂对象是一只希腊古瓮。这只古瓮上绘制着引人神思的田园画卷。世上有许多赞颂乡村场景的诗歌，却没一首有古瓮上的画卷描述得好。这只经历漫长时间、一直保持缄默的古瓮，就像一个亭亭玉立着、静默着的少女。她不曾受到人世纷争的搅扰和岁月无情的摧残。即使穿越时空，形体依旧完美。&lt;/p>
-&lt;p>诗人注视着古瓮，想知道少女讲述了一个怎样的故事。画中的场景是在希腊哪里？她所描绘的人物是人吗，还是神呢，还是人神一道？那个不情愿的女性是什么身份？场景中疯狂追求的人和竭力脱逃的人是否处于一场狂欢之中？笛声和铃鼓在演奏什么样的音乐？&lt;/p>
-&lt;p>在这个精美的古瓮面前，诗人被迷住了，顷刻间便步入了由思维构筑的美的殿堂。那幅画卷开始变得栩栩如生，拿着风笛的人物似乎也将音乐送进了现实。诗人说能听见的乐曲是悦耳的，但听不见的旋律更好。画卷中的人啊，请你继续演奏风笛，即使耳朵无法听到，但无声的旋律能吹入心灵。&lt;/p>
-&lt;p>吹笛人永远不会停止吹笛——因为古瓮上的场景永远停在了这一刻，树木也永远不会落下他们的叶子。情郎几乎要吻到那位姑娘，但他们的嘴唇却永远无法接触。对此，诗人俏皮地告诉情郎，你无须悲伤。虽然吻永远不会发生，但你们将永远热恋如初，而她将永远美丽。&lt;/p>
-&lt;p>诗人感叹树枝是幸运的，因为叶子永远不会落下，而它也春光永驻。吹笛人也是幸福的，因为他的歌曲将永远清新悦耳，永远流传。最幸福的是恋人们的爱情，他们的心永远热烈地跳动，永远年轻；远远超越活人的情感，绝不会使心灵悲伤、厌倦，不会让头脑发烧、嘴唇焦渴，不会经历恋人的痛苦。&lt;/p>
-&lt;p>古瓮上那队牵着牛前往祭坛的人，又是个怎么样的故事？诗人疑惑：神秘的祭司，你带领的这些人是谁？你要把这身披花环，朝天哞叫的小牛牵到哪个青葱的祭坛？这些人来自哪个小镇？傍河傍海抑或是有水塘的乡村？居民们在清晨前往敬神，那小镇的街道便永远清静，再也没有一个灵魂返回。&lt;/p>
-&lt;p>凝视着古瓮上的这些形象，诗人发出感叹：哦，雅典的形象！美丽的姿态！这些男男女女，他们身边的林木和脚下的青草，这些静默的形象啊，你们就像永恒一样，使我们超越今天的思想：你雕刻出来的冰冷的牧歌，哪怕我们都在暮年中凋落，你仍将清新依旧！在另外一些人的忧伤中，你还会像朋友一样抚慰人们：“美即是真，真即是美，”这涵括你们所知道和所需要知道的一切。&lt;/p>
-&lt;h2 id="关于死亡">关于死亡&lt;/h2>
-&lt;p>瓮（Urn）原本是盛放骨灰的容器，这首颂歌有着诗人对永恒和死亡的复杂沉思。柏拉图的二元世界理论认为，世界由理念和现象构成。理念世界一成不变，永恒存在。而现象世界则会随着时间而消逝。以柏拉图的观点来看，死亡不过是形式的终结，灵魂将会不朽。对于死亡，济慈似乎没有在颂歌提出中明确的观点，他谈及了与死亡密切相关的“空虚”，当逐渐冰冷的古瓮无法提供热情后，他最终承认了死亡的不可否认。&lt;/p>
-&lt;p>在颂词的开始，诗人形容古瓮是“沉默的”和“经过漫长时间领养的少女”，一股令人不安的神秘感已经开始形成。第二、三节中，古瓮上的人物显得幸福而无忧无虑，演奏中的恋人、吹笛的音乐家和丰富的大自然都在营造“快乐、幸福”的感觉，诗人还称赞古瓮上的恋人“永远富有活力，永远年轻”。但此时，更深的危机感开始产生。到第四节后，颂词的主题便不再那么热情，而是转为疑虑。神秘的牧师将小牛牵向祭坛，居民们聚集在牧师身旁。从此寂静无人的街道和没有一个灵魂居住的“荒凉”的城市，无不令人感到惊异。最终，诗人将评论转向现实，认为他们这代人将被“老年”所“摧毁”（waste）。&lt;/p>
-&lt;p>不论是古瓮的制作者，还是古瓮上所描述的那个时代都早已消逝，生命转瞬即逝，令人感到恐惧。但古瓮上的人物却如此鲜活，描绘的少女永远“不会褪色”，田园里的树木春光永驻，这样看又会产生一种不朽的感觉。&lt;/p>
-&lt;p>但画中的人物本身并不具有真正的活力，时间的停止不仅仅停止了死亡，也停止了生命。死亡不仅仅是生命的结束，而且是生命的一个独特部分。诗人对古瓮的渲染越是出色，越是让读者意识到，死亡不可避免。&lt;/p>
-&lt;h2 id="艺术美与真理">艺术、美与真理&lt;/h2>
-&lt;p>济慈在这首颂词中探讨了艺术、美和真理之间的密切关系。济慈认为：只有通过美，才能接近真理——通过艺术，人才能获得美。从颂诗中“诗人”的发展过程来说，他观察了古瓮这件精美的艺术品，陶醉在“美”的世界中，最后得出了“美即是真，真即是美”的真理。颂诗没有明确说明艺术、美与真理之间的关系，但暗含这三者之间相互依赖，彼此密不可分。&lt;/p>
-&lt;p>这首颂歌著名的结尾——“美即是真，真即是美”，在后世引起了许多争论，但至少在本诗的语境下，“美”与“真”是能相互转换、近乎等同的。而艺术的作用是创造这种“真”与“美”。正如古瓮的制造者试图描绘这个世界的真实与美丽，这首颂词也试图将“真”与“美”带入它对古瓮的描述当中。&lt;/p>
-&lt;p>柏拉图在《会饮篇》提出了“永恒的，无始无终，不生不灭”的理式美，一切美的事物都以它为源泉，有了它，那一切美的事物才成其为美。而事物美不过是它的幻象、影子。在这首颂诗中，古瓮中的场景永远定格，这意味着这幅图画不仅是田园生活，而是已经成为一种“纯粹”的美——不必实际存在，也不会最终死亡或受到污染。古瓮的美代表了美本身，而不是对美的摹仿。在诗的最后，济慈认为美是人必须追求的东西。&lt;/p>
-&lt;h2 id="解释柏拉图式的诗歌">解释柏拉图式的诗歌&lt;/h2>
-&lt;p>在《理想国》第二卷中，柏拉图提出对价值观尚未定型的幼儿进行音乐教育。柏拉图希望艺术的存在服务于城邦利益，要求为艺术必须是真实的、敬神的、内容有益的。在第十卷中，柏拉图允许一些诗人留在“理想国”里，赞颂诸神和英雄人物。但诗歌作为一种“模仿性”的艺术，只能是一种适意的消遣，远离真理而不是接近真理。&lt;/p>
-&lt;p>从多种方面分析，柏拉图轻贱艺术在理想国中的地位。他认为艺术无法对城邦提供益处，还会滋生欲望、放松人内心的理性节制。《希腊古瓮颂》全诗富有隐喻和神秘感，似乎并不符合柏拉图对诗歌的标准，难以说这是柏拉图式的诗歌。&lt;/p>
-&lt;p>柏拉图在《理想国》中多次运用神话、象征和比喻的手法来说明他的思想，宽泛地说，这种隐喻的表现方式也是一种语言艺术。那么符合这种艺术风格，能否被称为柏拉图式的诗歌呢？新柏拉图主义往往强调神秘玄奥的元素，鼓励诗歌创作要暖昧晦涩，并有意使用神秘的、象征性的语言。&lt;/p>
-&lt;p>如此的话，济慈的颂歌一定程度上符合新柏拉图主义流派的要求，因为其中使用到了隐喻的手法。&lt;/p></content></item><item><title>Android 抓包之歪路</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>最佳实践 Android 5.1 安装夜神模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。 下载Fiddler Everywhere。</description><content>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
-&lt;h3 id="android-51">Android 5.1&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>安装&lt;code>夜神&lt;/code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>下载&lt;code>Fiddler Everywhere&lt;/code>。Setting—Https—Advanced Setting—Export root certificate.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>将桌面的&lt;code>FiddlerRootCertificate.crt&lt;/code>复制到&lt;code>C:\Users\&amp;lt;UserName&amp;gt;\Nox_share\Download&lt;/code>，此处为共享路径。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在模拟器中手动安装证书。设置—安全—从SD卡安装。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-12-38.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>设置WiFi代理。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-17-55">&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>OK&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-27-55.png" alt="Snipaste_2021-11-26_01-27-55">&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="android-70">Android 7.0&lt;/h3>
-&lt;p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。&lt;/p>
-&lt;p>通过adb工具将用户证书添加到&lt;strong>系统证书&lt;/strong>中，先确保adb已连接，见&lt;a href="#adb">ADB&lt;/a>。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HASH_FILE_NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>adb shell ls /data/misc/user/0/cacerts-added&lt;span style="color:#66d9ef">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;HASH_FILE_NAME: &lt;/span>$HASH_FILE_NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb pull /data/misc/user/0/cacerts-added/$HASH_FILE_NAME
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb push $HASH_FILE_NAME /system/etc/security/cacerts/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell ls -lt /system/etc/security/cacerts/ | head -5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;Add system certs successful&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm $HASH_FILE_NAME
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置代理，或者通过&lt;code>Proxifier&lt;/code>添加一个端口为8866的http代理服务器，与一条&lt;code>nox*.exe&lt;/code> proxy的代理规则。&lt;/p>
-&lt;h2 id="防止失忆做的补充">防止失忆做的补充&lt;/h2>
-&lt;h3 id="抓包工具">抓包工具&lt;/h3>
-&lt;h4 id="fiddler">Fiddler&lt;/h4>
-&lt;p>Fiddler现在分了&lt;code>classic&lt;/code>和&lt;code>everywhere&lt;/code>两个版本，这两版基本功能都一样，各有特点。&lt;/p>
-&lt;p>后者在UI上做了升级，显示内容比较直观，更加Accessible。新UI给人一股Postman味，这是一句夸奖的话。必须&lt;strong>登录账户&lt;/strong>才能使使用，提供了云服务，同时以订阅制收费。&lt;/p>
-&lt;p>老版本也能照常使用，有很多强大的开源插件，比如&lt;a href="https://github.com/lulianqi/FreeHttp">FreeHttp&lt;/a>。在网页中访问&lt;code>http://localhost:&amp;lt;proxy-port&amp;gt;&lt;/code>，里面就有证书的下载链接。&lt;/p>
-&lt;p>它们的使用过程都是打开代理—允许远程访问—生成证书。不过我在用&lt;code>classic&lt;/code>版时，远程应用无论如何都连接不到代理上，用新版没有问题。&lt;/p>
-&lt;h4 id="postman">Postman&lt;/h4>
-&lt;p>感觉这个公司的工具非常有极客精神，他们的产品既好用，又&lt;code>Free of use&lt;/code>。通过代理抓包只是它的一个小功能，设置好端口，按照&lt;a href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy">官方文档&lt;/a>里说的做就好。记得下载安装 &lt;a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL v1.1.1L&lt;/a>的时候不要选带Light的版本，安装完毕后重启Postman，随后就能在&lt;code>%APPDATA%\Postman\proxy&lt;/code>找到证书&lt;code>postman-proxy-ca.crt&lt;/code>。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-57-36.png" alt="Snipaste_2021-11-26_01-57-36">&lt;/p>
-&lt;h4 id="proxifier">Proxifier&lt;/h4>
-&lt;p>这个工具是专门给程序设置代理的。有时有为每个程序分别设置代理的需求，程序本身提供代理设置的还好说（但手工管理它们也不轻松），没有这个选项的那就只能使用&lt;code>Proxifier&lt;/code>这类工具了。&lt;/p>
-&lt;p>手工设置Android代理，就是填写WiFi设置中的高级选项。&lt;/p>
-&lt;h3 id="证书">证书&lt;/h3>
-&lt;p>用自己的手机是可行的，不过用虚拟机是更稳妥的选择。抓包的时候会安装证书，手机自带的证书是&lt;strong>系统证书&lt;/strong>，而我们之后安装的证书是&lt;strong>用户证书&lt;/strong>，两者的级别和权限是不一样的。&lt;/p>
-&lt;p>7.0之后的Android就不再&lt;strong>信任用户证书&lt;/strong>了。所以在进行抓包时，数据并不走&lt;strong>用户证书&lt;/strong>，App也会发出一个不再信任证书的警告，也就抓不到包。而5.1版本，系统信任&lt;strong>用户证书&lt;/strong>。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-18-05.png" alt="Snipaste_2021-11-26_01-18-05">&lt;/p>
-&lt;p>这里我走了一些弯路，不过总结一下可以找到3种使得证书信任的方法：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>直接安装5.1系统，随后安装证书（设置-安全-从SDCard安装证书）。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>安装7.0或以上的系统，想办法将我们的证书添加到&lt;strong>系统证书&lt;/strong>[4]。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>安装7.0或以上的系统，安装&lt;code>xposed&lt;/code>，hook certificate pinning，使得app跳过证书校验[7]。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="android虚拟机">Android虚拟机&lt;/h3>
-&lt;p>这方面尝试的不多，自己仅用过&lt;code>蓝叠(Bluestacks)&lt;/code>，&lt;code>夜神(Nox)&lt;/code>和&lt;code>Genymotion&lt;/code>。听说网易&lt;code>MoMo&lt;/code>也不错，最后用的是夜神。&lt;/p>
-&lt;p>刚好三种都分别安装、卸载了一遍。&lt;/p>
-&lt;p>&lt;code>Genymotion&lt;/code>安装好了直接无法启动虚拟机，G了。&lt;/p>
-&lt;p>&lt;code>蓝叠&lt;/code>的Rom定制化程度很高，换句话说就是与原生系统差别比较大。系统设置里许多地方缺失了，好像没找到添加证书的入口。它除广告外还自带了Chrome和另一些常用工具，甚好。&lt;/p>
-&lt;p>&lt;code>夜神&lt;/code>这款基本上满足了抓包的需要。自带Root权限，这样就可以装&lt;code>Xposed&lt;/code>，还可以装&lt;code>Termux&lt;/code>玩玩。有个官方论坛有许多交流帖子，国外也有很多人用。遇到问题比较容易解决。&lt;/p>
-&lt;h3 id="adb">ADB&lt;/h3>
-&lt;p>打开USB调试。&lt;code>夜神&lt;/code>的USB调试并不通过默认的5037 端口与adb客户端通信，可能是考虑多开也许超过16个客户端的官方限制。&lt;/p>
-&lt;p>一般情况下，只需以下步骤就能连接adb&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>connected to 127.0.0.1:62001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1:62001 device
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口[3]。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Powershell&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-Process | where name &lt;span style="color:#f92672">-like&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nox*&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Handles NPM(K) PM(K) WS(K) CPU(s) Id SI ProcessName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------- ------ ----- ----- ------ -- -- -----------
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1037 184 177620 49000 161.20 28604 1 Nox
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 2006 173 1046392 46020 251.53 4716 1 NoxVMHandle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 3058 16 6268 19040 0.67 27528 1 NoxVMSVC
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-NetTcpConnection -OwningProcess 4716 -State Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LocalAddress LocalPort RemoteAddress RemotePort State AppliedSetting
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------------ --------- ------------- ---------- ----- --------------
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 64001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 63001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 62001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 61001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
-&lt;h2 id="参考文档">参考文档&lt;/h2>
-&lt;p>[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” &lt;em>知乎专栏&lt;/em>, 2019. &lt;a href="https://zhuanlan.zhihu.com/p/56397466">https://zhuanlan.zhihu.com/p/56397466&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” &lt;em>知乎专栏&lt;/em>, 2021. &lt;a href="https://zhuanlan.zhihu.com/p/349267640">https://zhuanlan.zhihu.com/p/349267640&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[3]Mateusz, “ADB can’t connect to Nox,” &lt;em>Stack Overflow&lt;/em>, Jul. 06, 2018. &lt;a href="https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox">https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[4]pwlin, “Android : add cert to system store,” &lt;em>Gist&lt;/em>, Mar. 07, 2016. &lt;a href="https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb">https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[5]“Capturing HTTP requests,” &lt;em>Postman Learning Center&lt;/em>, 2021. &lt;a href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy">https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[6]用户1470878743, “7.x系统的夜神安装Xposed - 辅助工具 夜神游戏论坛,” &lt;em>Yeshen.com&lt;/em>, 2021. &lt;a href="https://bbs.yeshen.com/forum.php?mod=viewthread&amp;amp;tid=33446">https://bbs.yeshen.com/forum.php?mod=viewthread&amp;amp;tid=33446&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[7]ac-pm, “SSLUnpinning_Xposed: Android Xposed Module to bypass SSL certificate validation (Certificate Pinning).,” &lt;em>GitHub&lt;/em>, 2021. &lt;a href="https://github.com/ac-pm/SSLUnpinning_Xposed">https://github.com/ac-pm/SSLUnpinning_Xposed&lt;/a> (accessed Nov. 25, 2021).&lt;/p></content></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>RStudio R语言的好处 在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的</description><content>
-&lt;figure class="center" >
-&lt;img src="/img/RStudio.png" alt="RStudio" style="border-radius: 8px;" />
-&lt;figcaption class="left" style="color: black; " >RStudio&lt;/figcaption>
-&lt;/figure>
-&lt;h2 id="r语言的好处">R语言的好处&lt;/h2>
-&lt;p>在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？&lt;/p>
-&lt;p>之前一直用的是Python，思路是通过pymongo包连接MongoDB提取数据，再通过python内建函数进行转换和分析。这样需要不停使用&lt;code>Table[&amp;quot;sub&amp;quot;]['subsub']&lt;/code>这样的格式取得内部结构。这部分内容没有代码提示，需要程序员自行记忆每个&lt;code>Key&lt;/code>对应的结构，不仅麻烦，而且容易出错。可以预计分析数据的时候会用到大量循环，而python的效率让人缺乏信心。再加上后续还有画图步骤，而&lt;code>matplotlib&lt;/code>是一个非常麻烦的东西，我有点害怕。&lt;/p>
-&lt;p>也考虑过使用&lt;code>Matlab&lt;/code>，它的好处是不少循环可以转为向量化运算，速度会快不少，而且画图容易。&lt;code>Matlab&lt;/code>的附加功能里有一个&lt;code>Database Toolbox Interface for MongoDB&lt;/code>。我甚至已经使用它进行了一段时间分析了，但后面发现默认生成的&lt;code>.mat&lt;/code>格式转换为其他格式比较困难。而且运行速度也不是很理想，消耗资源很大，400MB的数据量在运算时常常卡死我的电脑。也可能是因为我不常使用它，所有代码本身编写的也不够好。&lt;/p>
-&lt;p>最后终于接触到了R语言，这真是个好工具。配合RStudio，顺手又高效。它解决了上面的所有问题，而且内建和社区的函数和包为分析过程提供了很大帮助，为我节省了很多时间。它的一些用法和其他语言显得有些奇怪，理解和熟悉需要一些时间，但R语言的学习绝对物超所值。&lt;/p>
-&lt;p>李东风老师的开源R语言教程很好，推荐一下：&lt;a href="https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html">https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html&lt;/a>&lt;/p>
-&lt;h2 id="r语言的数据类型">R语言的数据类型&lt;/h2>
-&lt;h3 id="向量">向量&lt;/h3>
-&lt;p>向量是将若干个基础类型&lt;strong>相同&lt;/strong>的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-# 数值型
-marks &amp;lt;- c(10, 6, 4, 7, 8)
-x &amp;lt;- c(1:3, 10:13)
-# 逻辑型
-c(1, 3, 5) &amp;gt; 2 # [1] FALSE TRUE TRUE
-# 字符型
-s1 &amp;lt;- c(&amp;#39;abc&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;a cat&amp;#39;, NA, &amp;#39;李明&amp;#39;)
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="2" type="checkbox" />
-&lt;label for="2">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-sqrt(c(1, 4, 6.25)) # [1] 1.0 2.0 2.5
-x &amp;lt;- c(33, 55, 11)
-order(x) # [1] 3 1 2
-x[order(x)] # [1] 11 33 55
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h3 id="列表">列表&lt;/h3>
-&lt;p>R中列表(&lt;code>list&lt;/code>)类型来保存&lt;strong>不同&lt;/strong>类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。&lt;/p>
-&lt;p>列表可以命名，命名后类似字典，可以通过名字访问。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="3" type="checkbox" />
-&lt;label for="3">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec &amp;lt;- list(name=&amp;#34;李明&amp;#34;, age=30,
-scores=c(85, 76, 90))
-rec
-## $name
-## [1] &amp;#34;李明&amp;#34;
-##
-## $age
-## [1] 30
-##
-## $scores
-## [1] 85 76 90
-rec$age # 或 rec[[&amp;#34;age&amp;#34;]]
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="4" type="checkbox" />
-&lt;label for="4">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec[[3]]
-## [1] 85 76 90
-rec[[3]][2]
-## [1] 76
-rec[3]
-## $scores
-## [1] 85 76 90
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>要删除某个元素，直接将该元素赋值为&lt;code>NULL&lt;/code>；添加元素则是直接为该元素赋值。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="5" type="checkbox" />
-&lt;label for="5">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec[[&amp;#34;age&amp;#34;]] &amp;lt;- NULL
-rec[[&amp;#34;身高&amp;#34;]] &amp;lt;- 178
-## $name
-## [1] &amp;#34;李明&amp;#34;
-##
-## $三科分数
-## [1] 85 0 90
-##
-## $身高
-## [1] 178
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h3 id="数据框">数据框&lt;/h3>
-&lt;p>数据框类似于数据库表或Excel数据表的形式。这样形式的数据在R中叫做数据框(&lt;code>data.frame&lt;/code>)。数据框类似于一个矩阵，有$n$个横行、$p$个纵列，但各列允许有不同类型：数值型向量、因子、字符型向量、日期时间向量。同一列的数据类型相同。数据框是一个特殊的列表，其每个列表元素都是一个长度相同的向量。&lt;/p>
-&lt;p>数据框可以说是处理数据的最佳方式，利用它可以轻松按列或按行取值，并且可以直接用向量化的方式计算。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="6" type="checkbox" />
-&lt;label for="6">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-d&amp;lt;-data.frame(TraitsComb=character(0),Top4=double(0),Winner=double(0),AvgPlacement=double(0),PickTimes=integer(0))
-print(d)
-## [1] TraitsComb Top4 Winner AvgPlacement PickTimes
-## &amp;lt;0 行&amp;gt; (或0-长度的row.names)
-d[1,]&amp;lt;-list(&amp;#34;a&amp;#34;, 1.2, 2.3, 3.4, 5)
-print(d)
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 1 a 1.2 2.3 3.4 5
-colnames(d)
-## [1] &amp;#34;TraitsComb&amp;#34; &amp;#34;Top4&amp;#34; &amp;#34;Winner&amp;#34; &amp;#34;AvgPlacement&amp;#34; &amp;#34;PickTimes&amp;#34;
-d$Winner
-## [1] 2.3
-d[3]
-## Winner
-## 1 2.3
-d[3][1]
-## Winner
-## 1 2.3
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h2 id="r语言函数">R语言函数&lt;/h2>
-&lt;h3 id="字符串">字符串&lt;/h3>
-&lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="173296854" type="checkbox" />
-&lt;label for="173296854">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-tiers&amp;lt;-rev(c(&amp;#34;DIAMOND&amp;#34;,&amp;#34;PLATINUM&amp;#34;,&amp;#34;GOLD&amp;#34;,&amp;#34;SILVER&amp;#34;,&amp;#34;BRONZE&amp;#34;,&amp;#34;IRON&amp;#34;))
-ranks&amp;lt;-rev(c(&amp;#34;I&amp;#34;,&amp;#34;II&amp;#34;,&amp;#34;III&amp;#34;,&amp;#34;IV&amp;#34;,&amp;#34;V&amp;#34;))
-tire_order&amp;lt;-lapply(tiers,function(x) paste(x,ranks,sep=&amp;#34;-&amp;#34;)) %&amp;gt;% unlist
-## [1] &amp;#34;IRON-V&amp;#34; &amp;#34;IRON-IV&amp;#34; &amp;#34;IRON-III&amp;#34; &amp;#34;IRON-II&amp;#34; &amp;#34;IRON-I&amp;#34; &amp;#34;BRONZE-V&amp;#34;
-## [7] &amp;#34;BRONZE-IV&amp;#34; &amp;#34;BRONZE-III&amp;#34; &amp;#34;BRONZE-II&amp;#34; &amp;#34;BRONZE-I&amp;#34; &amp;#34;SILVER-V&amp;#34; &amp;#34;SILVER-IV&amp;#34;
-## [13] &amp;#34;SILVER-III&amp;#34; &amp;#34;SILVER-II&amp;#34; &amp;#34;SILVER-I&amp;#34; &amp;#34;GOLD-V&amp;#34; &amp;#34;GOLD-IV&amp;#34; &amp;#34;GOLD-III&amp;#34;
-## [19] &amp;#34;GOLD-II&amp;#34; &amp;#34;GOLD-I&amp;#34; &amp;#34;PLATINUM-V&amp;#34; &amp;#34;PLATINUM-IV&amp;#34; &amp;#34;PLATINUM-III&amp;#34; &amp;#34;PLATINUM-II&amp;#34;
-## [25] &amp;#34;PLATINUM-I&amp;#34; &amp;#34;DIAMOND-V&amp;#34; &amp;#34;DIAMOND-IV&amp;#34; &amp;#34;DIAMOND-III&amp;#34; &amp;#34;DIAMOND-II&amp;#34; &amp;#34;DIAMOND-I&amp;#34;
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>这里&lt;code>lapply&lt;/code>是对列表遍历，将每个元素先赋值为&lt;code>x&lt;/code>，然后应用&lt;code>function(x)&lt;/code>函数。&lt;code>paste&lt;/code>函数是将两个参数连接起来，&lt;code>sep&lt;/code>是连接符。&lt;/p>
-&lt;p>&lt;code>%&amp;gt;%&lt;/code>是一个&lt;code>pipe&lt;/code>，它将结果传递给另一个函数作为第一个参数。&lt;code>unlist&lt;/code>是将列表转换为向量。&lt;/p>
-&lt;h3 id="排序">排序&lt;/h3>
-&lt;p>对一张以下格式的数据框排序，可以使用&lt;code>order&lt;/code>函数。倒序只需要在排序的列名前加&lt;code>-&lt;/code>号。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="7" type="checkbox" />
-&lt;label for="7">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-head(traits_comp_discribe)
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 1 Transformer 0.253 0.025 5.696 79
-## 2 Bruiser,Cuddly,Glutton,Sister,Transformer 0.922 0.314 2.373 51
-## 3 Arcanist,Cuddly 0.662 0.166 3.593 145
-## 4 Socialite 0.217 0.024 6.133 83
-## 5 Chemtech,Twinshot 0.462 0.154 4.231 13
-## 6 Clockwork,Cuddly,Transformer 0.750 0.250 3.875 8
-head(traits_comp_discribe[order(-traits_comp_discribe$Top4),])
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 7 Academy,Cuddly,Imperial 1 0.500 3.000 4
-## 11 Bruiser,Sister,Socialite 1 0.400 6.400 5
-## 32 Cuddly,Glutton,Sister,Socialite 1 0.333 2.000 3
-## 34 Mercenary 1 0.071 7.286 14
-## 37 Bruiser,Sister,Transformer,Twinshot 1 0.333 3.000 3
-## 38 Bodyguard,Cuddly,Syndicate 1 0.250 3.500 4
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h2 id="mongodb">MongoDB&lt;/h2>
-&lt;p>MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富却最像关系数据库的。它提供了一个非常简单的接口，可以让你在简单的程序中操作数据库。&lt;/p>
-&lt;p>在R语言中，连接MongoDB可以使用&lt;code>mongolite&lt;/code>库&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="8" type="checkbox" />
-&lt;label for="8">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-install.packages(&amp;#34;mongolite&amp;#34;)
-library(mongolite)
-url &amp;lt;- &amp;#34;mongodb://user:pass@site:port&amp;#34;
-db&amp;lt;- &amp;#34;tft&amp;#34; # 数据库名
-# 连接数据库
-s_con &amp;lt;- mongo(collection=&amp;#39;summoner&amp;#39;,
-db=db,
-url=url)
-# 查询数据 （查询等级低于100的召唤师）
-summoners &amp;lt;- s_con$find(&amp;#39;{&amp;#34;summonerlevel&amp;#34;: { &amp;#34;$lt&amp;#34;: 100 }}&amp;#39;)
-head(summoners)
-## id puuid summonerlevel summonertire summonerrank
-## 1 4 ******** 66 PLATINUM I
-## 2 5 ******** 1 DIAMOND II
-## 3 6 ******** 85 MASTER I
-## 4 8 ******** 1 PLATINUM IV
-## 5 9 ******** 20 PLATINUM II
-## 6 12 ******** 19 PLATINUM II
-&lt;/code>&lt;/pre>
-&lt;/div></content></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。 预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确</description><content>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
-&lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
-&lt;h2 id="预处理">预处理&lt;/h2>
-&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
-&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>grep -rl &lt;span style="color:#e6db74">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ | xargs sed -i &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="开始转换">开始转换&lt;/h2>
-&lt;p>安装&lt;a href="https://calibre-ebook.com">calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
-&lt;ol>
-&lt;li>创建一个符号连接&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
-&lt;ol start="2">
-&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>转换之&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。 下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜 js 新的开始 console.log(&amp;#34;Hello World&amp;#34;);</description><content>&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
-&lt;blockquote>
-&lt;p>下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜&lt;/p>
-&lt;/blockquote>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">js&lt;/span>
-&lt;span class="collapsable-code__title">新的开始&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-js" >&lt;code>
-console.log(&amp;#34;Hello World&amp;#34;);
-&lt;/code>&lt;/pre>
-&lt;/div></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Magical trees, take me home.</title><link>/posts/</link><description>Recent content in Posts on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>译自： (Emacs) Keyboard Shortcuts for Editing Text Fields in OS X
+by JASON BLEVINS (JULY 17, 2015)
+众所周知，MacOS 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， ⌘←将光标移动到当前行的开头。
+尽管它们在官方的文档中有提及(Mac 键盘快捷键)，但似乎不太为人所知的是， MacOS还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 ⌃A 或 ⌃E。 要删除光标后当前行上的所有内容，请使用 ⌃K。 要调换光标左右两侧的字符的位置，请按 ⌃T。 要在当前行上居中视口，请按 ⌃L。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。
+下表比较了 Emacs 按键绑定与 MacOS 按键绑定（类似 Emacs 的子集）。 对于 MacOS 快捷键，我们使用常用符号来表示 Command ⌘、Shift ⇧、Option ⌥、Control ⌃、Caps Lock ⇪、Delete ⌫ 和 Function Fn 键，并且将所有字母用大写表示。
+Emacs 按键绑定以 Control C、Meta (Alt) M、Shift S 前缀和 Delete DEL 键，并且将所有字母用小写表示。</description></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。
+有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。
+对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。
+之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。
+今天看到了这篇文章，感觉很有参考意义。本文就是在此基础上做的一点修改。
+qbittorrent-api qbittorrent-api 是qBittorrent Web API的Python实现。RTD
+它支持qBittorrent v4.1.0+版本，基本实现了所有API。
+支持的版本：
+from qbittorrentapi import Version versions = Version.supported_app_versions() print(sorted(versions)) # [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;, # &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, # &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, # &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;] qBittorrent有许多版本，有些版本API变化很大。官方WIKI中将WebUI API划为三个版本。
+State Version Current qBittorrent v4.</description></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。
+日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代，这里仍然是一片苦寒之地。土地广袤，但产出贫乏，狂风骤雨的夏季，雪虐风饕的冬季，无不摧残着生活在这里的人们。
+女主人公风见民子既要独自支撑养牛场，还要抚养儿子武志。年轻时的她为了爱情，毅然断绝家里的联系，与一个即将去北海道开荒的人私奔。两人白手起家建立起这座农场，本来日子虽然苦，却还过得去。但几年前，丈夫撒手人寰，农场一下成了难以支撑的负担。她，勤劳、倔强、柔弱却坚强，默默承受所有的苦楚，却能用一颗善良的心教育孩子。
+表弟胜男带着新婚妻子佳代子来农场看望。饭桌上，民子开玩笑地说着表弟小时候的糗事，胜男说着表姐高中时多么年轻漂亮，气氛是轻松喜悦的。临别时，胜男笑着对表姐说：“祝你幸福”。但镜头随着汽车渐行渐远后，佳代子察觉到胜男异样的神情。眼泪湿润了胜男的脸庞，他感叹道：“表姐，过得真辛苦啊”。
+含蓄地表达，却刻画出了最动人的深情。内心深处最柔软的角落都被触动，在酸楚中一遍又一遍回味着最本初的真情。
+男主人公田岛耕作，结实肯干、沉默寡言。他用宽阔的肩膀为民子撑起了一片天，如同一只默默耕耘的黄牛一般，沉默，不求回报。他替民子照顾牲畜、教育武志要像男子汉一样勇敢。在武志心里，他慢慢地填补了父亲的缺失。潜移默化中，他的英武、潇洒使民子产生了一种暧昧的情愫。在他告知即将离开的那个夜晚，民子再也无法保持坚强。她卸下了自己勇敢无惧，将柔弱的一面暴露出来。是他给了民子久违的安全感，民子扑在他怀里，恳求不要离去。但他还是克制着自己的感情，还是沉默着，始终保持一段距离。
+之所以隐身于这个人烟稀少的小镇，勤勤恳恳的过着不求回报的生活，是因为一次冲动。彼时，他曾经的妻由于偿还不清贷款而自缢，在妻子的灵堂前他忍受不了债主对妻子的谩骂，冲动下铸成大错，自那以后就亡命天涯。但在这里，他重新找到了家人的感觉。但理性告诉他，他没有资格再享受这种快乐。
+“叔叔，你去哪儿啊？”武志追在警车后边跑边喊，他并不知道内情，只是牵挂这个像父亲一样的人。田岛挥了挥手，以歉意、困窘的眼神回应，然后进入了警车。
+镜头一转，又是一个冬天。风雪吹破农场窗户的塑料纸，农场的大门敞开着，一片破败萧条。
+火车上，两名警员押送着田岛前去服刑，此时正停在农场附近的火车站。出乎意料地，她找到了被判四年有期徒刑并正被押去服刑的他。两人似乎不知道要如何开口，虻田急中生智，以一种借喻的口吻和民子对话，完成了民子对田岛亲情和爱情的告白。
+虻田问道：太太，好久不见，听说您不养奶牛，到镇上去工作了。
+此时，民子望向耕作回答：对。
+虻田又问：听说您跟您儿子在等您丈夫回来，要等他好几年，这是真的吗？
+民子笃定温柔地点了点头，临座一直望着民子的耕作早已眼含泪光。
+虻田回复并又问：真了不起啊！生活上有没有困难呐？
+民子答：有虻田先生照顾。
+虻田：啊，那混蛋，是他呀，是他在照顾你们啦？
+民子又肯定地答到：是。
+虻田：那好啊，太好呐！
+说完，虻田掩面而泣。田岛已是泪如雨下，他接过民子的手绢擦干眼泪、对着民子郑重地点头，接受了民子的告白。火车继续急驰，窗外一片白茫茫的大地。
+如此含蓄、简单、又温情的告白来自导演山田洋次对电影情节匠心的把握。没有刻意催泪，他只是在情节的自然发展中，把东方人对爱情的表白，用最生活、最朴实的仪式感呈现出来，是东方式的；是非常契合整个影片北海道牧场天高云远的基调的；是符合民子、耕作这样在日常劳作中情愫渐生、但又羞于言语直接表达的人设的。朝夕相处的日常已让耕作成为了自己生活的一部分，再含蓄的民子，在面对即将得到却又马上要失去的爱情的时候，她也必须要做点什么以告慰自己内心的呼唤。哪怕这意味着等待，但有等待就有希望。于是，在虻田的帮助下，她告白了耕作，这样的告白是属于普通人也许一生一次的伟大之举。</description></item><item><title>《希腊古瓮颂》浅析</title><link>/posts/impression-of-ode-on-a-grecian-urn/</link><pubDate>Fri, 14 Jan 2022 00:00:00 +0800</pubDate><guid>/posts/impression-of-ode-on-a-grecian-urn/</guid><description>希腊古瓮颂
+〔英国〕济慈
+你——“平静”的保持着童贞的新娘，
+“沉默”和漫长的“时间”领养的少女，
+山林的历史家，你如此美妙地叙讲
+如花的故事，胜过我们的诗句：
+绿叶镶边的传说在你的身上缠，
+讲的可是神，或人，或神人在一道，
+活跃在滕坡，或者阿卡狄谷地?
+什么人，什么神?什么样姑娘不情愿?
+怎样疯狂的追求?竭力的脱逃?
+什么笛，铃鼓?怎样忘情的狂喜?
+听见的乐曲是悦耳，听不见的旋律
+更甜美;风笛呵，你该继续吹奏;
+不是对耳朵，而是对心灵奏出
+无声的乐曲，送上更多的温柔：
+树下的美少年，你永远不停止歌唱，
+那些树木也永远不可能凋枯;
+大胆的情郎，你永远得不到一吻，
+虽然接近了目标——你可别悲伤，
+她永远不衰老，尽管你摘不到幸福，
+你永远在爱着，她永远美丽动人!
+啊，幸运的树枝!你永远不掉下
+你的绿叶，永不向春光告别;
+幸福的乐手，你永远不知道疲乏，
+永远奏出永远新鲜的音乐;
+幸福的爱情!更加幸福的爱情!
+永远热烈，永远等待着享受，
+永远喘息着，永远是青春年少，
+这一切情态，都这样超凡入圣，
+永远不会让心灵餍足，发愁，
+不会让额头发烧，舌蔽唇焦。
+这些前来祭祀的都是什么人?
+神秘的祭司，你的牛向上天哀唤，
+让花环挂满在她那光柔的腰身，
+你要牵她去哪一座青葱的祭坛?
+这是哪一座小城，河边的，海边的，
+还是靠山的，筑一座护卫的城砦——
+居尼们倾城而出，赶清早去敬神?
+小城呵，你的大街小巷将永远地
+寂静无声，没有一个灵魂会回来
+说明你何以从此变成了荒城。
+啊，雅典的形状!美的仪态!
+身上雕满大理石少女和男人，
+树林伸枝柯，脚下倒伏着草莱：
+你呵，缄口的形体!你冷嘲如“永恒”
+教我们超脱思虑。冷色的牧歌!
+等老年摧毁了我们这一代，那时，
+你将仍然是人类的朋友，
+并且会见到另一些哀愁，你会这样说：
+“美即是真，真即是美”——这就是
+我们在地上所知道、该知道的一切。
+英国浪漫主义诗人济慈于1819年5月写下这首富有创造力的《希腊古瓮颂》，由于十四行诗的形式和他想要的音调不符，于是他开始发展自己的颂歌类型，这首颂歌是最早使用这种新形式的作品之一，它由五节组成，每节十行。颂歌的形式使诗人能更多地描绘古瓮上场景，并为提出疑问和发出感叹留出空间。
+在每一节，济慈都描绘或谈论了古瓮上的画面，特别是两个着重描述的场景，一个是情人追求爱人，一个是村民与牧师聚集祭祀。这两个场景都隐含着死亡与永生这一对范畴。在颂歌的最后，济慈提出“‘美即是真，真即是美’——这就是我们在地上所知道、也该知道的一切。”，这句话后来引起了许多阐释者的讨论。总之，全诗的一条明线是生命短促，情感易变，唯有艺术长存。下面结合颂词大意谈谈所思所感。
+颂歌大意 这是一首复杂而又神秘的颂歌，它的赞颂对象是一只希腊古瓮。这只古瓮上绘制着引人神思的田园画卷。世上有许多赞颂乡村场景的诗歌，却没一首有古瓮上的画卷描述得好。这只经历漫长时间、一直保持缄默的古瓮，就像一个亭亭玉立着、静默着的少女。她不曾受到人世纷争的搅扰和岁月无情的摧残。即使穿越时空，形体依旧完美。
+诗人注视着古瓮，想知道少女讲述了一个怎样的故事。画中的场景是在希腊哪里？她所描绘的人物是人吗，还是神呢，还是人神一道？那个不情愿的女性是什么身份？场景中疯狂追求的人和竭力脱逃的人是否处于一场狂欢之中？笛声和铃鼓在演奏什么样的音乐？
+在这个精美的古瓮面前，诗人被迷住了，顷刻间便步入了由思维构筑的美的殿堂。那幅画卷开始变得栩栩如生，拿着风笛的人物似乎也将音乐送进了现实。诗人说能听见的乐曲是悦耳的，但听不见的旋律更好。画卷中的人啊，请你继续演奏风笛，即使耳朵无法听到，但无声的旋律能吹入心灵。</description></item><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>最佳实践 经过一段时间的研究，又有了新的看法。
+准备以下两种工具：
+mitmproxy Android Emulator(MuMu, BlueStack &amp;hellip;) mitmproxy mitmproxy最好使用pipx安装。因为mitmproxy运行在独立的venv中，使用pipx方便为mitmproxy安装额外的python包。
+brew install pipx pipx install mitmproxy 最好按照提示说明，使用pipx ensurepath修改环境变量。
+这样我们就可以为mitmproxy安装额外的python包了。
+pipx inject mitmproxy pycryptodome # 安装 pycryptodome 包，用于AES解码 将浏览器代理设置到8080端口，打开(mitm.it)[mitm.it]下载对应平台的证书。
+Android Emulator 抓包之前有两个步骤：
+设置手动代理 安装并信任自签名https证书 设置WiFi代理为主机8080端口：
+以下是简化的脚本1，先看看adb devices信息，是否已经连接。如果没有成功连接需要adb kill-server，再重试几次。或者参照后文2。 直接运行以下脚本./push.sh YOUR_CRT.crt：
+PEM_FILE_NAME=$1 echo &amp;#34;$PEM_FILE_NAME&amp;#34; hash=$(openssl x509 -inform PEM -subject_hash_old -in $PEM_FILE_NAME | head -1) OUT_FILE_NAME=&amp;#34;$hash.0&amp;#34; cp $PEM_FILE_NAME $OUT_FILE_NAME openssl x509 -inform PEM -text -in $PEM_FILE_NAME -out /dev/null &amp;gt;&amp;gt; $OUT_FILE_NAME echo &amp;#34;Saved to $OUT_FILE_NAME&amp;#34; adb shell mount -o rw,remount,rw /system adb push $OUT_FILE_NAME /system/etc/security/cacerts/ adb shell mount -o ro,remount,ro /system adb reboot 如果模拟器正常重启的话应该就可以了。</description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>RStudio
+R语言的好处 在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？
+之前一直用的是Python，思路是通过pymongo包连接MongoDB提取数据，再通过python内建函数进行转换和分析。这样需要不停使用Table[&amp;quot;sub&amp;quot;]['subsub']这样的格式取得内部结构。这部分内容没有代码提示，需要程序员自行记忆每个Key对应的结构，不仅麻烦，而且容易出错。可以预计分析数据的时候会用到大量循环，而python的效率让人缺乏信心。再加上后续还有画图步骤，而matplotlib是一个非常麻烦的东西，我有点害怕。
+也考虑过使用Matlab，它的好处是不少循环可以转为向量化运算，速度会快不少，而且画图容易。Matlab的附加功能里有一个Database Toolbox Interface for MongoDB。我甚至已经使用它进行了一段时间分析了，但后面发现默认生成的.mat格式转换为其他格式比较困难。而且运行速度也不是很理想，消耗资源很大，400MB的数据量在运算时常常卡死我的电脑。也可能是因为我不常使用它，所有代码本身编写的也不够好。
+最后终于接触到了R语言，这真是个好工具。配合RStudio，顺手又高效。它解决了上面的所有问题，而且内建和社区的函数和包为分析过程提供了很大帮助，为我节省了很多时间。它的一些用法和其他语言显得有些奇怪，理解和熟悉需要一些时间，但R语言的学习绝对物超所值。
+李东风老师的开源R语言教程很好，推荐一下：https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html
+R语言的数据类型 向量 向量是将若干个基础类型相同的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如
+# 数值型 marks &amp;lt;- c(10, 6, 4, 7, 8) x &amp;lt;- c(1:3, 10:13) # 逻辑型 c(1, 3, 5) &amp;gt; 2 # [1] FALSE TRUE TRUE # 字符型 s1 &amp;lt;- c(&amp;#39;abc&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;a cat&amp;#39;, NA, &amp;#39;李明&amp;#39;) 内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。
+sqrt(c(1, 4, 6.25)) # [1] 1.0 2.0 2.5 x &amp;lt;- c(33, 55, 11) order(x) # [1] 3 1 2 x[order(x)] # [1] 11 33 55 列表 R中列表(list)类型来保存不同类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。
+预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确定哪些文件被转换。原书目录是TOC.md，因此将TOC.md改名为SUMMARY.md。
+原书的图片链接都带上了?raw=true参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除
+grep -rl &amp;#34;?raw=true&amp;#34; ./ | xargs sed -i &amp;#34;&amp;#34; &amp;#39;s/?raw=true//g&amp;#39; 开始转换 安装calibre，主要是需要ebook-converter这个命令行工具
+创建一个符号连接 sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin /usr/local/bin可以是$PATH$中的任何文件夹
+安装gitbook-cli，这时会自动编译安装gitbook npm install gitbook-cli -g 转换之 gitbook pdf ./ ./book.pdf</description></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。
+下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜
+console.log(&amp;#34;Hello World&amp;#34;);</description></item></channel></rss>

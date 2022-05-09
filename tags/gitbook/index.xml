@@ -1,22 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gitbook on Great Expectations</title><link>/tags/gitbook/</link><description>Recent content in gitbook on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 10 Nov 2021 17:18:22 +0800</lastBuildDate><atom:link href="/tags/gitbook/index.xml" rel="self" type="application/rss+xml"/><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。 预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确</description><content>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
-&lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
-&lt;h2 id="预处理">预处理&lt;/h2>
-&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
-&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>grep -rl &lt;span style="color:#e6db74">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ | xargs sed -i &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="开始转换">开始转换&lt;/h2>
-&lt;p>安装&lt;a href="https://calibre-ebook.com">calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
-&lt;ol>
-&lt;li>创建一个符号连接&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
-&lt;ol start="2">
-&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>转换之&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gitbook on Magical trees, take me home.</title><link>/tags/gitbook/</link><description>Recent content in gitbook on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Wed, 10 Nov 2021 17:18:22 +0800</lastBuildDate><atom:link href="/tags/gitbook/index.xml" rel="self" type="application/rss+xml"/><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。
+预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确定哪些文件被转换。原书目录是TOC.md，因此将TOC.md改名为SUMMARY.md。
+原书的图片链接都带上了?raw=true参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除
+grep -rl &amp;#34;?raw=true&amp;#34; ./ | xargs sed -i &amp;#34;&amp;#34; &amp;#39;s/?raw=true//g&amp;#39; 开始转换 安装calibre，主要是需要ebook-converter这个命令行工具
+创建一个符号连接 sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin /usr/local/bin可以是$PATH$中的任何文件夹
+安装gitbook-cli，这时会自动编译安装gitbook npm install gitbook-cli -g 转换之 gitbook pdf ./ ./book.pdf</description></item></channel></rss>

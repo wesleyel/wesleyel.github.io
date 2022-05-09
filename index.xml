@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Great Expectations</title><link>/</link><description>Recent content on Great Expectations</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>译自： (Emacs) Keyboard Shortcuts for Editing Text Fields in OS X by JASON BLEVINS (JULY 17, 2015) 众所周知，MacOS 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑</description><content>&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>Magical trees, take me home. /posts/emacs-style-keyboard-shortcut-of-macos/ -&lt;blockquote>
 &lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
 &lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
 &lt;/blockquote>
 &lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
 &lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
-&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd>和Function &lt;kbd>Fn&lt;/kbd>键，并且将所有字母用大写表示。&lt;/p>
+&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p>
 &lt;p>Emacs 按键绑定以 Control &lt;kbd>C&lt;/kbd>、Meta (Alt) &lt;kbd>M&lt;/kbd>、Shift &lt;kbd>S&lt;/kbd> 前缀和 Delete &lt;kbd>DEL&lt;/kbd> 键，并且将所有字母用小写表示。&lt;/p>
+&lt;h2 id="emacs-和-abbr-classabbrmacosabbr-键盘快捷键对比">Emacs 和 &lt;abbr class="abbr">MacOS&lt;/abbr> 键盘快捷键对比&lt;/h2>
 &lt;table>
-&lt;caption id="tab">Emacs 和 &lt;abbr class="abbr">MacOS&lt;/abbr> 键盘快捷键对比&lt;/caption>
 &lt;colgroup>
 &lt;col style="text-align:left;">
 &lt;col style="text-align:left;">
@@ -279,7 +279,8 @@
 &lt;li>&lt;a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html">Text System Defaults and Key Bindings&lt;/a> from the Cocoa Event Handling Guide in the Mac Developer Library.&lt;/li>
 &lt;li>&lt;/li>
 &lt;li>&lt;a href="https://github.com/nileshk/mac-configuration/blob/99eef47cd434fd3d6f4f1f9e2f50321f32179b88/Library/KeyBindings/DefaultKeyBinding.dict">Additional Emacs keyboard shortcuts&lt;/a> via a &lt;code>DefaultKeyBinding.dict&lt;/code> file on GitHub that can be placed in &lt;code>~/Library/KeyBindings&lt;/code>.&lt;/li>
-&lt;/ul></content></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉</description><content>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;/ul>
+- /posts/emacs-style-keyboard-shortcut-of-macos/ -</description></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Magical trees, take me home. /posts/usage-of-qbittorrent/ -&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
 &lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
 &lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
@@ -289,11 +290,14 @@
 &lt;p>&lt;a href="https://github.com/rmartin16/qbittorrent-api">qbittorrent-api&lt;/a> 是qBittorrent Web API的Python实现。&lt;a href="https://qbittorrent-api.readthedocs.io/en/latest/introduction.html">RTD&lt;/a>&lt;/p>
 &lt;p>它支持qBittorrent v4.1.0+版本，基本实现了所有API。&lt;/p>
 &lt;p>支持的版本：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> qbittorrentapi &lt;span style="color:#f92672">import&lt;/span> Version
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>versions &lt;span style="color:#f92672">=&lt;/span> Version&lt;span style="color:#f92672">.&lt;/span>supported_app_versions()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print(sorted(versions))
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">qbittorrentapi&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> Version
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>versions = Version.supported_app_versions()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#658b00">sorted&lt;/span>(versions))
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;, &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;, &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api">官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
 &lt;table>
 &lt;thead>
@@ -326,123 +330,117 @@
 &lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/">sourceforge&lt;/a>.&lt;/p>
 &lt;h2 id="skip-hash-detection">Skip hash detection&lt;/h2>
 &lt;h3 id="bug-fix">Bug fix&lt;/h3>
-&lt;p>根据&lt;a href="https://github.com/7sDream/torrent_parser/issues/11">torrent_parser issue#11&lt;/a>, torrent_parser.py#L46&lt;/p>
-&lt;pre tabindex="0">&lt;code>from typing_extensions import OrderedDict
-&lt;/code>&lt;/pre>&lt;p>是误加入，应该手动删除。&lt;/p>
+&lt;p>根据&lt;a href="https://github.com/7sDream/torrent_parser/issues/11">torrent_parser issue#11&lt;/a>,&lt;/p>
+&lt;p>torrent_parser.py#L46: &lt;code>from typing_extensions import OrderedDict&lt;/code>&lt;/p>
+&lt;p>这一行是误加入，运行前应该手动在源码中删除。&lt;/p>
 &lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
 &lt;h3 id="full-code">Full code&lt;/h3>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" checked />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">python&lt;/span>
-&lt;span class="collapsable-code__title">qb-skip.py&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-python" >&lt;code>
-from qbittorrentapi import Client, LoginFailed
-import torrent_parser as tp
-from yaml import load
-import os
-import hashlib
-import bencodepy
-try:
-from yaml import CLoader as Loader
-except ImportError:
-from yaml import Loader
-def get_qb(config):
-# 获取客户端实例
-qb = Client(host=&amp;#39;%s:%s&amp;#39; % (config[&amp;#39;ip&amp;#39;], config[&amp;#39;port&amp;#39;]), username=config[&amp;#39;user&amp;#39;], password=config[&amp;#39;pwd&amp;#39;])
-# 客户端进行登录
-try:
-qb.auth_log_in()
-except LoginFailed as e:
-print(e)
-# 输出客户端信息
-print(f&amp;#39;qBittorrent: {qb.app.version}&amp;#39;)
-print(f&amp;#39;qBittorrent Web API: {qb.app.web_api_version}&amp;#39;)
-print()
-return qb
-# 根据种子路径获取其hash值
-def get_hash(filename):
-with open(filename, &amp;#39;rb&amp;#39;) as f:
-torrent_data = f.read()
-metainfo = bencodepy.decode(torrent_data)
-info = metainfo[b&amp;#39;info&amp;#39;]
-return hashlib.sha1(bencodepy.encode(info)).hexdigest()
-# 加载配置文件
-def load_config():
-data = load(open(&amp;#39;./config.yml&amp;#39;, &amp;#39;rb&amp;#39;), Loader=Loader)
-return data
-# 获取种子文件列表信息
-def pars_torrent(path):
-file_paths = []
-data = tp.parse_torrent_file(path)
-info = dict(data[&amp;#39;info&amp;#39;])
-if &amp;#39;files&amp;#39; in info.keys():
-for item in info[&amp;#39;files&amp;#39;]:
-file_paths.append(info[&amp;#39;name&amp;#39;] &amp;#43; &amp;#39;\\&amp;#39; &amp;#43; &amp;#39;\\&amp;#39;.join(item[&amp;#39;path&amp;#39;]))
-else:
-file_paths.append(info[&amp;#39;name&amp;#39;])
-return file_paths
-# 主程序入口
-if __name__ == &amp;#39;__main__&amp;#39;:
-user_info = load_config()
-qb = get_qb(user_info[&amp;#39;qb&amp;#39;])
-save_paths = user_info[&amp;#39;save_path&amp;#39;]
-# 输入种子所在目录
-torrents_path = input(&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;)
-files = os.listdir(torrents_path)
-# 循环处理种子信息
-for file in files:
-if not file.endswith(&amp;#39;.torrent&amp;#39;):
-continue
-print(&amp;#34;*********************** 当前处理种子文件：%s ***********************&amp;#34; % file)
-torrent_path = os.path.join(torrents_path, file)
-# 种子已经存在于客户端，跳过
-hash_value = get_hash(torrent_path)
-torrent = qb.torrents_info(torrent_hashes=hash_value)
-if len(torrent) == 1:
-print(&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;)
-continue
-# 判断种子文件是否存在于常用的保存路径
-torrent_files = pars_torrent(torrent_path)
-print(&amp;#39;种子文件包含%d个文件&amp;#39;%len(torrent_files))
-for save_path in save_paths:
-flag = True
-for torrent_file in torrent_files:
-if not os.path.isfile(os.path.join(save_path, torrent_file)):
-print(&amp;#39;%s 文件不存在，跳出……&amp;#39; % os.path.join(save_path, torrent_file))
-flag = False
-break
-if flag == True:
-qb.torrents_add(torrent_files=torrent_path, save_path=save_path, is_skip_checking=True, is_paused=True)
-print(&amp;#39;种子检验完毕，保存路径为%s，已经添加！！&amp;#39; % save_path)
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;pre tabindex="0">&lt;code># result
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">qbittorrentapi&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> Client, LoginFailed
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">torrent_parser&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">as&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">tp&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">yaml&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> load
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">hashlib&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">bencodepy&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">yaml&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> CLoader &lt;span style="color:#8b008b;font-weight:bold">as&lt;/span> Loader
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">except&lt;/span> &lt;span style="color:#008b45;font-weight:bold">ImportError&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">yaml&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> Loader
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">get_qb&lt;/span>(config):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 获取客户端实例&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> qb = Client(host=&lt;span style="color:#cd5555">&amp;#39;&lt;/span>&lt;span style="color:#cd5555">%s&lt;/span>&lt;span style="color:#cd5555">:&lt;/span>&lt;span style="color:#cd5555">%s&lt;/span>&lt;span style="color:#cd5555">&amp;#39;&lt;/span> % (config[&lt;span style="color:#cd5555">&amp;#39;ip&amp;#39;&lt;/span>], config[&lt;span style="color:#cd5555">&amp;#39;port&amp;#39;&lt;/span>]), username=config[&lt;span style="color:#cd5555">&amp;#39;user&amp;#39;&lt;/span>], password=config[&lt;span style="color:#cd5555">&amp;#39;pwd&amp;#39;&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 客户端进行登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> qb.auth_log_in()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">except&lt;/span> LoginFailed &lt;span style="color:#8b008b;font-weight:bold">as&lt;/span> e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(e)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 输出客户端信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">f&lt;/span>&lt;span style="color:#cd5555">&amp;#39;qBittorrent: &lt;/span>&lt;span style="color:#cd5555">{&lt;/span>qb.app.version&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">f&lt;/span>&lt;span style="color:#cd5555">&amp;#39;qBittorrent Web API: &lt;/span>&lt;span style="color:#cd5555">{&lt;/span>qb.app.web_api_version&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> qb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 根据种子路径获取其hash值&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">get_hash&lt;/span>(filename):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">with&lt;/span> &lt;span style="color:#658b00">open&lt;/span>(filename, &lt;span style="color:#cd5555">&amp;#39;rb&amp;#39;&lt;/span>) &lt;span style="color:#8b008b;font-weight:bold">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> torrent_data = f.read()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> metainfo = bencodepy.decode(torrent_data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> info = metainfo[&lt;span style="color:#cd5555">b&lt;/span>&lt;span style="color:#cd5555">&amp;#39;info&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> hashlib.sha1(bencodepy.encode(info)).hexdigest()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 加载配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">load_config&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data = load(&lt;span style="color:#658b00">open&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;./config.yml&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;rb&amp;#39;&lt;/span>), Loader=Loader)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 获取种子文件列表信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">pars_torrent&lt;/span>(path):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> file_paths = []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data = tp.parse_torrent_file(path)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> info = &lt;span style="color:#658b00">dict&lt;/span>(data[&lt;span style="color:#cd5555">&amp;#39;info&amp;#39;&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> &lt;span style="color:#cd5555">&amp;#39;files&amp;#39;&lt;/span> &lt;span style="color:#8b008b">in&lt;/span> info.keys():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> item &lt;span style="color:#8b008b">in&lt;/span> info[&lt;span style="color:#cd5555">&amp;#39;files&amp;#39;&lt;/span>]:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> file_paths.append(info[&lt;span style="color:#cd5555">&amp;#39;name&amp;#39;&lt;/span>] + &lt;span style="color:#cd5555">&amp;#39;&lt;/span>&lt;span style="color:#cd5555">\\&lt;/span>&lt;span style="color:#cd5555">&amp;#39;&lt;/span> + &lt;span style="color:#cd5555">&amp;#39;&lt;/span>&lt;span style="color:#cd5555">\\&lt;/span>&lt;span style="color:#cd5555">&amp;#39;&lt;/span>.join(item[&lt;span style="color:#cd5555">&amp;#39;path&amp;#39;&lt;/span>]))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> file_paths.append(info[&lt;span style="color:#cd5555">&amp;#39;name&amp;#39;&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> file_paths
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 主程序入口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> __name__ == &lt;span style="color:#cd5555">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> user_info = load_config()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> qb = get_qb(user_info[&lt;span style="color:#cd5555">&amp;#39;qb&amp;#39;&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> save_paths = user_info[&lt;span style="color:#cd5555">&amp;#39;save_path&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 输入种子所在目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> torrents_path = &lt;span style="color:#658b00">input&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> files = os.listdir(torrents_path)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 循环处理种子信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> file &lt;span style="color:#8b008b">in&lt;/span> files:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> &lt;span style="color:#8b008b">not&lt;/span> file.endswith(&lt;span style="color:#cd5555">&amp;#39;.torrent&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;*********************** 当前处理种子文件：&lt;/span>&lt;span style="color:#cd5555">%s&lt;/span>&lt;span style="color:#cd5555"> ***********************&amp;#34;&lt;/span> % file)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> torrent_path = os.path.join(torrents_path, file)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 种子已经存在于客户端，跳过&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hash_value = get_hash(torrent_path)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> torrent = qb.torrents_info(torrent_hashes=hash_value)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> &lt;span style="color:#658b00">len&lt;/span>(torrent) == &lt;span style="color:#b452cd">1&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 判断种子文件是否存在于常用的保存路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> torrent_files = pars_torrent(torrent_path)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;种子文件包含&lt;/span>&lt;span style="color:#cd5555">%d&lt;/span>&lt;span style="color:#cd5555">个文件&amp;#39;&lt;/span>%&lt;span style="color:#658b00">len&lt;/span>(torrent_files))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> save_path &lt;span style="color:#8b008b">in&lt;/span> save_paths:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> flag = &lt;span style="color:#8b008b;font-weight:bold">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> torrent_file &lt;span style="color:#8b008b">in&lt;/span> torrent_files:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> &lt;span style="color:#8b008b">not&lt;/span> os.path.isfile(os.path.join(save_path, torrent_file)):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;&lt;/span>&lt;span style="color:#cd5555">%s&lt;/span>&lt;span style="color:#cd5555"> 文件不存在，跳出……&amp;#39;&lt;/span> % os.path.join(save_path, torrent_file))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> flag = &lt;span style="color:#8b008b;font-weight:bold">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> flag == &lt;span style="color:#8b008b;font-weight:bold">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> qb.torrents_add(torrent_files=torrent_path, save_path=save_path, is_skip_checking=&lt;span style="color:#8b008b;font-weight:bold">True&lt;/span>, is_paused=&lt;span style="color:#8b008b;font-weight:bold">True&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">print&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;种子检验完毕，保存路径为&lt;/span>&lt;span style="color:#cd5555">%s&lt;/span>&lt;span style="color:#cd5555">，已经添加！！&amp;#39;&lt;/span> % save_path)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code># result
 qBittorrent: v4.1.4
 qBittorrent Web API: 2.1.1
 *********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
 种子文件包含9个文件
 种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
-&lt;/code>&lt;/pre>
-&lt;div class="collapsable-code">
-&lt;input id="2" type="checkbox" checked />
-&lt;label for="2">
-&lt;span class="collapsable-code__language">yaml&lt;/span>
-&lt;span class="collapsable-code__title">config.yml&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-yaml" >&lt;code>
-qb:
-ip: &amp;#39;192.168.123.189&amp;#39;
-port: &amp;#39;12345&amp;#39;
-user: admin
-pwd: adminadmin
-save_path:
-- Y:\Transmission\DOWNLOADS
-&lt;/code>&lt;/pre>
-&lt;/div></content></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。 日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代</description><content>&lt;p>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。&lt;/p>
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">qb&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#8b008b;font-weight:bold">ip&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#cd5555">&amp;#39;192.168.123.189&amp;#39;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#8b008b;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#cd5555">&amp;#39;12345&amp;#39;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#8b008b;font-weight:bold">user&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>admin&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#8b008b;font-weight:bold">pwd&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>adminadmin&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">save_path&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#8b008b;font-weight:bold">Y&lt;/span>:\Transmission\DOWNLOADS&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/usage-of-qbittorrent/ -</description></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>Magical trees, take me home. /posts/a-distant-cry-from-spring/ -&lt;p>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。&lt;/p>
 &lt;p>日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代，这里仍然是一片苦寒之地。土地广袤，但产出贫乏，狂风骤雨的夏季，雪虐风饕的冬季，无不摧残着生活在这里的人们。&lt;/p>
 &lt;p>女主人公风见民子既要独自支撑养牛场，还要抚养儿子武志。年轻时的她为了爱情，毅然断绝家里的联系，与一个即将去北海道开荒的人私奔。两人白手起家建立起这座农场，本来日子虽然苦，却还过得去。但几年前，丈夫撒手人寰，农场一下成了难以支撑的负担。她，勤劳、倔强、柔弱却坚强，默默承受所有的苦楚，却能用一颗善良的心教育孩子。&lt;/p>
 &lt;p>表弟胜男带着新婚妻子佳代子来农场看望。饭桌上，民子开玩笑地说着表弟小时候的糗事，胜男说着表姐高中时多么年轻漂亮，气氛是轻松喜悦的。临别时，胜男笑着对表姐说：“祝你幸福”。但镜头随着汽车渐行渐远后，佳代子察觉到胜男异样的神情。眼泪湿润了胜男的脸庞，他感叹道：“表姐，过得真辛苦啊”。&lt;/p>
@@ -464,11 +462,12 @@ save_path:
 &lt;p>虻田：那好啊，太好呐！&lt;/p>
 &lt;/blockquote>
 &lt;p>说完，虻田掩面而泣。田岛已是泪如雨下，他接过民子的手绢擦干眼泪、对着民子郑重地点头，接受了民子的告白。火车继续急驰，窗外一片白茫茫的大地。&lt;/p>
-&lt;p>如此含蓄、简单、又温情的告白来自导演山田洋次对电影情节匠心的把握。没有刻意催泪，他只是在情节的自然发展中，把东方人对爱情的表白，用最生活、最朴实的仪式感呈现出来，是东方式的；是非常契合整个影片北海道牧场天高云远的基调的；是符合民子、耕作这样在日常劳作中情愫渐生、但又羞于言语直接表达的人设的。朝夕相处的日常已让耕作成为了自己生活的一部分，再含蓄的民子，在面对即将得到却又马上要失去的爱情的时候，她也必须要做点什么以告慰自己内心的呼唤。哪怕这意味着等待，但有等待就有希望。于是，在虻田的帮助下，她告白了耕作，这样的告白是属于普通人也许一生一次的伟大之举。&lt;/p></content></item><item><title>《希腊古瓮颂》浅析</title><link>/posts/impression-of-ode-on-a-grecian-urn/</link><pubDate>Fri, 14 Jan 2022 00:00:00 +0800</pubDate><guid>/posts/impression-of-ode-on-a-grecian-urn/</guid><description>希腊古瓮颂 〔英国〕济慈 你——“平静”的保持着童贞的新娘， “沉默”和漫长的“时间”领养的少女， 山林的历史家，你如此美妙地叙讲 如花的故事，胜过我</description><content>&lt;div style="float: right;margin-left: 16px;">
-&lt;h3 style="
-font-size: 1.2rem;
-">希腊古瓮颂 &lt;/h3>
+&lt;p>如此含蓄、简单、又温情的告白来自导演山田洋次对电影情节匠心的把握。没有刻意催泪，他只是在情节的自然发展中，把东方人对爱情的表白，用最生活、最朴实的仪式感呈现出来，是东方式的；是非常契合整个影片北海道牧场天高云远的基调的；是符合民子、耕作这样在日常劳作中情愫渐生、但又羞于言语直接表达的人设的。朝夕相处的日常已让耕作成为了自己生活的一部分，再含蓄的民子，在面对即将得到却又马上要失去的爱情的时候，她也必须要做点什么以告慰自己内心的呼唤。哪怕这意味着等待，但有等待就有希望。于是，在虻田的帮助下，她告白了耕作，这样的告白是属于普通人也许一生一次的伟大之举。&lt;/p>
+- /posts/a-distant-cry-from-spring/ -</description></item><item><title>《希腊古瓮颂》浅析</title><link>/posts/impression-of-ode-on-a-grecian-urn/</link><pubDate>Fri, 14 Jan 2022 00:00:00 +0800</pubDate><guid>/posts/impression-of-ode-on-a-grecian-urn/</guid><description>Magical trees, take me home. /posts/impression-of-ode-on-a-grecian-urn/ -&lt;blockquote>
+&lt;p>&lt;strong>希腊古瓮颂&lt;/strong>&lt;/p>
 &lt;p>〔英国〕济慈&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
 &lt;p>你——“平静”的保持着童贞的新娘，&lt;br>
 “沉默”和漫长的“时间”领养的少女，&lt;br>
 山林的历史家，你如此美妙地叙讲&lt;br>
@@ -479,6 +478,8 @@ font-size: 1.2rem;
 什么人，什么神?什么样姑娘不情愿?&lt;br>
 怎样疯狂的追求?竭力的脱逃?&lt;br>
 什么笛，铃鼓?怎样忘情的狂喜?&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
 &lt;p>听见的乐曲是悦耳，听不见的旋律&lt;br>
 更甜美;风笛呵，你该继续吹奏;&lt;br>
 不是对耳朵，而是对心灵奏出&lt;br>
@@ -489,6 +490,8 @@ font-size: 1.2rem;
 虽然接近了目标——你可别悲伤，&lt;br>
 她永远不衰老，尽管你摘不到幸福，&lt;br>
 你永远在爱着，她永远美丽动人!&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
 &lt;p>啊，幸运的树枝!你永远不掉下&lt;br>
 你的绿叶，永不向春光告别;&lt;br>
 幸福的乐手，你永远不知道疲乏，&lt;br>
@@ -499,6 +502,8 @@ font-size: 1.2rem;
 这一切情态，都这样超凡入圣，&lt;br>
 永远不会让心灵餍足，发愁，&lt;br>
 不会让额头发烧，舌蔽唇焦。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
 &lt;p>这些前来祭祀的都是什么人?&lt;br>
 神秘的祭司，你的牛向上天哀唤，&lt;br>
 让花环挂满在她那光柔的腰身，&lt;br>
@@ -509,6 +514,8 @@ font-size: 1.2rem;
 小城呵，你的大街小巷将永远地&lt;br>
 寂静无声，没有一个灵魂会回来&lt;br>
 说明你何以从此变成了荒城。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
 &lt;p>啊，雅典的形状!美的仪态!&lt;br>
 身上雕满大理石少女和男人，&lt;br>
 树林伸枝柯，脚下倒伏着草莱：&lt;br>
@@ -519,7 +526,7 @@ font-size: 1.2rem;
 并且会见到另一些哀愁，你会这样说：&lt;br>
 “美即是真，真即是美”——这就是&lt;br>
 我们在地上所知道、该知道的一切。&lt;/p>
-&lt;/div>
+&lt;/blockquote>
 &lt;p>英国浪漫主义诗人济慈于1819年5月写下这首富有创造力的《希腊古瓮颂》，由于十四行诗的形式和他想要的音调不符，于是他开始发展自己的颂歌类型，这首颂歌是最早使用这种新形式的作品之一，它由五节组成，每节十行。颂歌的形式使诗人能更多地描绘古瓮上场景，并为提出疑问和发出感叹留出空间。&lt;/p>
 &lt;p>在每一节，济慈都描绘或谈论了古瓮上的画面，特别是两个着重描述的场景，一个是情人追求爱人，一个是村民与牧师聚集祭祀。这两个场景都隐含着死亡与永生这一对范畴。在颂歌的最后，济慈提出“‘美即是真，真即是美’——这就是我们在地上所知道、也该知道的一切。”，这句话后来引起了许多阐释者的讨论。总之，全诗的一条明线是生命短促，情感易变，唯有艺术长存。下面结合颂词大意谈谈所思所感。&lt;/p>
 &lt;h2 id="颂歌大意">颂歌大意&lt;/h2>
@@ -543,84 +550,117 @@ font-size: 1.2rem;
 &lt;p>在《理想国》第二卷中，柏拉图提出对价值观尚未定型的幼儿进行音乐教育。柏拉图希望艺术的存在服务于城邦利益，要求为艺术必须是真实的、敬神的、内容有益的。在第十卷中，柏拉图允许一些诗人留在“理想国”里，赞颂诸神和英雄人物。但诗歌作为一种“模仿性”的艺术，只能是一种适意的消遣，远离真理而不是接近真理。&lt;/p>
 &lt;p>从多种方面分析，柏拉图轻贱艺术在理想国中的地位。他认为艺术无法对城邦提供益处，还会滋生欲望、放松人内心的理性节制。《希腊古瓮颂》全诗富有隐喻和神秘感，似乎并不符合柏拉图对诗歌的标准，难以说这是柏拉图式的诗歌。&lt;/p>
 &lt;p>柏拉图在《理想国》中多次运用神话、象征和比喻的手法来说明他的思想，宽泛地说，这种隐喻的表现方式也是一种语言艺术。那么符合这种艺术风格，能否被称为柏拉图式的诗歌呢？新柏拉图主义往往强调神秘玄奥的元素，鼓励诗歌创作要暖昧晦涩，并有意使用神秘的、象征性的语言。&lt;/p>
-&lt;p>如此的话，济慈的颂歌一定程度上符合新柏拉图主义流派的要求，因为其中使用到了隐喻的手法。&lt;/p></content></item><item><title>Android 抓包之歪路</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>最佳实践 Android 5.1 安装夜神模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。 下载Fiddler Everywhere。</description><content>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
-&lt;h3 id="android-51">Android 5.1&lt;/h3>
+&lt;p>如此的话，济慈的颂歌一定程度上符合新柏拉图主义流派的要求，因为其中使用到了隐喻的手法。&lt;/p>
+- /posts/impression-of-ode-on-a-grecian-urn/ -</description></item><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>Magical trees, take me home. /posts/android-emulator-packet-capture-and-everything/ -&lt;h2 id="最佳实践">最佳实践&lt;/h2>
+&lt;blockquote>
+&lt;p>经过一段时间的研究，又有了新的看法。&lt;/p>
+&lt;/blockquote>
+&lt;p>准备以下两种工具：&lt;/p>
+&lt;ul>
+&lt;li>mitmproxy&lt;/li>
+&lt;li>Android Emulator(MuMu, BlueStack &amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;h3 id="mitmproxy">mitmproxy&lt;/h3>
+&lt;p>&lt;code>mitmproxy&lt;/code>最好使用&lt;a href="https://pypa.github.io/pipx/">pipx&lt;/a>安装。因为&lt;code>mitmproxy&lt;/code>运行在独立的&lt;code>venv&lt;/code>中，使用&lt;code>pipx&lt;/code>方便为&lt;code>mitmproxy&lt;/code>安装额外的python包。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>brew install pipx
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pipx install mitmproxy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>最好按照提示说明，使用&lt;code>pipx ensurepath&lt;/code>修改环境变量。&lt;/p>
+&lt;p>这样我们就可以为&lt;code>mitmproxy&lt;/code>安装额外的python包了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pipx inject mitmproxy pycryptodome &lt;span style="color:#228b22"># 安装 pycryptodome 包，用于AES解码&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将浏览器代理设置到&lt;code>8080&lt;/code>端口，打开(mitm.it)[mitm.it]下载对应平台的证书。&lt;/p>
+&lt;h3 id="android-emulator">Android Emulator&lt;/h3>
+&lt;p>抓包之前有两个步骤：&lt;/p>
 &lt;ol>
-&lt;li>
-&lt;p>安装&lt;code>夜神&lt;/code>模拟器，打开夜神多开器，添加Android版本为5.1的模拟器。下载完成后启动。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>下载&lt;code>Fiddler Everywhere&lt;/code>。Setting—Https—Advanced Setting—Export root certificate.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>将桌面的&lt;code>FiddlerRootCertificate.crt&lt;/code>复制到&lt;code>C:\Users\&amp;lt;UserName&amp;gt;\Nox_share\Download&lt;/code>，此处为共享路径。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在模拟器中手动安装证书。设置—安全—从SD卡安装。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-12-38.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>设置WiFi代理。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-17-55">&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>OK&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-27-55.png" alt="Snipaste_2021-11-26_01-27-55">&lt;/p>
-&lt;/li>
+&lt;li>设置手动代理&lt;/li>
+&lt;li>安装并信任自签名https证书&lt;/li>
 &lt;/ol>
-&lt;h3 id="android-70">Android 7.0&lt;/h3>
-&lt;p>安装Android版本为7.0的模拟器，在添加完毕证书后，进行一个额外的步骤。&lt;/p>
-&lt;p>通过adb工具将用户证书添加到&lt;strong>系统证书&lt;/strong>中，先确保adb已连接，见&lt;a href="#adb">ADB&lt;/a>。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HASH_FILE_NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>adb shell ls /data/misc/user/0/cacerts-added&lt;span style="color:#66d9ef">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;HASH_FILE_NAME: &lt;/span>$HASH_FILE_NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;p>设置WiFi代理为主机&lt;code>8080&lt;/code>端口：&lt;/p>
+&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p>
+&lt;p>以下是简化的脚本&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，先看看&lt;code>adb devices&lt;/code>信息，是否已经连接。如果没有成功连接需要&lt;code>adb kill-server&lt;/code>，再重试几次。或者参照后文&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>。
+直接运行以下脚本&lt;code>./push.sh YOUR_CRT.crt&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">PEM_FILE_NAME&lt;/span>=&lt;span style="color:#00688b">$1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">hash&lt;/span>=&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>openssl x509 -inform PEM -subject_hash_old -in &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> | head -1&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">OUT_FILE_NAME&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$hash&lt;/span>&lt;span style="color:#cd5555">.0&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb pull /data/misc/user/0/cacerts-added/$HASH_FILE_NAME
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb push $HASH_FILE_NAME /system/etc/security/cacerts/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell ls -lt /system/etc/security/cacerts/ | head -5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cp &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openssl x509 -inform PEM -text -in &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> -out /dev/null &amp;gt;&amp;gt; &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;Add system certs successful&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm $HASH_FILE_NAME
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置代理，或者通过&lt;code>Proxifier&lt;/code>添加一个端口为8866的http代理服务器，与一条&lt;code>nox*.exe&lt;/code> proxy的代理规则。&lt;/p>
-&lt;h2 id="防止失忆做的补充">防止失忆做的补充&lt;/h2>
-&lt;h3 id="抓包工具">抓包工具&lt;/h3>
-&lt;h4 id="fiddler">Fiddler&lt;/h4>
-&lt;p>Fiddler现在分了&lt;code>classic&lt;/code>和&lt;code>everywhere&lt;/code>两个版本，这两版基本功能都一样，各有特点。&lt;/p>
-&lt;p>后者在UI上做了升级，显示内容比较直观，更加Accessible。新UI给人一股Postman味，这是一句夸奖的话。必须&lt;strong>登录账户&lt;/strong>才能使使用，提供了云服务，同时以订阅制收费。&lt;/p>
-&lt;p>老版本也能照常使用，有很多强大的开源插件，比如&lt;a href="https://github.com/lulianqi/FreeHttp">FreeHttp&lt;/a>。在网页中访问&lt;code>http://localhost:&amp;lt;proxy-port&amp;gt;&lt;/code>，里面就有证书的下载链接。&lt;/p>
-&lt;p>它们的使用过程都是打开代理—允许远程访问—生成证书。不过我在用&lt;code>classic&lt;/code>版时，远程应用无论如何都连接不到代理上，用新版没有问题。&lt;/p>
-&lt;h4 id="postman">Postman&lt;/h4>
-&lt;p>感觉这个公司的工具非常有极客精神，他们的产品既好用，又&lt;code>Free of use&lt;/code>。通过代理抓包只是它的一个小功能，设置好端口，按照&lt;a href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy">官方文档&lt;/a>里说的做就好。记得下载安装 &lt;a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL v1.1.1L&lt;/a>的时候不要选带Light的版本，安装完毕后重启Postman，随后就能在&lt;code>%APPDATA%\Postman\proxy&lt;/code>找到证书&lt;code>postman-proxy-ca.crt&lt;/code>。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-57-36.png" alt="Snipaste_2021-11-26_01-57-36">&lt;/p>
-&lt;h4 id="proxifier">Proxifier&lt;/h4>
-&lt;p>这个工具是专门给程序设置代理的。有时有为每个程序分别设置代理的需求，程序本身提供代理设置的还好说（但手工管理它们也不轻松），没有这个选项的那就只能使用&lt;code>Proxifier&lt;/code>这类工具了。&lt;/p>
-&lt;p>手工设置Android代理，就是填写WiFi设置中的高级选项。&lt;/p>
-&lt;h3 id="证书">证书&lt;/h3>
-&lt;p>用自己的手机是可行的，不过用虚拟机是更稳妥的选择。抓包的时候会安装证书，手机自带的证书是&lt;strong>系统证书&lt;/strong>，而我们之后安装的证书是&lt;strong>用户证书&lt;/strong>，两者的级别和权限是不一样的。&lt;/p>
-&lt;p>7.0之后的Android就不再&lt;strong>信任用户证书&lt;/strong>了。所以在进行抓包时，数据并不走&lt;strong>用户证书&lt;/strong>，App也会发出一个不再信任证书的警告，也就抓不到包。而5.1版本，系统信任&lt;strong>用户证书&lt;/strong>。&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-18-05.png" alt="Snipaste_2021-11-26_01-18-05">&lt;/p>
-&lt;p>这里我走了一些弯路，不过总结一下可以找到3种使得证书信任的方法：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>直接安装5.1系统，随后安装证书（设置-安全-从SDCard安装证书）。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>安装7.0或以上的系统，想办法将我们的证书添加到&lt;strong>系统证书&lt;/strong>[4]。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>安装7.0或以上的系统，安装&lt;code>xposed&lt;/code>，hook certificate pinning，使得app跳过证书校验[7]。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="android虚拟机">Android虚拟机&lt;/h3>
-&lt;p>这方面尝试的不多，自己仅用过&lt;code>蓝叠(Bluestacks)&lt;/code>，&lt;code>夜神(Nox)&lt;/code>和&lt;code>Genymotion&lt;/code>。听说网易&lt;code>MoMo&lt;/code>也不错，最后用的是夜神。&lt;/p>
-&lt;p>刚好三种都分别安装、卸载了一遍。&lt;/p>
-&lt;p>&lt;code>Genymotion&lt;/code>安装好了直接无法启动虚拟机，G了。&lt;/p>
-&lt;p>&lt;code>蓝叠&lt;/code>的Rom定制化程度很高，换句话说就是与原生系统差别比较大。系统设置里许多地方缺失了，好像没找到添加证书的入口。它除广告外还自带了Chrome和另一些常用工具，甚好。&lt;/p>
-&lt;p>&lt;code>夜神&lt;/code>这款基本上满足了抓包的需要。自带Root权限，这样就可以装&lt;code>Xposed&lt;/code>，还可以装&lt;code>Termux&lt;/code>玩玩。有个官方论坛有许多交流帖子，国外也有很多人用。遇到问题比较容易解决。&lt;/p>
-&lt;h3 id="adb">ADB&lt;/h3>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;Saved to &lt;/span>&lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell mount -o rw,remount,rw /system
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb push &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span> /system/etc/security/cacerts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell mount -o ro,remount,ro /system
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb reboot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果模拟器正常重启的话应该就可以了。&lt;/p>
+&lt;h3 id="抓包">抓包&lt;/h3>
+&lt;p>运行&lt;code>mitmweb&lt;/code>，通过web界面观察包的发送和接收。&lt;/p>
+&lt;p>&lt;img src="/img/mitmweb.png" alt="123">&lt;/p>
+&lt;p>&lt;code>mitmproxy&lt;/code> 是一个非常强大的工具，其用法如恒河沙数，无不天花乱坠。&lt;a href="https://docs.mitmproxy.org/stable/addons-examples/">官方文档提供的用例&lt;/a>很值得仔细参阅，这里只介绍一个简单的例子。&lt;/p>
+&lt;p>&lt;code>ContentView&lt;/code>是显示&lt;code>request&lt;/code>或&lt;code>response&lt;/code>负载的界面。有时需要查看的&lt;code>payload&lt;/code>不是明文的&lt;code>json&lt;/code>或&lt;code>plain text&lt;/code>，默认情况下会以&lt;code>raw&lt;/code>格式显示。&lt;/p>
+&lt;p>&lt;img src="/img/content_view.png" alt="content view">&lt;/p>
+&lt;p>这样会很麻烦。&lt;/p>
+&lt;p>所以可以考虑通过插件增加一个&lt;code>ContentView&lt;/code>的选项，让请求以我想要的方式显示。模仿&lt;a href="https://docs.mitmproxy.org/stable/addons-examples/#contentview">addons-examples/#contentview&lt;/a>，以挂载脚本的方式启动&lt;code>mitmweb -S decode.py&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">mitmproxy&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> contentviews, flow
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">mitmproxy&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> http
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">mitmproxy.contentviews.json&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> format_json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">Crypto.Cipher&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> AES
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">hashlib&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">json&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">ViewAESDecode&lt;/span>(contentviews.View):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name = &lt;span style="color:#cd5555">&amp;#34;AES decode&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> __call__(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data: &lt;span style="color:#658b00">bytes&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> *,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> content_type: Optional[&lt;span style="color:#658b00">str&lt;/span>] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> flow: Optional[flow.Flow] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> http_message: Optional[http.Message] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> **unknown_metadata,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> jsdata = decrypt(data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> jsdata = json.loads(jsdata)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#cd5555">&amp;#34;AES decode&amp;#34;&lt;/span>, format_json(jsdata)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">render_priority&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data: &lt;span style="color:#658b00">bytes&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> *,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> content_type: Optional[&lt;span style="color:#658b00">str&lt;/span>] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> flow: Optional[flow.Flow] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> http_message: Optional[http.Message] = &lt;span style="color:#8b008b;font-weight:bold">None&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> **unknown_metadata,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> &lt;span style="color:#cd5555">&amp;#39;what I want&amp;#39;&lt;/span> &lt;span style="color:#8b008b">in&lt;/span> flow.request.host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">10&lt;/span> &lt;span style="color:#228b22"># 出现的权重，为10的话会在最前面&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">decrypt&lt;/span>(data):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> key = &lt;span style="color:#cd5555">&amp;#39;1234567890123456&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> iv = &lt;span style="color:#cd5555">&amp;#39;1234567890123456&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mode = AES.MODE_CBC
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cryptor = AES.new(key, mode, iv)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data = base64.b64decode(data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> decrypted = cryptor.decrypt(data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> decrypted.decode(&lt;span style="color:#cd5555">&amp;#39;utf-8&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">load&lt;/span>(l):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> contentviews.add(view)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">def&lt;/span> &lt;span style="color:#008b45">done&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> contentviews.remove(view)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果如下：
+&lt;img src="/img/content_result.png" alt="content view">&lt;/p>
+&lt;h2 id="adb-无法连接的问题">ADB 无法连接的问题&lt;/h2>
 &lt;p>打开USB调试。&lt;code>夜神&lt;/code>的USB调试并不通过默认的5037 端口与adb客户端通信，可能是考虑多开也许超过16个客户端的官方限制。&lt;/p>
 &lt;p>一般情况下，只需以下步骤就能连接adb&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># WSL ubuntu 18.04&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># WSL ubuntu 18.04&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -629,17 +669,17 @@ font-size: 1.2rem;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>List of devices attached
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1:62001 device
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口[3]。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Powershell&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-Process | where name &lt;span style="color:#f92672">-like&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nox*&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口&lt;sup id="fnref1:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># Powershell&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">PS &lt;/span>C:\Users\Vita&amp;gt; &lt;span style="color:#658b00">Get-Process&lt;/span> | &lt;span style="color:#658b00">where &lt;/span>name -like &lt;span style="color:#cd5555">&amp;#34;Nox*&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Handles NPM(K) PM(K) WS(K) CPU(s) Id SI ProcessName
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Handles NPM(K) PM(K) WS(K) CPU(s) Id &lt;span style="color:#658b00">SI &lt;/span>ProcessName
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------- ------ ----- ----- ------ -- -- -----------
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1037 184 177620 49000 161.20 28604 1 Nox
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 2006 173 1046392 46020 251.53 4716 1 NoxVMHandle
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 3058 16 6268 19040 0.67 27528 1 NoxVMSVC
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PS C:\Users\Vita&amp;gt; Get-NetTcpConnection -OwningProcess 4716 -State Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">PS &lt;/span>C:\Users\Vita&amp;gt; &lt;span style="color:#658b00">Get-NetTcpConnection&lt;/span> -OwningProcess 4716 -State Listen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LocalAddress LocalPort RemoteAddress RemotePort State AppliedSetting
@@ -649,17 +689,21 @@ font-size: 1.2rem;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 62001 0.0.0.0 0 Listen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 61001 0.0.0.0 0 Listen
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
-&lt;h2 id="参考文档">参考文档&lt;/h2>
-&lt;p>[1]loco, “当你写爬虫抓不到APP请求包的时候该怎么办？【中级篇】,” &lt;em>知乎专栏&lt;/em>, 2019. &lt;a href="https://zhuanlan.zhihu.com/p/56397466">https://zhuanlan.zhihu.com/p/56397466&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[2]空夜无殇, “手机抓不到包的原因与解决方法（非xposed框架）,” &lt;em>知乎专栏&lt;/em>, 2021. &lt;a href="https://zhuanlan.zhihu.com/p/349267640">https://zhuanlan.zhihu.com/p/349267640&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[3]Mateusz, “ADB can’t connect to Nox,” &lt;em>Stack Overflow&lt;/em>, Jul. 06, 2018. &lt;a href="https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox">https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[4]pwlin, “Android : add cert to system store,” &lt;em>Gist&lt;/em>, Mar. 07, 2016. &lt;a href="https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb">https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[5]“Capturing HTTP requests,” &lt;em>Postman Learning Center&lt;/em>, 2021. &lt;a href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy">https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-http-requests/#capture-https-traffic-with-postmans-built-in-proxy&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[6]用户1470878743, “7.x系统的夜神安装Xposed - 辅助工具 夜神游戏论坛,” &lt;em>Yeshen.com&lt;/em>, 2021. &lt;a href="https://bbs.yeshen.com/forum.php?mod=viewthread&amp;amp;tid=33446">https://bbs.yeshen.com/forum.php?mod=viewthread&amp;amp;tid=33446&lt;/a> (accessed Nov. 25, 2021).&lt;/p>
-&lt;p>[7]ac-pm, “SSLUnpinning_Xposed: Android Xposed Module to bypass SSL certificate validation (Certificate Pinning).,” &lt;em>GitHub&lt;/em>, 2021. &lt;a href="https://github.com/ac-pm/SSLUnpinning_Xposed">https://github.com/ac-pm/SSLUnpinning_Xposed&lt;/a> (accessed Nov. 25, 2021).&lt;/p></content></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>RStudio R语言的好处 在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的</description><content>
-&lt;figure class="center" >
-&lt;img src="/img/RStudio.png" alt="RStudio" style="border-radius: 8px;" />
-&lt;figcaption class="left" style="color: black; " >RStudio&lt;/figcaption>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>pwlin, “Android : add cert to system store,” &lt;em>Gist&lt;/em>, Mar. 07, 2016. &lt;a href="https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb">https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb&lt;/a> (accessed Nov. 25, 2021).&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Mateusz, “ADB can’t connect to Nox,” &lt;em>Stack Overflow&lt;/em>, Jul. 06, 2018. &lt;a href="https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox">https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox&lt;/a> (accessed Nov. 25, 2021).&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&amp;#160;&lt;a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div>
+- /posts/android-emulator-packet-capture-and-everything/ -</description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>Magical trees, take me home. /posts/r-lang-useful-tricks/ -&lt;figure>&lt;img src="/img/RStudio.png"
+alt="RStudio"/>&lt;figcaption>
+&lt;p>RStudio&lt;/p>
+&lt;/figcaption>
 &lt;/figure>
 &lt;h2 id="r语言的好处">R语言的好处&lt;/h2>
 &lt;p>在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？&lt;/p>
@@ -670,241 +714,163 @@ font-size: 1.2rem;
 &lt;h2 id="r语言的数据类型">R语言的数据类型&lt;/h2>
 &lt;h3 id="向量">向量&lt;/h3>
 &lt;p>向量是将若干个基础类型&lt;strong>相同&lt;/strong>的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-# 数值型
-marks &amp;lt;- c(10, 6, 4, 7, 8)
-x &amp;lt;- c(1:3, 10:13)
-# 逻辑型
-c(1, 3, 5) &amp;gt; 2 # [1] FALSE TRUE TRUE
-# 字符型
-s1 &amp;lt;- c(&amp;#39;abc&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;a cat&amp;#39;, NA, &amp;#39;李明&amp;#39;)
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="2" type="checkbox" />
-&lt;label for="2">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-sqrt(c(1, 4, 6.25)) # [1] 1.0 2.0 2.5
-x &amp;lt;- c(33, 55, 11)
-order(x) # [1] 3 1 2
-x[order(x)] # [1] 11 33 55
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h3 id="列表">列表&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 数值型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>marks &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">10&lt;/span>, &lt;span style="color:#b452cd">6&lt;/span>, &lt;span style="color:#b452cd">4&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>, &lt;span style="color:#b452cd">8&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">10&lt;/span>:&lt;span style="color:#b452cd">13&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 逻辑型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">5&lt;/span>) &amp;gt; &lt;span style="color:#b452cd">2&lt;/span> &lt;span style="color:#228b22"># [1] FALSE TRUE TRUE&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 字符型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s1 &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;abc&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;a cat&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">NA&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;李明&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">sqrt&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">4&lt;/span>, &lt;span style="color:#b452cd">6.25&lt;/span>)) &lt;span style="color:#228b22"># [1] 1.0 2.0 2.5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">33&lt;/span>, &lt;span style="color:#b452cd">55&lt;/span>, &lt;span style="color:#b452cd">11&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">order&lt;/span>(x) &lt;span style="color:#228b22"># [1] 3 1 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x&lt;span style="color:#008b45">[order&lt;/span>(x)] &lt;span style="color:#228b22"># [1] 11 33 55&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="列表">列表&lt;/h3>
 &lt;p>R中列表(&lt;code>list&lt;/code>)类型来保存&lt;strong>不同&lt;/strong>类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。&lt;/p>
 &lt;p>列表可以命名，命名后类似字典，可以通过名字访问。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="3" type="checkbox" />
-&lt;label for="3">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec &amp;lt;- list(name=&amp;#34;李明&amp;#34;, age=30,
-scores=c(85, 76, 90))
-rec
-## $name
-## [1] &amp;#34;李明&amp;#34;
-##
-## $age
-## [1] 30
-##
-## $scores
-## [1] 85 76 90
-rec$age # 或 rec[[&amp;#34;age&amp;#34;]]
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="4" type="checkbox" />
-&lt;label for="4">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec[[3]]
-## [1] 85 76 90
-rec[[3]][2]
-## [1] 76
-rec[3]
-## $scores
-## [1] 85 76 90
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>要删除某个元素，直接将该元素赋值为&lt;code>NULL&lt;/code>；添加元素则是直接为该元素赋值。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="5" type="checkbox" />
-&lt;label for="5">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-rec[[&amp;#34;age&amp;#34;]] &amp;lt;- NULL
-rec[[&amp;#34;身高&amp;#34;]] &amp;lt;- 178
-## $name
-## [1] &amp;#34;李明&amp;#34;
-##
-## $三科分数
-## [1] 85 0 90
-##
-## $身高
-## [1] 178
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h3 id="数据框">数据框&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>rec &amp;lt;- &lt;span style="color:#008b45">list&lt;/span>(name=&lt;span style="color:#cd5555">&amp;#34;李明&amp;#34;&lt;/span>, age=&lt;span style="color:#b452cd">30&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> scores=&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">85&lt;/span>, &lt;span style="color:#b452cd">76&lt;/span>, &lt;span style="color:#b452cd">90&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $name&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;李明&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $age&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 30&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $scores&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 76 90&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec$age &lt;span style="color:#228b22"># 或 rec[[&amp;#34;age&amp;#34;]]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>rec[[3]]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 76 90&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec[[3]][2]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 76&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec[3]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $scores&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 76 90&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>要删除某个元素，直接将该元素赋值为&lt;code>NULL&lt;/code>；添加元素则是直接为该元素赋值。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>rec[[&lt;span style="color:#cd5555">&amp;#34;age&amp;#34;&lt;/span>]] &amp;lt;- &lt;span style="color:#8b008b;font-weight:bold">NULL&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec[[&lt;span style="color:#cd5555">&amp;#34;身高&amp;#34;&lt;/span>]] &amp;lt;- &lt;span style="color:#b452cd">178&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $name&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;李明&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $三科分数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 0 90&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $身高&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 178&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="数据框">数据框&lt;/h3>
 &lt;p>数据框类似于数据库表或Excel数据表的形式。这样形式的数据在R中叫做数据框(&lt;code>data.frame&lt;/code>)。数据框类似于一个矩阵，有$n$个横行、$p$个纵列，但各列允许有不同类型：数值型向量、因子、字符型向量、日期时间向量。同一列的数据类型相同。数据框是一个特殊的列表，其每个列表元素都是一个长度相同的向量。&lt;/p>
 &lt;p>数据框可以说是处理数据的最佳方式，利用它可以轻松按列或按行取值，并且可以直接用向量化的方式计算。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="6" type="checkbox" />
-&lt;label for="6">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-d&amp;lt;-data.frame(TraitsComb=character(0),Top4=double(0),Winner=double(0),AvgPlacement=double(0),PickTimes=integer(0))
-print(d)
-## [1] TraitsComb Top4 Winner AvgPlacement PickTimes
-## &amp;lt;0 行&amp;gt; (或0-长度的row.names)
-d[1,]&amp;lt;-list(&amp;#34;a&amp;#34;, 1.2, 2.3, 3.4, 5)
-print(d)
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 1 a 1.2 2.3 3.4 5
-colnames(d)
-## [1] &amp;#34;TraitsComb&amp;#34; &amp;#34;Top4&amp;#34; &amp;#34;Winner&amp;#34; &amp;#34;AvgPlacement&amp;#34; &amp;#34;PickTimes&amp;#34;
-d$Winner
-## [1] 2.3
-d[3]
-## Winner
-## 1 2.3
-d[3][1]
-## Winner
-## 1 2.3
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h2 id="r语言函数">R语言函数&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>d&amp;lt;-&lt;span style="color:#008b45">data.frame&lt;/span>(TraitsComb=&lt;span style="color:#008b45">character&lt;/span>(&lt;span style="color:#b452cd">0&lt;/span>),Top4=&lt;span style="color:#008b45">double&lt;/span>(&lt;span style="color:#b452cd">0&lt;/span>),Winner=&lt;span style="color:#008b45">double&lt;/span>(&lt;span style="color:#b452cd">0&lt;/span>),AvgPlacement=&lt;span style="color:#008b45">double&lt;/span>(&lt;span style="color:#b452cd">0&lt;/span>),PickTimes=&lt;span style="color:#008b45">integer&lt;/span>(&lt;span style="color:#b452cd">0&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">print&lt;/span>(d)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] TraitsComb Top4 Winner AvgPlacement PickTimes &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &amp;lt;0 行&amp;gt; (或0-长度的row.names)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>d[1,]&amp;lt;-&lt;span style="color:#008b45">list&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;a&amp;#34;&lt;/span>, &lt;span style="color:#b452cd">1.2&lt;/span>, &lt;span style="color:#b452cd">2.3&lt;/span>, &lt;span style="color:#b452cd">3.4&lt;/span>, &lt;span style="color:#b452cd">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">print&lt;/span>(d)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## TraitsComb Top4 Winner AvgPlacement PickTimes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 1 a 1.2 2.3 3.4 5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">colnames&lt;/span>(d)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;TraitsComb&amp;#34; &amp;#34;Top4&amp;#34; &amp;#34;Winner&amp;#34; &amp;#34;AvgPlacement&amp;#34; &amp;#34;PickTimes&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>d$Winner
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 2.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>d[3]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## Winner&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 1 2.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>d[3][1]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## Winner&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 1 2.3&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="r语言函数">R语言函数&lt;/h2>
 &lt;h3 id="字符串">字符串&lt;/h3>
 &lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="173296854" type="checkbox" />
-&lt;label for="173296854">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-tiers&amp;lt;-rev(c(&amp;#34;DIAMOND&amp;#34;,&amp;#34;PLATINUM&amp;#34;,&amp;#34;GOLD&amp;#34;,&amp;#34;SILVER&amp;#34;,&amp;#34;BRONZE&amp;#34;,&amp;#34;IRON&amp;#34;))
-ranks&amp;lt;-rev(c(&amp;#34;I&amp;#34;,&amp;#34;II&amp;#34;,&amp;#34;III&amp;#34;,&amp;#34;IV&amp;#34;,&amp;#34;V&amp;#34;))
-tire_order&amp;lt;-lapply(tiers,function(x) paste(x,ranks,sep=&amp;#34;-&amp;#34;)) %&amp;gt;% unlist
-## [1] &amp;#34;IRON-V&amp;#34; &amp;#34;IRON-IV&amp;#34; &amp;#34;IRON-III&amp;#34; &amp;#34;IRON-II&amp;#34; &amp;#34;IRON-I&amp;#34; &amp;#34;BRONZE-V&amp;#34;
-## [7] &amp;#34;BRONZE-IV&amp;#34; &amp;#34;BRONZE-III&amp;#34; &amp;#34;BRONZE-II&amp;#34; &amp;#34;BRONZE-I&amp;#34; &amp;#34;SILVER-V&amp;#34; &amp;#34;SILVER-IV&amp;#34;
-## [13] &amp;#34;SILVER-III&amp;#34; &amp;#34;SILVER-II&amp;#34; &amp;#34;SILVER-I&amp;#34; &amp;#34;GOLD-V&amp;#34; &amp;#34;GOLD-IV&amp;#34; &amp;#34;GOLD-III&amp;#34;
-## [19] &amp;#34;GOLD-II&amp;#34; &amp;#34;GOLD-I&amp;#34; &amp;#34;PLATINUM-V&amp;#34; &amp;#34;PLATINUM-IV&amp;#34; &amp;#34;PLATINUM-III&amp;#34; &amp;#34;PLATINUM-II&amp;#34;
-## [25] &amp;#34;PLATINUM-I&amp;#34; &amp;#34;DIAMOND-V&amp;#34; &amp;#34;DIAMOND-IV&amp;#34; &amp;#34;DIAMOND-III&amp;#34; &amp;#34;DIAMOND-II&amp;#34; &amp;#34;DIAMOND-I&amp;#34;
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;p>这里&lt;code>lapply&lt;/code>是对列表遍历，将每个元素先赋值为&lt;code>x&lt;/code>，然后应用&lt;code>function(x)&lt;/code>函数。&lt;code>paste&lt;/code>函数是将两个参数连接起来，&lt;code>sep&lt;/code>是连接符。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>tiers&amp;lt;-&lt;span style="color:#008b45">rev&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;DIAMOND&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;PLATINUM&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;GOLD&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;SILVER&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;BRONZE&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;IRON&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ranks&amp;lt;-&lt;span style="color:#008b45">rev&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;I&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;II&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;III&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;IV&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;V&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tire_order&amp;lt;-&lt;span style="color:#008b45">lapply&lt;/span>(tiers,&lt;span style="color:#008b45">function&lt;/span>(x) &lt;span style="color:#008b45">paste&lt;/span>(x,ranks,sep=&lt;span style="color:#cd5555">&amp;#34;-&amp;#34;&lt;/span>)) %&amp;gt;% unlist
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;IRON-V&amp;#34; &amp;#34;IRON-IV&amp;#34; &amp;#34;IRON-III&amp;#34; &amp;#34;IRON-II&amp;#34; &amp;#34;IRON-I&amp;#34; &amp;#34;BRONZE-V&amp;#34; &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [7] &amp;#34;BRONZE-IV&amp;#34; &amp;#34;BRONZE-III&amp;#34; &amp;#34;BRONZE-II&amp;#34; &amp;#34;BRONZE-I&amp;#34; &amp;#34;SILVER-V&amp;#34; &amp;#34;SILVER-IV&amp;#34; &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [13] &amp;#34;SILVER-III&amp;#34; &amp;#34;SILVER-II&amp;#34; &amp;#34;SILVER-I&amp;#34; &amp;#34;GOLD-V&amp;#34; &amp;#34;GOLD-IV&amp;#34; &amp;#34;GOLD-III&amp;#34; &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [19] &amp;#34;GOLD-II&amp;#34; &amp;#34;GOLD-I&amp;#34; &amp;#34;PLATINUM-V&amp;#34; &amp;#34;PLATINUM-IV&amp;#34; &amp;#34;PLATINUM-III&amp;#34; &amp;#34;PLATINUM-II&amp;#34; &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [25] &amp;#34;PLATINUM-I&amp;#34; &amp;#34;DIAMOND-V&amp;#34; &amp;#34;DIAMOND-IV&amp;#34; &amp;#34;DIAMOND-III&amp;#34; &amp;#34;DIAMOND-II&amp;#34; &amp;#34;DIAMOND-I&amp;#34; &lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里&lt;code>lapply&lt;/code>是对列表遍历，将每个元素先赋值为&lt;code>x&lt;/code>，然后应用&lt;code>function(x)&lt;/code>函数。&lt;code>paste&lt;/code>函数是将两个参数连接起来，&lt;code>sep&lt;/code>是连接符。&lt;/p>
 &lt;p>&lt;code>%&amp;gt;%&lt;/code>是一个&lt;code>pipe&lt;/code>，它将结果传递给另一个函数作为第一个参数。&lt;code>unlist&lt;/code>是将列表转换为向量。&lt;/p>
 &lt;h3 id="排序">排序&lt;/h3>
 &lt;p>对一张以下格式的数据框排序，可以使用&lt;code>order&lt;/code>函数。倒序只需要在排序的列名前加&lt;code>-&lt;/code>号。&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="7" type="checkbox" />
-&lt;label for="7">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-head(traits_comp_discribe)
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 1 Transformer 0.253 0.025 5.696 79
-## 2 Bruiser,Cuddly,Glutton,Sister,Transformer 0.922 0.314 2.373 51
-## 3 Arcanist,Cuddly 0.662 0.166 3.593 145
-## 4 Socialite 0.217 0.024 6.133 83
-## 5 Chemtech,Twinshot 0.462 0.154 4.231 13
-## 6 Clockwork,Cuddly,Transformer 0.750 0.250 3.875 8
-head(traits_comp_discribe[order(-traits_comp_discribe$Top4),])
-## TraitsComb Top4 Winner AvgPlacement PickTimes
-## 7 Academy,Cuddly,Imperial 1 0.500 3.000 4
-## 11 Bruiser,Sister,Socialite 1 0.400 6.400 5
-## 32 Cuddly,Glutton,Sister,Socialite 1 0.333 2.000 3
-## 34 Mercenary 1 0.071 7.286 14
-## 37 Bruiser,Sister,Transformer,Twinshot 1 0.333 3.000 3
-## 38 Bodyguard,Cuddly,Syndicate 1 0.250 3.500 4
-&lt;/code>&lt;/pre>
-&lt;/div>
-&lt;h2 id="mongodb">MongoDB&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">head&lt;/span>(traits_comp_discribe)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## TraitsComb Top4 Winner AvgPlacement PickTimes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 1 Transformer 0.253 0.025 5.696 79&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 2 Bruiser,Cuddly,Glutton,Sister,Transformer 0.922 0.314 2.373 51&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 3 Arcanist,Cuddly 0.662 0.166 3.593 145&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 4 Socialite 0.217 0.024 6.133 83&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 5 Chemtech,Twinshot 0.462 0.154 4.231 13&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 6 Clockwork,Cuddly,Transformer 0.750 0.250 3.875 8&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">head&lt;/span>(traits_comp_discribe&lt;span style="color:#008b45">[order&lt;/span>(-traits_comp_discribe$Top4),])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## TraitsComb Top4 Winner AvgPlacement PickTimes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 7 Academy,Cuddly,Imperial 1 0.500 3.000 4&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 11 Bruiser,Sister,Socialite 1 0.400 6.400 5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 32 Cuddly,Glutton,Sister,Socialite 1 0.333 2.000 3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 34 Mercenary 1 0.071 7.286 14&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 37 Bruiser,Sister,Transformer,Twinshot 1 0.333 3.000 3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 38 Bodyguard,Cuddly,Syndicate 1 0.250 3.500 4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="mongodb">MongoDB&lt;/h2>
 &lt;p>MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富却最像关系数据库的。它提供了一个非常简单的接口，可以让你在简单的程序中操作数据库。&lt;/p>
 &lt;p>在R语言中，连接MongoDB可以使用&lt;code>mongolite&lt;/code>库&lt;/p>
-&lt;div class="collapsable-code">
-&lt;input id="8" type="checkbox" />
-&lt;label for="8">
-&lt;span class="collapsable-code__language">R&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-R" >&lt;code>
-install.packages(&amp;#34;mongolite&amp;#34;)
-library(mongolite)
-url &amp;lt;- &amp;#34;mongodb://user:pass@site:port&amp;#34;
-db&amp;lt;- &amp;#34;tft&amp;#34; # 数据库名
-# 连接数据库
-s_con &amp;lt;- mongo(collection=&amp;#39;summoner&amp;#39;,
-db=db,
-url=url)
-# 查询数据 （查询等级低于100的召唤师）
-summoners &amp;lt;- s_con$find(&amp;#39;{&amp;#34;summonerlevel&amp;#34;: { &amp;#34;$lt&amp;#34;: 100 }}&amp;#39;)
-head(summoners)
-## id puuid summonerlevel summonertire summonerrank
-## 1 4 ******** 66 PLATINUM I
-## 2 5 ******** 1 DIAMOND II
-## 3 6 ******** 85 MASTER I
-## 4 8 ******** 1 PLATINUM IV
-## 5 9 ******** 20 PLATINUM II
-## 6 12 ******** 19 PLATINUM II
-&lt;/code>&lt;/pre>
-&lt;/div></content></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。 预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确</description><content>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">install.packages&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;mongolite&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">library&lt;/span>(mongolite)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>url &amp;lt;- &lt;span style="color:#cd5555">&amp;#34;mongodb://user:pass@site:port&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>db&amp;lt;- &lt;span style="color:#cd5555">&amp;#34;tft&amp;#34;&lt;/span> &lt;span style="color:#228b22"># 数据库名&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 连接数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s_con &amp;lt;- &lt;span style="color:#008b45">mongo&lt;/span>(collection=&lt;span style="color:#cd5555">&amp;#39;summoner&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db=db,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url=url)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 查询数据 （查询等级低于100的召唤师）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>summoners &amp;lt;- s_con$&lt;span style="color:#008b45">find&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;{&amp;#34;summonerlevel&amp;#34;: { &amp;#34;$lt&amp;#34;: 100 }}&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">head&lt;/span>(summoners)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## id puuid summonerlevel summonertire summonerrank&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 1 4 ******** 66 PLATINUM I&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 2 5 ******** 1 DIAMOND II&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 3 6 ******** 85 MASTER I&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 4 8 ******** 1 PLATINUM IV&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 5 9 ******** 20 PLATINUM II&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## 6 12 ******** 19 PLATINUM II&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/r-lang-useful-tricks/ -</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>Magical trees, take me home. /posts/convert-gitbook-to-pdf/ -&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
 &lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
 &lt;h2 id="预处理">预处理&lt;/h2>
 &lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
 &lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>grep -rl &lt;span style="color:#e6db74">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ | xargs sed -i &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>grep -rl &lt;span style="color:#cd5555">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ | xargs sed -i &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="开始转换">开始转换&lt;/h2>
 &lt;p>安装&lt;a href="https://calibre-ebook.com">calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
 &lt;ol>
 &lt;li>创建一个符号连接&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
 &lt;ol start="2">
 &lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
 &lt;li>转换之&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>About</title><link>/about/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>/about/</guid><description>Hi there My name is Magicwenli, a 22-year-old software engineer.
-I like to code, and I am currently learning how to code. Come to see my work!</description><content>&lt;h1 id="hi-there">Hi there&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/convert-gitbook-to-pdf/ -</description></item><item><title>About</title><link>/about/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>/about/</guid><description>Magical trees, take me home. /about/ -&lt;h1 id="hi-there">Hi there&lt;/h1>
 &lt;p>My name is Magicwenli, a 22-year-old software engineer.&lt;/p>
-&lt;p>I like to code, and I am currently learning how to code. Come to see my work!&lt;/p></content></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。 下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜 js 新的开始 console.log(&amp;#34;Hello World&amp;#34;);</description><content>&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
+&lt;p>I like to code, and I am currently learning how to code. Come to see my work!&lt;/p>
+- /about/ -</description></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>Magical trees, take me home. /posts/hello/ -&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
 &lt;blockquote>
 &lt;p>下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜&lt;/p>
 &lt;/blockquote>
-&lt;div class="collapsable-code">
-&lt;input id="1" type="checkbox" />
-&lt;label for="1">
-&lt;span class="collapsable-code__language">js&lt;/span>
-&lt;span class="collapsable-code__title">新的开始&lt;/span>
-&lt;span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide">&lt;/span>
-&lt;/label>
-&lt;pre class="language-js" >&lt;code>
-console.log(&amp;#34;Hello World&amp;#34;);
-&lt;/code>&lt;/pre>
-&lt;/div></content></item></channel></rss>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>console.log(&lt;span style="color:#cd5555">&amp;#34;Hello World&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/hello/ -</description></item></channel></rss>
