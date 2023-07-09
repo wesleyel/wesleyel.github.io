@@ -1,4 +1,4 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>Magical trees, take me home. /posts/emacs-style-keyboard-shortcut-of-macos/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>Magical trees, take me home. /posts/emacs-style-keyboard-shortcut-of-macos/ -&lt;blockquote>
 &lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
 &lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
 &lt;/blockquote>
@@ -675,19 +675,19 @@ qBittorrent Web API: 2.1.1
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Handles NPM(K) PM(K) WS(K) CPU(s) Id &lt;span style="color:#658b00">SI &lt;/span>ProcessName
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------- ------ ----- ----- ------ -- -- -----------
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1037 184 177620 49000 161.20 28604 1 Nox
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 2006 173 1046392 46020 251.53 4716 1 NoxVMHandle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 3058 16 6268 19040 0.67 27528 1 NoxVMSVC
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">1037&lt;/span> &lt;span style="color:#b452cd">184&lt;/span> &lt;span style="color:#b452cd">177620&lt;/span> &lt;span style="color:#b452cd">49000&lt;/span> &lt;span style="color:#b452cd">161.20&lt;/span> &lt;span style="color:#b452cd">28604&lt;/span> &lt;span style="color:#b452cd">1&lt;/span> Nox
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">2006&lt;/span> &lt;span style="color:#b452cd">173&lt;/span> &lt;span style="color:#b452cd">1046392&lt;/span> &lt;span style="color:#b452cd">46020&lt;/span> &lt;span style="color:#b452cd">251.53&lt;/span> &lt;span style="color:#b452cd">4716&lt;/span> &lt;span style="color:#b452cd">1&lt;/span> NoxVMHandle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">3058&lt;/span> &lt;span style="color:#b452cd">16&lt;/span> &lt;span style="color:#b452cd">6268&lt;/span> &lt;span style="color:#b452cd">19040&lt;/span> &lt;span style="color:#b452cd">0.67&lt;/span> &lt;span style="color:#b452cd">27528&lt;/span> &lt;span style="color:#b452cd">1&lt;/span> NoxVMSVC
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">PS &lt;/span>C:\Users\Vita&amp;gt; &lt;span style="color:#658b00">Get-NetTcpConnection&lt;/span> -OwningProcess 4716 -State Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">PS &lt;/span>C:\Users\Vita&amp;gt; &lt;span style="color:#658b00">Get-NetTcpConnection&lt;/span> -OwningProcess &lt;span style="color:#b452cd">4716&lt;/span> -State Listen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LocalAddress LocalPort RemoteAddress RemotePort State AppliedSetting
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>------------ --------- ------------- ---------- ----- --------------
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 64001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 63001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 62001 0.0.0.0 0 Listen
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 61001 0.0.0.0 0 Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b452cd">127.0&lt;/span>.0.1 &lt;span style="color:#b452cd">64001&lt;/span> &lt;span style="color:#b452cd">0.0&lt;/span>.0.0 &lt;span style="color:#b452cd">0&lt;/span> Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b452cd">127.0&lt;/span>.0.1 &lt;span style="color:#b452cd">63001&lt;/span> &lt;span style="color:#b452cd">0.0&lt;/span>.0.0 &lt;span style="color:#b452cd">0&lt;/span> Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b452cd">127.0&lt;/span>.0.1 &lt;span style="color:#b452cd">62001&lt;/span> &lt;span style="color:#b452cd">0.0&lt;/span>.0.0 &lt;span style="color:#b452cd">0&lt;/span> Listen
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b452cd">127.0&lt;/span>.0.1 &lt;span style="color:#b452cd">61001&lt;/span> &lt;span style="color:#b452cd">0.0&lt;/span>.0.0 &lt;span style="color:#b452cd">0&lt;/span> Listen
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
 &lt;div class="footnotes" role="doc-endnotes">
 &lt;hr>
