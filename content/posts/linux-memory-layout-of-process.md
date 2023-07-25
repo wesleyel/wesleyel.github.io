@@ -33,7 +33,7 @@ Toc = true
 
 对于Intel x86处理器上的Linux操作系统而言，典型的存储空间布局如下：
 
-![内存布局](https://ask.qcloudimg.com/http-save/yehe-5449357/gqxztn1c3.png)
+![内存布局](/img/process_memory_layout.png)
 
 ## 命令行参数和环境变量
 
