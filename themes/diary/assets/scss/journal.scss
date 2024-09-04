@@ -8,7 +8,6 @@ $default-font-list: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $mono-font-list: "Fira Mono", "Cousine", Monaco, Menlo, "Source Code Pro",
   monospace;
-$kbd-perfer-font-list: -apple-system,BlinkMacSystemFont,"Segoe UI Adjusted","Segoe UI","Liberation Sans",sans-serif;
 //$sans-preferred-font-list: "Montserrat", "Roboto", "Source Sans Pro", "Helvetica", $default-font-list;
 $sans-preferred-font-list: $default-font-list;
 
@@ -57,6 +56,10 @@ $h-diff: 3px;
 
 ::selection {
   background: rgba($color-accent, 0.4);
+}
+
+html {
+  overflow-y: scroll;
 }
 
 body {
@@ -132,14 +135,10 @@ button {
 
 code {
   color: $dark-accent;
-  background: rgba($color-accent, 0.07) !important;
+  background: rgba($color-accent, 0.07);
   padding: 2px 5px;
   border-radius: 3px;
   font-family: $mono-font-list;
-}
-
-kbd {
-  font-family: $kbd-perfer-font-list
 }
 
 pre {
@@ -150,11 +149,14 @@ pre {
   border-radius: 5px;
   font-family: $mono-font-list;
   * {
-    background: none !important;
+    background: none;
     font-family: $mono-font-list !important;
   }
   code {
     padding: 0;
+    * {
+      color: inherit;
+    }
   }
 }
 
@@ -443,7 +445,6 @@ a {
     cursor: hand;
     cursor: pointer;
     margin-bottom: 10px;
-    transition: all 0.2s linear;
     color: $deep-dark-accent;
     .nav-title {
       font-size: $nav-title-size;
@@ -475,7 +476,6 @@ a {
       padding: 8px 28px 8px 30px;
       cursor: hand;
       cursor: pointer;
-      transition: all 0.2s linear;
       color: $deep-dark-accent;
       .nav-link-subitem {
         font-size: $nav-link-size - 3px;
@@ -513,7 +513,7 @@ a {
   position: fixed;
   top: 0;
   right: 0;
-
+  height: 100vh;
   width: $extra-container-width;
   /*text-align: right;*/
   font-family: $sans-preferred-font-list;
@@ -521,10 +521,11 @@ a {
   //overflow-y: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-start;
   /*padding: 50px 0;*/
   .pagination {
-    position: fixed;
+    // position: fixed;
     bottom: 0;
     display: flex;
     flex-direction: column;
@@ -967,8 +968,9 @@ a {
   float: right;
   border-radius: 5px;
   margin-left: 30px;
-  margin-right: 60px;
+  margin-right: 30px;
   margin-top: 30px;
+  min-width: 200px;
   max-width: 260px;
   max-height: 80vh;
   overflow: auto;
