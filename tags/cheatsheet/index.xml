@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cheatsheet on Magical trees, take me home.</title><link>/tags/cheatsheet/</link><description>Recent content in Cheatsheet on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0800</lastBuildDate><atom:link href="/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot cheetsheet</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>&lt;p>Full documentation can be found &lt;a href="https://buildroot.org/downloads/manual/manual.html">on the official website&lt;/a>.&lt;/p>
+&lt;h2 id="basic-commands">Basic commands&lt;/h2>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#make-tips">Make tips&lt;/a>&lt;/p>
+&lt;p>use &lt;code>make help&lt;/code> to get a list of all the available targets.&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Command&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">make&lt;/td>
+ &lt;td style="text-align: left">Build the rootfs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make xyz_de­fconfig&lt;/td>
+ &lt;td style="text-align: left">Select the configuration file&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make menuconfig&lt;/td>
+ &lt;td style="text-align: left">Open the configuration menu&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make savedefconfig&lt;/td>
+ &lt;td style="text-align: left">Save the current configuration to the defconfig file&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make source&lt;/td>
+ &lt;td style="text-align: left">Download the source code of the packages&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make clean&lt;/td>
+ &lt;td style="text-align: left">Clean all build products (including build directories, host, staging and target trees, the images and the toolchain)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make distclean&lt;/td>
+ &lt;td style="text-align: left">Clean everything, including the configuration&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="package-management">Package management&lt;/h3>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">Package-specific make targets&lt;/a>&lt;/p></description></item></channel></rss>

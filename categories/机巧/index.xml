@@ -1,19 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机巧 on Magical trees, take me home.</title><link>/categories/%E6%9C%BA%E5%B7%A7/</link><description>Recent content in 机巧 on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/categories/%E6%9C%BA%E5%B7%A7/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>译自： (Emacs) Keyboard Shortcuts for Editing Text Fields in OS X
-by JASON BLEVINS (JULY 17, 2015)
-众所周知，MacOS 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， ⌘←将光标移动到当前行的开头。
-尽管它们在官方的文档中有提及(Mac 键盘快捷键)，但似乎不太为人所知的是， MacOS 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 ⌃A 或 ⌃E。 要删除光标后当前行上的所有内容，请使用 ⌃K。 要调换光标左右两侧的字符的位置，请按 ⌃T。 要在当前行上居中视口，请按 ⌃L。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。
-下表比较了 Emacs 按键绑定与 MacOS 按键绑定（类似 Emacs 的子集）。 对于 MacOS 快捷键，我们使用常用符号来表示 Command ⌘、Shift ⇧、Option ⌥、Control ⌃、Caps Lock ⇪、Delete ⌫ 和 Function Fn 键，并且将所有字母用大写表示。
-Emacs 按键绑定以 Control C、Meta (Alt) M、Shift S 前缀和 Delete DEL 键，并且将所有字母用小写表示。</description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>RStudio
-R语言的好处 在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？
-之前一直用的是Python，思路是通过pymongo包连接MongoDB提取数据，再通过python内建函数进行转换和分析。这样需要不停使用Table[&amp;quot;sub&amp;quot;]['subsub']这样的格式取得内部结构。这部分内容没有代码提示，需要程序员自行记忆每个Key对应的结构，不仅麻烦，而且容易出错。可以预计分析数据的时候会用到大量循环，而python的效率让人缺乏信心。再加上后续还有画图步骤，而matplotlib是一个非常麻烦的东西，我有点害怕。
-也考虑过使用Matlab，它的好处是不少循环可以转为向量化运算，速度会快不少，而且画图容易。Matlab的附加功能里有一个Database Toolbox Interface for MongoDB。我甚至已经使用它进行了一段时间分析了，但后面发现默认生成的.mat格式转换为其他格式比较困难。而且运行速度也不是很理想，消耗资源很大，400MB的数据量在运算时常常卡死我的电脑。也可能是因为我不常使用它，所有代码本身编写的也不够好。
-最后终于接触到了R语言，这真是个好工具。配合RStudio，顺手又高效。它解决了上面的所有问题，而且内建和社区的函数和包为分析过程提供了很大帮助，为我节省了很多时间。它的一些用法和其他语言显得有些奇怪，理解和熟悉需要一些时间，但R语言的学习绝对物超所值。
-李东风老师的开源R语言教程很好，推荐一下：https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html
-R语言的数据类型 向量 向量是将若干个基础类型相同的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如
-# 数值型 marks &amp;lt;- c(10, 6, 4, 7, 8) x &amp;lt;- c(1:3, 10:13) # 逻辑型 c(1, 3, 5) &amp;gt; 2 # [1] FALSE TRUE TRUE # 字符型 s1 &amp;lt;- c(&amp;#39;abc&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;a cat&amp;#39;, NA, &amp;#39;李明&amp;#39;) 内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。
-sqrt(c(1, 4, 6.25)) # [1] 1.0 2.0 2.5 x &amp;lt;- c(33, 55, 11) order(x) # [1] 3 1 2 x[order(x)] # [1] 11 33 55 列表 R中列表(list)类型来保存不同类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>找到一本电子书 以《the-way-to-go_ZH_CN》为例，先clone下来。
-预处理 GitBook使用简单的目录结构，通过 SUMMARY.md 目录文件来确定哪些文件被转换。原书目录是TOC.md，因此将TOC.md改名为SUMMARY.md。
-原书的图片链接都带上了?raw=true参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除
-grep -rl &amp;#34;?raw=true&amp;#34; ./ | xargs sed -i &amp;#34;&amp;#34; &amp;#39;s/?raw=true//g&amp;#39; 开始转换 安装calibre，主要是需要ebook-converter这个命令行工具
-创建一个符号连接 sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin /usr/local/bin可以是$PATH$中的任何文件夹
-安装gitbook-cli，这时会自动编译安装gitbook npm install gitbook-cli -g 转换之 gitbook pdf ./ ./book.pdf</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机巧 on Magical trees, take me home.</title><link>/categories/%E6%9C%BA%E5%B7%A7/</link><description>Recent content in 机巧 on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Sat, 07 May 2022 00:00:00 +0800</lastBuildDate><atom:link href="/categories/%E6%9C%BA%E5%B7%A7/index.xml" rel="self" type="application/rss+xml"/><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>&lt;blockquote>
+&lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
+&lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
+&lt;/blockquote>
+&lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
+&lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
+&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p></description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="/img/RStudio.png"
+ alt="RStudio">&lt;figcaption>
+ &lt;p>RStudio&lt;/p>
+ &lt;/figcaption>
+&lt;/figure>
+
+&lt;h2 id="r语言的好处">R语言的好处&lt;/h2>
+&lt;p>在做Teamfight Tactics分析时，我先通过Riot&amp;rsquo;s API收集到了许多场次的对局数据。如何将这些复杂的数据转换成可以直接使用的数据，方便进行分析呢？&lt;/p>
+&lt;p>之前一直用的是Python，思路是通过pymongo包连接MongoDB提取数据，再通过python内建函数进行转换和分析。这样需要不停使用&lt;code>Table[&amp;quot;sub&amp;quot;]['subsub']&lt;/code>这样的格式取得内部结构。这部分内容没有代码提示，需要程序员自行记忆每个&lt;code>Key&lt;/code>对应的结构，不仅麻烦，而且容易出错。可以预计分析数据的时候会用到大量循环，而python的效率让人缺乏信心。再加上后续还有画图步骤，而&lt;code>matplotlib&lt;/code>是一个非常麻烦的东西，我有点害怕。&lt;/p>
+&lt;p>也考虑过使用&lt;code>Matlab&lt;/code>，它的好处是不少循环可以转为向量化运算，速度会快不少，而且画图容易。&lt;code>Matlab&lt;/code>的附加功能里有一个&lt;code>Database Toolbox Interface for MongoDB&lt;/code>。我甚至已经使用它进行了一段时间分析了，但后面发现默认生成的&lt;code>.mat&lt;/code>格式转换为其他格式比较困难。而且运行速度也不是很理想，消耗资源很大，400MB的数据量在运算时常常卡死我的电脑。也可能是因为我不常使用它，所有代码本身编写的也不够好。&lt;/p>
+&lt;p>最后终于接触到了R语言，这真是个好工具。配合RStudio，顺手又高效。它解决了上面的所有问题，而且内建和社区的函数和包为分析过程提供了很大帮助，为我节省了很多时间。它的一些用法和其他语言显得有些奇怪，理解和熟悉需要一些时间，但R语言的学习绝对物超所值。&lt;/p>
+&lt;p>李东风老师的开源R语言教程很好，推荐一下：&lt;a href="https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html">https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html&lt;/a>&lt;/p>
+&lt;h2 id="r语言的数据类型">R语言的数据类型&lt;/h2>
+&lt;h3 id="向量">向量&lt;/h3>
+&lt;p>向量是将若干个基础类型&lt;strong>相同&lt;/strong>的值存储在一起，各个元素可以按序号访问。需要注意的是，R语言各种类型的数据结构的下标都是从1开始的。例如&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 数值型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>marks &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">10&lt;/span>, &lt;span style="color:#b452cd">6&lt;/span>, &lt;span style="color:#b452cd">4&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>, &lt;span style="color:#b452cd">8&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">10&lt;/span>:&lt;span style="color:#b452cd">13&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 逻辑型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">5&lt;/span>) &amp;gt; &lt;span style="color:#b452cd">2&lt;/span> &lt;span style="color:#228b22"># [1] FALSE TRUE TRUE&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 字符型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s1 &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;abc&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;a cat&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">NA&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;李明&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
+&lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
+&lt;h2 id="预处理">预处理&lt;/h2>
+&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
+&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>grep -rl &lt;span style="color:#cd5555">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ | xargs sed -i &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="开始转换">开始转换&lt;/h2>
+&lt;p>安装&lt;a href="https://calibre-ebook.com">calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
+&lt;ol>
+&lt;li>创建一个符号连接&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
+&lt;ol start="2">
+&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
+&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item></channel></rss>

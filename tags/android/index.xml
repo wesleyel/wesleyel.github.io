@@ -1,10 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android on Magical trees, take me home.</title><link>/tags/android/</link><description>Recent content in Android on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Fri, 26 Nov 2021 02:37:41 +0800</lastBuildDate><atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>最佳实践 经过一段时间的研究，又有了新的看法。
-准备以下两种工具：
-mitmproxy Android Emulator(MuMu, BlueStack &amp;hellip;) mitmproxy mitmproxy最好使用pipx安装。因为mitmproxy运行在独立的venv中，使用pipx方便为mitmproxy安装额外的python包。
-brew install pipx pipx install mitmproxy 最好按照提示说明，使用pipx ensurepath修改环境变量。
-这样我们就可以为mitmproxy安装额外的python包了。
-pipx inject mitmproxy pycryptodome # 安装 pycryptodome 包，用于AES解码 将浏览器代理设置到8080端口，打开(mitm.it)[mitm.it]下载对应平台的证书。
-Android Emulator 抓包之前有两个步骤：
-设置手动代理 安装并信任自签名https证书 设置WiFi代理为主机8080端口：
-以下是简化的脚本1，先看看adb devices信息，是否已经连接。如果没有成功连接需要adb kill-server，再重试几次。或者参照后文2。 直接运行以下脚本./push.sh YOUR_CRT.crt：
-PEM_FILE_NAME=$1 echo &amp;#34;$PEM_FILE_NAME&amp;#34; hash=$(openssl x509 -inform PEM -subject_hash_old -in $PEM_FILE_NAME | head -1) OUT_FILE_NAME=&amp;#34;$hash.0&amp;#34; cp $PEM_FILE_NAME $OUT_FILE_NAME openssl x509 -inform PEM -text -in $PEM_FILE_NAME -out /dev/null &amp;gt;&amp;gt; $OUT_FILE_NAME echo &amp;#34;Saved to $OUT_FILE_NAME&amp;#34; adb shell mount -o rw,remount,rw /system adb push $OUT_FILE_NAME /system/etc/security/cacerts/ adb shell mount -o ro,remount,ro /system adb reboot 如果模拟器正常重启的话应该就可以了。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android on Magical trees, take me home.</title><link>/tags/android/</link><description>Recent content in Android on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Fri, 26 Nov 2021 02:37:41 +0800</lastBuildDate><atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
+&lt;blockquote>
+&lt;p>经过一段时间的研究，又有了新的看法。&lt;/p>
+&lt;/blockquote>
+&lt;p>准备以下两种工具：&lt;/p>
+&lt;ul>
+&lt;li>mitmproxy&lt;/li>
+&lt;li>Android Emulator(MuMu, BlueStack &amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;h3 id="mitmproxy">mitmproxy&lt;/h3>
+&lt;p>&lt;code>mitmproxy&lt;/code>最好使用&lt;a href="https://pypa.github.io/pipx/">pipx&lt;/a>安装。因为&lt;code>mitmproxy&lt;/code>运行在独立的&lt;code>venv&lt;/code>中，使用&lt;code>pipx&lt;/code>方便为&lt;code>mitmproxy&lt;/code>安装额外的python包。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>brew install pipx
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pipx install mitmproxy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>最好按照提示说明，使用&lt;code>pipx ensurepath&lt;/code>修改环境变量。&lt;/p>
+&lt;p>这样我们就可以为&lt;code>mitmproxy&lt;/code>安装额外的python包了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pipx inject mitmproxy pycryptodome &lt;span style="color:#228b22"># 安装 pycryptodome 包，用于AES解码&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将浏览器代理设置到&lt;code>8080&lt;/code>端口，打开(mitm.it)[mitm.it]下载对应平台的证书。&lt;/p>
+&lt;h3 id="android-emulator">Android Emulator&lt;/h3>
+&lt;p>抓包之前有两个步骤：&lt;/p>
+&lt;ol>
+&lt;li>设置手动代理&lt;/li>
+&lt;li>安装并信任自签名https证书&lt;/li>
+&lt;/ol>
+&lt;p>设置WiFi代理为主机&lt;code>8080&lt;/code>端口：&lt;/p>
+&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p></description></item></channel></rss>

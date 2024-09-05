@@ -1,4 +1,178 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Tue, 25 Jul 2023 22:17:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>Magical trees, take me home. /posts/linux-memory-layout-of-process/ -&lt;h2 id="内存布局">内存布局&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot cheetsheet</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>Magical trees, take me home. /posts/buildroot-cheetsheet/ -&lt;p>Full documentation can be found &lt;a href="https://buildroot.org/downloads/manual/manual.html">on the official website&lt;/a>.&lt;/p>
+&lt;h2 id="basic-commands">Basic commands&lt;/h2>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#make-tips">Make tips&lt;/a>&lt;/p>
+&lt;p>use &lt;code>make help&lt;/code> to get a list of all the available targets.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: left">Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">make&lt;/td>
+&lt;td style="text-align: left">Build the rootfs&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make xyz_de­fconfig&lt;/td>
+&lt;td style="text-align: left">Select the configuration file&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make menuconfig&lt;/td>
+&lt;td style="text-align: left">Open the configuration menu&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make savedefconfig&lt;/td>
+&lt;td style="text-align: left">Save the current configuration to the defconfig file&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make source&lt;/td>
+&lt;td style="text-align: left">Download the source code of the packages&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make clean&lt;/td>
+&lt;td style="text-align: left">Clean all build products (including build directories, host, staging and target trees, the images and the toolchain)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make distclean&lt;/td>
+&lt;td style="text-align: left">Clean everything, including the configuration&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="package-management">Package management&lt;/h3>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">Package-specific make targets&lt;/a>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: left">Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;&lt;/td>
+&lt;td style="text-align: left">Build a package&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
+&lt;td style="text-align: left">Reinstall a package&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
+&lt;td style="text-align: left">Rebuild a package(this implies a reinstall)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
+&lt;td style="text-align: left">Reconfigure the package(this implies a rebuild)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
+&lt;td style="text-align: left">Clean the package directory&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="debug">Debug&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: left">Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">make graph-depends&lt;/td>
+&lt;td style="text-align: left">Generate a graph of the dependencies&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
+&lt;td style="text-align: left">Generate a graph of the dependencies of a package&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="directory-structure">Directory structure&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Directory&lt;/th>
+&lt;th style="text-align: left">Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">configs&lt;/td>
+&lt;td style="text-align: left">Location of config and defconfig files of board&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">package&lt;/td>
+&lt;td style="text-align: left">Location of package definitions&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">dl&lt;/td>
+&lt;td style="text-align: left">Downloaded source code tarballs&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">output/build&lt;/td>
+&lt;td style="text-align: left">Directory where all components are built&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">output/images&lt;/td>
+&lt;td style="text-align: left">Location of built kernel, bootloader and root filesystem images&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">output/staging&lt;/td>
+&lt;td style="text-align: left">Headers and libraries of the cross-­com­pil­ation toolchain and userspace packages&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">output/host&lt;/td>
+&lt;td style="text-align: left">Host tools including the cross-­com­pil­ation toolchain&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">output/target&lt;/td>
+&lt;td style="text-align: left">Almost complete root filesystem for the target&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="the-mk-file">The &lt;code>.mk&lt;/code> file&lt;/h2>
+&lt;h3 id="cmake">Cmake&lt;/h3>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial">cmake-package-tutorial&lt;/a>&lt;/p>
+&lt;p>Example of a cmake package:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-makefile" data-lang="makefile">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># libfoo
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_VERSION&lt;/span> = 1.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_SOURCE&lt;/span> = libfoo-&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>LIBFOO_VERSION&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>.tar.gz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_SITE&lt;/span> = http://www.foosoftware.org/download
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_INSTALL_STAGING&lt;/span> = YES
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_INSTALL_TARGET&lt;/span> = NO
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_CONF_OPTS&lt;/span> = -DBUILD_DEMOS=ON
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">LIBFOO_DEPENDENCIES&lt;/span> = libglib2 host-pkgconf
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">eval&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">cmake&lt;/span>-&lt;span style="color:#00688b">package&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="external-package-and-sysvinit">External package and sysvinit&lt;/h3>
+&lt;p>Example of an external package with sysvinit:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-makefile" data-lang="makefile">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># gsmmux project
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">GSMMUX_SITE&lt;/span> = &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>TOPDIR&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>/../external/path/gsmmux
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">GSMMUX_SITE_METHOD&lt;/span> = &lt;span style="color:#658b00">local&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">GSMMUX_INSTALL_STAGING&lt;/span> = YES
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">GSMMUX_VERSION&lt;/span> = 1.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a61717;background-color:#e3d2d2">define&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">GSMMUX_INSTALL_INIT_SYSV&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">INSTALL&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">-D&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">-m&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">755&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>@&lt;span style="color:#00688b">D&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">/S50start_cmuxd&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">\&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">TARGET_DIR&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">/etc/init.d/S50start_cmuxd&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a61717;background-color:#e3d2d2">endef&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">eval&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">cmake&lt;/span>-&lt;span style="color:#00688b">package&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/buildroot-cheetsheet/ -</description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>Magical trees, take me home. /posts/linux-memory-layout-of-process/ -&lt;h2 id="内存布局">内存布局&lt;/h2>
 &lt;p>一般而言，C程序通常由一下几个部分组成。&lt;/p>
 &lt;ul>
 &lt;li>
@@ -376,22 +550,22 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>State&lt;/th>
-&lt;th>Version&lt;/th>
+&lt;th style="text-align: left">State&lt;/th>
+&lt;th style="text-align: left">Version&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>Current&lt;/td>
-&lt;td>qBittorrent v4.1+&lt;/td>
+&lt;td style="text-align: left">Current&lt;/td>
+&lt;td style="text-align: left">qBittorrent v4.1+&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>Previous&lt;/td>
-&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
+&lt;td style="text-align: left">Previous&lt;/td>
+&lt;td style="text-align: left">qBittorrent v3.2.0-v4.0.4&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>Obsolete&lt;/td>
-&lt;td>qBittorrent v3.1.x&lt;/td>
+&lt;td style="text-align: left">Obsolete&lt;/td>
+&lt;td style="text-align: left">qBittorrent v3.1.x&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -776,7 +950,7 @@ qBittorrent Web API: 2.1.1
 &lt;/ol>
 &lt;/div>
 - /posts/android-emulator-packet-capture-and-everything/ -</description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>Magical trees, take me home. /posts/r-lang-useful-tricks/ -&lt;figure>&lt;img src="/img/RStudio.png"
-alt="RStudio"/>&lt;figcaption>
+alt="RStudio">&lt;figcaption>
 &lt;p>RStudio&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
@@ -867,7 +1041,7 @@ alt="RStudio"/>&lt;figcaption>
 &lt;p>观察下面的例子，只用了1行代码就实现了我想要的字符串拼接。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>tiers&amp;lt;-&lt;span style="color:#008b45">rev&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;DIAMOND&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;PLATINUM&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;GOLD&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;SILVER&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;BRONZE&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;IRON&amp;#34;&lt;/span>))
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ranks&amp;lt;-&lt;span style="color:#008b45">rev&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;I&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;II&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;III&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;IV&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;V&amp;#34;&lt;/span>))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tire_order&amp;lt;-&lt;span style="color:#008b45">lapply&lt;/span>(tiers,&lt;span style="color:#008b45">function&lt;/span>(x) &lt;span style="color:#008b45">paste&lt;/span>(x,ranks,sep=&lt;span style="color:#cd5555">&amp;#34;-&amp;#34;&lt;/span>)) %&amp;gt;% unlist
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tire_order&amp;lt;-&lt;span style="color:#008b45">lapply&lt;/span>(tiers,&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(x) &lt;span style="color:#008b45">paste&lt;/span>(x,ranks,sep=&lt;span style="color:#cd5555">&amp;#34;-&amp;#34;&lt;/span>)) %&amp;gt;% unlist
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;IRON-V&amp;#34; &amp;#34;IRON-IV&amp;#34; &amp;#34;IRON-III&amp;#34; &amp;#34;IRON-II&amp;#34; &amp;#34;IRON-I&amp;#34; &amp;#34;BRONZE-V&amp;#34; &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [7] &amp;#34;BRONZE-IV&amp;#34; &amp;#34;BRONZE-III&amp;#34; &amp;#34;BRONZE-II&amp;#34; &amp;#34;BRONZE-I&amp;#34; &amp;#34;SILVER-V&amp;#34; &amp;#34;SILVER-IV&amp;#34; &lt;/span>
@@ -941,11 +1115,6 @@ alt="RStudio"/>&lt;figcaption>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/convert-gitbook-to-pdf/ -</description></item><item><title>About</title><link>/about/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>/about/</guid><description>Magical trees, take me home. /about/ -&lt;h1 id="hi-there">Hi there&lt;/h1>
-&lt;p>My name is Magicwenli, a 22-year-old software engineer.&lt;/p>
+&lt;p>My name is Magicwenli, a 26-year-old software engineer.&lt;/p>
 &lt;p>I like to code, and I am currently learning how to code. Come to see my work!&lt;/p>
-- /about/ -</description></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>Magical trees, take me home. /posts/hello/ -&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
-&lt;blockquote>
-&lt;p>下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>console.log(&lt;span style="color:#cd5555">&amp;#34;Hello World&amp;#34;&lt;/span>);
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/hello/ -</description></item></channel></rss>
+- /about/ -</description></item></channel></rss>
