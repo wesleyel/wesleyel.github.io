@@ -111,3 +111,23 @@ endef
 
 $(eval $(cmake-package))
 ```
+
+## FAQ
+
+### How to clean only `output/target`?
+
+[How to clean only target in buildroot](https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot)
+
+```bash
+rm -rf output/target
+find output/ -name ".stamp_target_installed" -delete
+rm -f output/build/host-gcc-final-*/.stamp_host_installed
+```
+
+### How to setup ccache(compile cache)?
+
+[Using ccache in Buildroot](https://buildroot.org/downloads/manual/manual.html#ccache)
+
+`ccache` support is integrated in Buildroot. You just have to enable `Enable compiler cache` in `Build options`. This will automatically build `ccache` and use it for every host and target compilation.
+
+The `cache` is located in the directory defined by the `BR2_CCACHE_DIR` configuration option, which defaults to `$HOME/.buildroot-ccache`. This default location is outside of Buildroot output directory so that it can be shared by separate Buildroot builds. If you want to get rid of the cache, simply remove this directory.
