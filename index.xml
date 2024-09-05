@@ -172,7 +172,17 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a61717;background-color:#e3d2d2">endef&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">eval&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>&lt;span style="color:#00688b">cmake&lt;/span>-&lt;span style="color:#00688b">package&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">))&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/buildroot-cheetsheet/ -</description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>Magical trees, take me home. /posts/linux-memory-layout-of-process/ -&lt;h2 id="内存布局">内存布局&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="faq">FAQ&lt;/h2>
+&lt;h3 id="how-to-clean-only-outputtarget">How to clean only &lt;code>output/target&lt;/code>?&lt;/h3>
+&lt;p>&lt;a href="https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot">How to clean only target in buildroot&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>rm -rf output/target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>find output/ -name &lt;span style="color:#cd5555">&amp;#34;.stamp_target_installed&amp;#34;&lt;/span> -delete
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm -f output/build/host-gcc-final-*/.stamp_host_installed
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="how-to-setup-ccachecompile-cache">How to setup ccache(compile cache)?&lt;/h3>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#ccache">Using ccache in Buildroot&lt;/a>&lt;/p>
+&lt;p>&lt;code>ccache&lt;/code> support is integrated in Buildroot. You just have to enable &lt;code>Enable compiler cache&lt;/code> in &lt;code>Build options&lt;/code>. This will automatically build &lt;code>ccache&lt;/code> and use it for every host and target compilation.&lt;/p>
+&lt;p>The &lt;code>cache&lt;/code> is located in the directory defined by the &lt;code>BR2_CCACHE_DIR&lt;/code> configuration option, which defaults to &lt;code>$HOME/.buildroot-ccache&lt;/code>. This default location is outside of Buildroot output directory so that it can be shared by separate Buildroot builds. If you want to get rid of the cache, simply remove this directory.&lt;/p>
+- /posts/buildroot-cheetsheet/ -</description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>Magical trees, take me home. /posts/linux-memory-layout-of-process/ -&lt;h2 id="内存布局">内存布局&lt;/h2>
 &lt;p>一般而言，C程序通常由一下几个部分组成。&lt;/p>
 &lt;ul>
 &lt;li>
