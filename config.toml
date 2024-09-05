@@ -6,7 +6,7 @@ theme = "diary"
 #Google Analytics
 [services]
   [services.googleAnalytics]
-    id = "G-R8THP61XJF"  # Your Google Analytics ID
+    id = "G-KKMPD9QE50"  # Your Google Analytics ID
 
 # paginate = 7
 
