@@ -1,47 +1,70 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Magical trees, take me home.</title><link>/posts/</link><description>Recent content in Posts on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot cheetsheet</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>&lt;p>Full documentation can be found &lt;a href="https://buildroot.org/downloads/manual/manual.html">on the official website&lt;/a>.&lt;/p>
-&lt;h2 id="basic-commands">Basic commands&lt;/h2>
-&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#make-tips">Make tips&lt;/a>&lt;/p>
-&lt;p>use &lt;code>make help&lt;/code> to get a list of all the available targets.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Magical trees, take me home.</title><link>/posts/</link><description>Recent content in Posts on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查表</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a href="https://buildroot.org/downloads/manual/manual.html">官方网站&lt;/a>找到。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="基本命令">基本命令&lt;/h2>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#make-tips">Make 提示&lt;/a>&lt;/p>
+&lt;p>使用 &lt;code>make help&lt;/code> 获取所有可用目标的列表。&lt;/p>
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Command&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th style="text-align: left">命令&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
  &lt;td style="text-align: left">make&lt;/td>
- &lt;td style="text-align: left">Build the rootfs&lt;/td>
+ &lt;td style="text-align: left">构建 rootfs&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">make xyz_de­fconfig&lt;/td>
- &lt;td style="text-align: left">Select the configuration file&lt;/td>
+ &lt;td style="text-align: left">make xyz_defconfig&lt;/td>
+ &lt;td style="text-align: left">选择配置文件&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td style="text-align: left">make menuconfig&lt;/td>
- &lt;td style="text-align: left">Open the configuration menu&lt;/td>
+ &lt;td style="text-align: left">打开配置菜单&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td style="text-align: left">make savedefconfig&lt;/td>
- &lt;td style="text-align: left">Save the current configuration to the defconfig file&lt;/td>
+ &lt;td style="text-align: left">将当前配置保存到 defconfig 文件中&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td style="text-align: left">make source&lt;/td>
- &lt;td style="text-align: left">Download the source code of the packages&lt;/td>
+ &lt;td style="text-align: left">下载包的源代码&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td style="text-align: left">make clean&lt;/td>
- &lt;td style="text-align: left">Clean all build products (including build directories, host, staging and target trees, the images and the toolchain)&lt;/td>
+ &lt;td style="text-align: left">清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td style="text-align: left">make distclean&lt;/td>
- &lt;td style="text-align: left">Clean everything, including the configuration&lt;/td>
+ &lt;td style="text-align: left">清理所有内容，包括配置&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="package-management">Package management&lt;/h3>
-&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">Package-specific make targets&lt;/a>&lt;/p></description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>&lt;h2 id="内存布局">内存布局&lt;/h2>
+&lt;h3 id="包管理">包管理&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">特定包的 make 目标&lt;/a>&lt;/p></description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a href="https://docs.yoctoproject.org/">Yocto 文档网站&lt;/a>找到。
+参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet">yoctoproject-cheatsheet&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="cli-命令">Cli 命令&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">命令&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">todo&lt;/td>
+ &lt;td style="text-align: left">todo&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="localconf-配置">&lt;code>local.conf&lt;/code> 配置&lt;/h2>
+&lt;p>这些配置可以加入到 &lt;code>local.conf&lt;/code> 或者&lt;code>bblayers.conf&lt;/code>文件中，也根据需求加入其他 Machine 配置中。&lt;/p></description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>&lt;h2 id="内存布局">内存布局&lt;/h2>
 &lt;p>一般而言，C程序通常由一下几个部分组成。&lt;/p>
 &lt;ul>
 &lt;li>
