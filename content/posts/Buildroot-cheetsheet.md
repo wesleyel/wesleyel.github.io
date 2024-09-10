@@ -1,74 +1,74 @@
 +++
-title = "Buildroot cheetsheet"
+title = "Buildroot 速查表"
 date = "2024-09-04T00:00:00+08:00"
 author = "Magicewenli"
 cover = ""
-tags = ["cheatsheet", "buildroot"]
-categories = "embedded"
-description = "I'll keep it updated with my notes when playing with buildroot."
+tags = ["速查表", "buildroot"]
+categories = "嵌入式"
+description = "我会在玩 buildroot 时不断更新我的笔记。"
 showFullContent = false
 readingTime = true
 Toc = true
 
 +++
 
-Full documentation can be found [on the official website](https://buildroot.org/downloads/manual/manual.html).
+> 完整文档可以在[官方网站](https://buildroot.org/downloads/manual/manual.html)找到。
 
-## Basic commands
+## 基本命令
 
-[Make tips](https://buildroot.org/downloads/manual/manual.html#make-tips)
+[Make 提示](https://buildroot.org/downloads/manual/manual.html#make-tips)
 
-use `make help` to get a list of all the available targets.
+使用 `make help` 获取所有可用目标的列表。
 
-| Command             | Description                                                                                                          |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| make                | Build the rootfs                                                                                                     |
-| make xyz_de­fconfig | Select the configuration file                                                                                        |
-| make menuconfig     | Open the configuration menu                                                                                          |
-| make savedefconfig  | Save the current configuration to the defconfig file                                                                 |
-| make source         | Download the source code of the packages                                                                             |
-| make clean          | Clean all build products (including build directories, host, staging and target trees, the images and the toolchain) |
-| make distclean      | Clean everything, including the configuration                                                                        |
+| 命令               | 描述                                                               |
+| ------------------ | ------------------------------------------------------------------ |
+| make               | 构建 rootfs                                                        |
+| make xyz_defconfig | 选择配置文件                                                       |
+| make menuconfig    | 打开配置菜单                                                       |
+| make savedefconfig | 将当前配置保存到 defconfig 文件中                                  |
+| make source        | 下载包的源代码                                                     |
+| make clean         | 清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链） |
+| make distclean     | 清理所有内容，包括配置                                             |
 
-### Package management
+### 包管理
 
-[Package-specific make targets](https://buildroot.org/downloads/manual/manual.html#pkg-build-steps)
+> [特定包的 make 目标](https://buildroot.org/downloads/manual/manual.html#pkg-build-steps)
 
-| Command                      | Description                                     |
-| ---------------------------- | ----------------------------------------------- |
-| make \<pkg\>             | Build a package                                 |
-| make \<pkg\>-reinstall   | Reinstall a package                             |
-| make \<pkg\>-rebuild     | Rebuild a package(this implies a reinstall)     |
-| make \<pkg\>-reconfigure | Reconfigure the package(this implies a rebuild) |
-| make \<pkg\>-dirclean    | Clean the package directory                     |
+| 命令                     | 描述                               |
+| ------------------------ | ---------------------------------- |
+| make \<pkg\>             | 构建一个包                         |
+| make \<pkg\>-reinstall   | 重新安装一个包                     |
+| make \<pkg\>-rebuild     | 重新构建一个包（这意味着重新安装） |
+| make \<pkg\>-reconfigure | 重新配置一个包（这意味着重新构建） |
+| make \<pkg\>-dirclean    | 清理包目录                         |
 
-### Debug
+### 调试
 
-| Command                        | Description                                       |
-| ------------------------------ | ------------------------------------------------- |
-| make graph-depends             | Generate a graph of the dependencies              |
-| make \<pkg\>-graph-depends | Generate a graph of the dependencies of a package |
+| 命令                       | 描述               |
+| -------------------------- | ------------------ |
+| make graph-depends         | 生成依赖关系图     |
+| make \<pkg\>-graph-depends | 生成包的依赖关系图 |
 
-## Directory structure
+## 目录结构
 
-| Directory      | Description                                                                        |
-| -------------- | ---------------------------------------------------------------------------------- |
-| configs        | Location of config and defconfig files of board                                    |
-| package        | Location of package definitions                                                    |
-| dl             | Downloaded source code tarballs                                                    |
-| output/build   | Directory where all components are built                                           |
-| output/images  | Location of built kernel, bootloader and root filesystem images                    |
-| output/staging | Headers and libraries of the cross-­com­pil­ation toolchain and userspace packages |
-| output/host    | Host tools including the cross-­com­pil­ation toolchain                            |
-| output/target  | Almost complete root filesystem for the target                                     |
+| 目录           | 描述                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------- |
+| configs        | 单板的配置和 defconfig 文件的位置                                                     |
+| package        | 包定义的位置                                                                          |
+| dl             | 下载的源代码压缩包                                                                    |
+| output/build   | 所有组件构建的目录                                                                    |
+| output/images  | 构建的内核、引导加载程序和根文件系统镜像的位置                                        |
+| output/staging | 交叉编译工具链和用户空间包的头文件和库的位置（这是 host/<toolchains>/sysroot 的软链） |
+| output/host    | 包括交叉编译工具链在内的主机工具的位置                                                |
+| output/target  | 几乎是最终的目标根文件系统                                                              |
 
-## The `.mk` file
+## `.mk` 文件
 
 ### Cmake
 
-[cmake-package-tutorial](https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial)
+> [cmake 包教程](https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial)
 
-Example of a cmake package:
+一个 cmake 包的示例：
 
 ```makefile
 ################################################################################
@@ -88,14 +88,14 @@ LIBFOO_DEPENDENCIES = libglib2 host-pkgconf
 $(eval $(cmake-package))
 ```
 
-### External package and sysvinit
+### 外部包和 sysvinit
 
-Example of an external package with sysvinit:
+一个带有 sysvinit 的外部包示例：
 
 ```makefile
 ################################################################################
 #
-# gsmmux project
+# gsmmux 项目
 #
 ################################################################################
 
@@ -106,28 +106,16 @@ GSMMUX_VERSION = 1.0
 
 define GSMMUX_INSTALL_INIT_SYSV
 $(INSTALL) -D -m 755 $(@D)/S50start_cmuxd \
-	$(TARGET_DIR)/etc/init.d/S50start_cmuxd
+    $(TARGET_DIR)/etc/init.d/S50start_cmuxd
 endef
 
 $(eval $(cmake-package))
 ```
 
-## FAQ
+### 如何设置 ccache（编译缓存）？
 
-### How to clean only `output/target`?
+[在 Buildroot 中使用 ccache](https://buildroot.org/downloads/manual/manual.html#ccache)
 
-[How to clean only target in buildroot](https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot)
+`ccache` 支持已集成在 Buildroot 中。只需在 `Build options` 中启用 `Enable compiler cache`。这将自动构建 `ccache` 并将其用于每个主机和目标编译。
 
-```bash
-rm -rf output/target
-find output/ -name ".stamp_target_installed" -delete
-rm -f output/build/host-gcc-final-*/.stamp_host_installed
-```
-
-### How to setup ccache(compile cache)?
-
-[Using ccache in Buildroot](https://buildroot.org/downloads/manual/manual.html#ccache)
-
-`ccache` support is integrated in Buildroot. You just have to enable `Enable compiler cache` in `Build options`. This will automatically build `ccache` and use it for every host and target compilation.
-
-The `cache` is located in the directory defined by the `BR2_CCACHE_DIR` configuration option, which defaults to `$HOME/.buildroot-ccache`. This default location is outside of Buildroot output directory so that it can be shared by separate Buildroot builds. If you want to get rid of the cache, simply remove this directory.
+`cache` 位于 `BR2_CCACHE_DIR` 配置选项定义的目录中，默认值为 `$HOME/.buildroot-ccache`。此默认位置在 Buildroot 输出目录之外，因此可以由单独的 Buildroot 构建共享。如果要删除缓存，只需删除此目录。
