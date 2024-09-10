@@ -2,6 +2,7 @@ baseurl = "/"
 DefaultContentLanguage = "zh" # Theme's display language, supports: en, fr, zh, zh-hant
 title = "Magical trees, take me home."
 theme = "diary"
+enableGitInfo = true
 
 #Google Analytics
 [services]
