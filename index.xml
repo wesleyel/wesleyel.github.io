@@ -201,6 +201,76 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;h2 id="变量语法和操作">变量语法和操作&lt;/h2>
+&lt;blockquote>
+&lt;p>参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html">Bitbake User Manual&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>可以随时使用 &lt;code>bitbake -e&lt;/code> 查看编译时的变量。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">语法&lt;/th>
+&lt;th style="text-align: left">描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置变量为空&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置变量为一个空格&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
+&lt;td style="text-align: left">通过单引号设置含有双引号的变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置&lt;em>弱&lt;/em>默认值，见&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value">弱默认值&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">追加变量值（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">在变量值前面追加（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">追加变量值（无空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td style="text-align: left">在变量值后面追加（无空格）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>TODO&lt;/p>
+&lt;/blockquote>
 &lt;h2 id="localconf-配置">&lt;code>local.conf&lt;/code> 配置&lt;/h2>
 &lt;p>这些配置可以加入到 &lt;code>local.conf&lt;/code> 或者&lt;code>bblayers.conf&lt;/code>文件中，也根据需求加入其他 Machine 配置中。&lt;/p>
 &lt;table>

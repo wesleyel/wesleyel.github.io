@@ -44,4 +44,25 @@
 &lt;/table>
 &lt;h3 id="包管理">包管理&lt;/h3>
 &lt;blockquote>
-&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">特定包的 make 目标&lt;/a>&lt;/p></description></item></channel></rss>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">特定包的 make 目标&lt;/a>&lt;/p></description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a href="https://docs.yoctoproject.org/">Yocto 文档网站&lt;/a>找到。
+参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet">yoctoproject-cheatsheet&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="cli-命令">Cli 命令&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">命令&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">todo&lt;/td>
+ &lt;td style="text-align: left">todo&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="变量语法和操作">变量语法和操作&lt;/h2>
+&lt;blockquote>
+&lt;p>参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html">Bitbake User Manual&lt;/a>&lt;/p></description></item></channel></rss>
