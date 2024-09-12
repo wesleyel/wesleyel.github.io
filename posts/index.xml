@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Magical trees, take me home.</title><link>/posts/</link><description>Recent content in Posts on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Tue, 10 Sep 2024 03:46:06 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查表</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Magical trees, take me home.</title><link>/posts/</link><description>Recent content in Posts on Magical trees, take me home.</description><generator>Hugo</generator><language>zh</language><lastBuildDate>Thu, 12 Sep 2024 07:09:18 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查表</title><link>/posts/buildroot-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/buildroot-cheetsheet/</guid><description>&lt;blockquote>
 &lt;p>完整文档可以在&lt;a href="https://buildroot.org/downloads/manual/manual.html">官方网站&lt;/a>找到。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="基本命令">基本命令&lt;/h2>
@@ -44,7 +44,104 @@
 &lt;/table>
 &lt;h3 id="包管理">包管理&lt;/h3>
 &lt;blockquote>
-&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">特定包的 make 目标&lt;/a>&lt;/p></description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps">特定包的 make 目标&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">命令&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;&lt;/td>
+ &lt;td style="text-align: left">构建一个包&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
+ &lt;td style="text-align: left">重新安装一个包&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
+ &lt;td style="text-align: left">重新构建一个包（这意味着重新安装）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
+ &lt;td style="text-align: left">重新配置一个包（这意味着重新构建）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
+ &lt;td style="text-align: left">清理包目录&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="调试">调试&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">命令&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">make graph-depends&lt;/td>
+ &lt;td style="text-align: left">生成依赖关系图&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
+ &lt;td style="text-align: left">生成包的依赖关系图&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="目录结构">目录结构&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">目录&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">configs&lt;/td>
+ &lt;td style="text-align: left">单板的配置和 defconfig 文件的位置&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">package&lt;/td>
+ &lt;td style="text-align: left">包定义的位置&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">dl&lt;/td>
+ &lt;td style="text-align: left">下载的源代码压缩包&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">output/build&lt;/td>
+ &lt;td style="text-align: left">所有组件构建的目录&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">output/images&lt;/td>
+ &lt;td style="text-align: left">构建的内核、引导加载程序和根文件系统镜像的位置&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">output/staging&lt;/td>
+ &lt;td style="text-align: left">交叉编译工具链和用户空间包的头文件和库的位置（这是 host/&lt;toolchains>/sysroot 的软链）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">output/host&lt;/td>
+ &lt;td style="text-align: left">包括交叉编译工具链在内的主机工具的位置&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">output/target&lt;/td>
+ &lt;td style="text-align: left">几乎是最终的目标根文件系统&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="mk-文件">&lt;code>.mk&lt;/code> 文件&lt;/h2>
+&lt;h3 id="cmake">Cmake&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial">cmake 包教程&lt;/a>&lt;/p></description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>&lt;blockquote>
 &lt;p>完整文档可以在&lt;a href="https://docs.yoctoproject.org/">Yocto 文档网站&lt;/a>找到。
 参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet">yoctoproject-cheatsheet&lt;/a>。&lt;/p>
 &lt;/blockquote>
@@ -65,7 +162,73 @@
 &lt;/table>
 &lt;h2 id="变量语法和操作">变量语法和操作&lt;/h2>
 &lt;blockquote>
-&lt;p>参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html">Bitbake User Manual&lt;/a>&lt;/p></description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>&lt;h2 id="内存布局">内存布局&lt;/h2>
+&lt;p>参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html">Bitbake User Manual&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>可以随时使用 &lt;code>bitbake -e&lt;/code> 查看编译时的变量。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">语法&lt;/th>
+ &lt;th style="text-align: left">描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置变量为空&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置变量为一个空格&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">通过单引号设置含有双引号的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">设置&lt;em>弱&lt;/em>默认值，见&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value">弱默认值&lt;/a>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">追加变量值（带空格）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">在变量值前面追加（带空格）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">追加变量值（无空格）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">在变量值后面追加（无空格）&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>TODO&lt;/p></description></item><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>&lt;h2 id="内存布局">内存布局&lt;/h2>
 &lt;p>一般而言，C程序通常由一下几个部分组成。&lt;/p>
 &lt;ul>
 &lt;li>
@@ -104,13 +267,315 @@
 &lt;h2 id="命令行参数和环境变量">命令行参数和环境变量&lt;/h2>
 &lt;p>命令行参数是指从命令行执行程序的时候，给程序的参数。C语言总是从main函数执行的，它的命令行参数被ISO C和POSIX规定为如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> argc,&lt;span style="color:#00688b;font-weight:bold">char&lt;/span> *argv[]);
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>main函数的第一个参数argc保存的是程序执行的时候，命令行输入的参数总个数。其中第0个参数就是被执行的程序名字。第二个参数argv是用来保存命令行参数的。ISO C和POSIX都要求argv[argc]是一个空指针。&lt;/p></description></item><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>&lt;blockquote>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>main函数的第一个参数argc保存的是程序执行的时候，命令行输入的参数总个数。其中第0个参数就是被执行的程序名字。第二个参数argv是用来保存命令行参数的。ISO C和POSIX都要求argv[argc]是一个空指针。&lt;/p>
+&lt;p>一个简单的实例如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">#include&lt;/span>&lt;span style="color:#1e889b">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span style="color:#1e889b">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">&lt;/span>&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> argc,&lt;span style="color:#00688b;font-weight:bold">char&lt;/span> *argv[])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008b45">printf&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;程序执行名：%s&lt;/span>&lt;span style="color:#cd5555">\n&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>,argv[&lt;span style="color:#b452cd">0&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008b45">printf&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;参数列表：&lt;/span>&lt;span style="color:#cd5555">\n&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> i = &lt;span style="color:#b452cd">1&lt;/span>; i &amp;lt; argc; i++)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008b45">printf&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;%s&lt;/span>&lt;span style="color:#cd5555">\n&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>,argv[i]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行结果如下：
+&lt;img src="/img/argc_argv_example.jpg" alt="example">&lt;/p>
+&lt;p>现在，POSIX规定了不使用第三个参数，通常使用getenv函数和putenv函数来访问环境变量。&lt;/p>
+&lt;p>每次程序都有一张环境表，当我们需要查看整个环境的时候，可以使用全局变量environ。它包含了该指针数字的地址。&lt;/p>
+&lt;p>&lt;code>extern char **environ;&lt;/code>&lt;/p>
+&lt;p>我们来写个程序打印一下全部的环境变量。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">#include&lt;/span>&lt;span style="color:#1e889b">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span style="color:#1e889b">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">extern&lt;/span> &lt;span style="color:#00688b;font-weight:bold">char&lt;/span> **environ;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> argc,&lt;span style="color:#00688b;font-weight:bold">char&lt;/span> *argv[])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> i = &lt;span style="color:#b452cd">0&lt;/span>; &lt;span style="color:#658b00">NULL&lt;/span> != environ[i]; i++)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008b45">printf&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;%s&lt;/span>&lt;span style="color:#cd5555">\n&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>,environ[i]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行以后的结果如下：
+&lt;img src="/img/environ_example.jpg" alt="example">&lt;/p></description></item><item><title>MacOS 的 Emacs 风格键盘快捷键</title><link>/posts/emacs-style-keyboard-shortcut-of-macos/</link><pubDate>Sat, 07 May 2022 00:00:00 +0800</pubDate><guid>/posts/emacs-style-keyboard-shortcut-of-macos/</guid><description>&lt;blockquote>
 &lt;p>译自： &lt;a href="https://jblevins.org/log/kbd">(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X&lt;/a>&lt;/p>
 &lt;p>by JASON BLEVINS (JULY 17, 2015)&lt;/p>
 &lt;/blockquote>
 &lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
 &lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
-&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p></description></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p>
+&lt;p>Emacs 按键绑定以 Control &lt;kbd>C&lt;/kbd>、Meta (Alt) &lt;kbd>M&lt;/kbd>、Shift &lt;kbd>S&lt;/kbd> 前缀和 Delete &lt;kbd>DEL&lt;/kbd> 键，并且将所有字母用小写表示。&lt;/p>
+&lt;h2 id="emacs-和-abbr-classabbrmacosabbr-键盘快捷键对比">Emacs 和 &lt;abbr class="abbr">MacOS&lt;/abbr> 键盘快捷键对比&lt;/h2>
+&lt;table>
+&lt;colgroup>
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;/colgroup>
+&lt;thead>
+&lt;tr>
+	&lt;th style="text-align:left;">对象&lt;/th>
+	&lt;th style="text-align:left;">方向&lt;/th>
+	&lt;th style="text-align:left;">Emacs&lt;/th>
+	&lt;th style="text-align:left;" colspan="2">&lt;abbr class="abbr">MacOS&lt;/abbr>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>光标移动:&lt;/strong> 移动光标 by character, word, line, etc.&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃A&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃E&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃P&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃N&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">doc&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-&amp;lt;&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-&amp;gt;&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>文本选中:&lt;/strong> 扩展选中文本 by character, word, paragraph, and line&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧A&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧E&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧P&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧N&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>文本删除:&lt;/strong> 移除 characters, words, and lines&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-h&lt;/kbd>, &lt;kbd>DEL&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃H&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-d&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃D&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-DEL&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-d&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">line&lt;/td>
+	&lt;td style="text-align:left;">backwards&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C–0 C-k&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">forwards&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-k&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>搜索:&lt;/strong> 查找文本和在结果间移动&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="3">result&lt;/td>
+	&lt;td style="text-align:left;">first&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘F&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">next&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">previous&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-r&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>滚动:&lt;/strong> 滚动编辑窗口&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="3">page&lt;/td>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-v&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-v&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃V&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">recenter&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-l&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃L&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">char&lt;/td>
+	&lt;td style="text-align:left;">transpose&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-t&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃T&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">line&lt;/td>
+	&lt;td style="text-align:left;">insert&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-o&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃O&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">kill&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-w&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">yank&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-y&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃Y&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>参考：&lt;/p></description></item><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
 &lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
 &lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
@@ -128,7 +593,30 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>&lt;p>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api">官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">State&lt;/th>
+ &lt;th style="text-align: left">Version&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">Current&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v4.1+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Previous&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v3.2.0-v4.0.4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Obsolete&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v3.1.x&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p></description></item><item><title>《远山的呼唤》只是未到伤心处</title><link>/posts/a-distant-cry-from-spring/</link><pubDate>Sat, 16 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/a-distant-cry-from-spring/</guid><description>&lt;p>该片由山田洋次执导，倍赏千惠子、高仓健、吉冈秀隆等主演，于1980年3月15日出品。&lt;/p>
 &lt;p>日本的北海道，差不多类似于国内的大西北。在电影拍摄的年代，这里仍然是一片苦寒之地。土地广袤，但产出贫乏，狂风骤雨的夏季，雪虐风饕的冬季，无不摧残着生活在这里的人们。&lt;/p>
 &lt;p>女主人公风见民子既要独自支撑养牛场，还要抚养儿子武志。年轻时的她为了爱情，毅然断绝家里的联系，与一个即将去北海道开荒的人私奔。两人白手起家建立起这座农场，本来日子虽然苦，却还过得去。但几年前，丈夫撒手人寰，农场一下成了难以支撑的负担。她，勤劳、倔强、柔弱却坚强，默默承受所有的苦楚，却能用一颗善良的心教育孩子。&lt;/p>
 &lt;p>表弟胜男带着新婚妻子佳代子来农场看望。饭桌上，民子开玩笑地说着表弟小时候的糗事，胜男说着表姐高中时多么年轻漂亮，气氛是轻松喜悦的。临别时，胜男笑着对表姐说：“祝你幸福”。但镜头随着汽车渐行渐远后，佳代子察觉到胜男异样的神情。眼泪湿润了胜男的脸庞，他感叹道：“表姐，过得真辛苦啊”。&lt;/p>
@@ -213,7 +701,25 @@
 你将仍然是人类的朋友，&lt;br>
 并且会见到另一些哀愁，你会这样说：&lt;br>
 “美即是真，真即是美”——这就是&lt;br>
-我们在地上所知道、该知道的一切。&lt;/p></description></item><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
+我们在地上所知道、该知道的一切。&lt;/p>
+&lt;/blockquote>
+&lt;p>英国浪漫主义诗人济慈于1819年5月写下这首富有创造力的《希腊古瓮颂》，由于十四行诗的形式和他想要的音调不符，于是他开始发展自己的颂歌类型，这首颂歌是最早使用这种新形式的作品之一，它由五节组成，每节十行。颂歌的形式使诗人能更多地描绘古瓮上场景，并为提出疑问和发出感叹留出空间。&lt;/p>
+&lt;p>在每一节，济慈都描绘或谈论了古瓮上的画面，特别是两个着重描述的场景，一个是情人追求爱人，一个是村民与牧师聚集祭祀。这两个场景都隐含着死亡与永生这一对范畴。在颂歌的最后，济慈提出“‘美即是真，真即是美’——这就是我们在地上所知道、也该知道的一切。”，这句话后来引起了许多阐释者的讨论。总之，全诗的一条明线是生命短促，情感易变，唯有艺术长存。下面结合颂词大意谈谈所思所感。&lt;/p>
+&lt;h2 id="颂歌大意">颂歌大意&lt;/h2>
+&lt;p>这是一首复杂而又神秘的颂歌，它的赞颂对象是一只希腊古瓮。这只古瓮上绘制着引人神思的田园画卷。世上有许多赞颂乡村场景的诗歌，却没一首有古瓮上的画卷描述得好。这只经历漫长时间、一直保持缄默的古瓮，就像一个亭亭玉立着、静默着的少女。她不曾受到人世纷争的搅扰和岁月无情的摧残。即使穿越时空，形体依旧完美。&lt;/p>
+&lt;p>诗人注视着古瓮，想知道少女讲述了一个怎样的故事。画中的场景是在希腊哪里？她所描绘的人物是人吗，还是神呢，还是人神一道？那个不情愿的女性是什么身份？场景中疯狂追求的人和竭力脱逃的人是否处于一场狂欢之中？笛声和铃鼓在演奏什么样的音乐？&lt;/p>
+&lt;p>在这个精美的古瓮面前，诗人被迷住了，顷刻间便步入了由思维构筑的美的殿堂。那幅画卷开始变得栩栩如生，拿着风笛的人物似乎也将音乐送进了现实。诗人说能听见的乐曲是悦耳的，但听不见的旋律更好。画卷中的人啊，请你继续演奏风笛，即使耳朵无法听到，但无声的旋律能吹入心灵。&lt;/p>
+&lt;p>吹笛人永远不会停止吹笛——因为古瓮上的场景永远停在了这一刻，树木也永远不会落下他们的叶子。情郎几乎要吻到那位姑娘，但他们的嘴唇却永远无法接触。对此，诗人俏皮地告诉情郎，你无须悲伤。虽然吻永远不会发生，但你们将永远热恋如初，而她将永远美丽。&lt;/p>
+&lt;p>诗人感叹树枝是幸运的，因为叶子永远不会落下，而它也春光永驻。吹笛人也是幸福的，因为他的歌曲将永远清新悦耳，永远流传。最幸福的是恋人们的爱情，他们的心永远热烈地跳动，永远年轻；远远超越活人的情感，绝不会使心灵悲伤、厌倦，不会让头脑发烧、嘴唇焦渴，不会经历恋人的痛苦。&lt;/p>
+&lt;p>古瓮上那队牵着牛前往祭坛的人，又是个怎么样的故事？诗人疑惑：神秘的祭司，你带领的这些人是谁？你要把这身披花环，朝天哞叫的小牛牵到哪个青葱的祭坛？这些人来自哪个小镇？傍河傍海抑或是有水塘的乡村？居民们在清晨前往敬神，那小镇的街道便永远清静，再也没有一个灵魂返回。&lt;/p>
+&lt;p>凝视着古瓮上的这些形象，诗人发出感叹：哦，雅典的形象！美丽的姿态！这些男男女女，他们身边的林木和脚下的青草，这些静默的形象啊，你们就像永恒一样，使我们超越今天的思想：你雕刻出来的冰冷的牧歌，哪怕我们都在暮年中凋落，你仍将清新依旧！在另外一些人的忧伤中，你还会像朋友一样抚慰人们：“美即是真，真即是美，”这涵括你们所知道和所需要知道的一切。&lt;/p>
+&lt;h2 id="关于死亡">关于死亡&lt;/h2>
+&lt;p>瓮（Urn）原本是盛放骨灰的容器，这首颂歌有着诗人对永恒和死亡的复杂沉思。柏拉图的二元世界理论认为，世界由理念和现象构成。理念世界一成不变，永恒存在。而现象世界则会随着时间而消逝。以柏拉图的观点来看，死亡不过是形式的终结，灵魂将会不朽。对于死亡，济慈似乎没有在颂歌提出中明确的观点，他谈及了与死亡密切相关的“空虚”，当逐渐冰冷的古瓮无法提供热情后，他最终承认了死亡的不可否认。&lt;/p>
+&lt;p>在颂词的开始，诗人形容古瓮是“沉默的”和“经过漫长时间领养的少女”，一股令人不安的神秘感已经开始形成。第二、三节中，古瓮上的人物显得幸福而无忧无虑，演奏中的恋人、吹笛的音乐家和丰富的大自然都在营造“快乐、幸福”的感觉，诗人还称赞古瓮上的恋人“永远富有活力，永远年轻”。但此时，更深的危机感开始产生。到第四节后，颂词的主题便不再那么热情，而是转为疑虑。神秘的牧师将小牛牵向祭坛，居民们聚集在牧师身旁。从此寂静无人的街道和没有一个灵魂居住的“荒凉”的城市，无不令人感到惊异。最终，诗人将评论转向现实，认为他们这代人将被“老年”所“摧毁”（waste）。&lt;/p>
+&lt;p>不论是古瓮的制作者，还是古瓮上所描述的那个时代都早已消逝，生命转瞬即逝，令人感到恐惧。但古瓮上的人物却如此鲜活，描绘的少女永远“不会褪色”，田园里的树木春光永驻，这样看又会产生一种不朽的感觉。&lt;/p>
+&lt;p>但画中的人物本身并不具有真正的活力，时间的停止不仅仅停止了死亡，也停止了生命。死亡不仅仅是生命的结束，而且是生命的一个独特部分。诗人对古瓮的渲染越是出色，越是让读者意识到，死亡不可避免。&lt;/p>
+&lt;h2 id="艺术美与真理">艺术、美与真理&lt;/h2>
+&lt;p>济慈在这首颂词中探讨了艺术、美和真理之间的密切关系。济慈认为：只有通过美，才能接近真理——通过艺术，人才能获得美。从颂诗中“诗人”的发展过程来说，他观察了古瓮这件精美的艺术品，陶醉在“美”的世界中，最后得出了“美即是真，真即是美”的真理。颂诗没有明确说明艺术、美与真理之间的关系，但暗含这三者之间相互依赖，彼此密不可分。&lt;/p></description></item><item><title>Android 抓包以及 mitmproxy</title><link>/posts/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 02:37:41 +0800</pubDate><guid>/posts/android-emulator-packet-capture-and-everything/</guid><description>&lt;h2 id="最佳实践">最佳实践&lt;/h2>
 &lt;blockquote>
 &lt;p>经过一段时间的研究，又有了新的看法。&lt;/p>
 &lt;/blockquote>
@@ -237,7 +743,23 @@
 &lt;li>安装并信任自签名https证书&lt;/li>
 &lt;/ol>
 &lt;p>设置WiFi代理为主机&lt;code>8080&lt;/code>端口：&lt;/p>
-&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p></description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="/img/RStudio.png"
+&lt;p>&lt;img src="/img/Snipaste_2021-11-26_01-17-55.png" alt="Snipaste_2021-11-26_01-12-38">&lt;/p>
+&lt;p>以下是简化的脚本&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，先看看&lt;code>adb devices&lt;/code>信息，是否已经连接。如果没有成功连接需要&lt;code>adb kill-server&lt;/code>，再重试几次。或者参照后文&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>。
+直接运行以下脚本&lt;code>./push.sh YOUR_CRT.crt&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">PEM_FILE_NAME&lt;/span>=&lt;span style="color:#00688b">$1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">hash&lt;/span>=&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>openssl x509 -inform PEM -subject_hash_old -in &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> | head -1&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">OUT_FILE_NAME&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$hash&lt;/span>&lt;span style="color:#cd5555">.0&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cp &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openssl x509 -inform PEM -text -in &lt;span style="color:#00688b">$PEM_FILE_NAME&lt;/span> -out /dev/null &amp;gt;&amp;gt; &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;Saved to &lt;/span>&lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell mount -o rw,remount,rw /system
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb push &lt;span style="color:#00688b">$OUT_FILE_NAME&lt;/span> /system/etc/security/cacerts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb shell mount -o ro,remount,ro /system
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adb reboot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果模拟器正常重启的话应该就可以了。&lt;/p></description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="/img/RStudio.png"
  alt="RStudio">&lt;figcaption>
  &lt;p>RStudio&lt;/p>
  &lt;/figcaption>
@@ -259,7 +781,29 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">5&lt;/span>) &amp;gt; &lt;span style="color:#b452cd">2&lt;/span> &lt;span style="color:#228b22"># [1] FALSE TRUE TRUE&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 字符型&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s1 &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;abc&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;a cat&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">NA&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;李明&amp;#39;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">sqrt&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">4&lt;/span>, &lt;span style="color:#b452cd">6.25&lt;/span>)) &lt;span style="color:#228b22"># [1] 1.0 2.0 2.5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">33&lt;/span>, &lt;span style="color:#b452cd">55&lt;/span>, &lt;span style="color:#b452cd">11&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">order&lt;/span>(x) &lt;span style="color:#228b22"># [1] 3 1 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x&lt;span style="color:#008b45">[order&lt;/span>(x)] &lt;span style="color:#228b22"># [1] 11 33 55&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="列表">列表&lt;/h3>
+&lt;p>R中列表(&lt;code>list&lt;/code>)类型来保存&lt;strong>不同&lt;/strong>类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。&lt;/p>
+&lt;p>列表可以命名，命名后类似字典，可以通过名字访问。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>rec &amp;lt;- &lt;span style="color:#008b45">list&lt;/span>(name=&lt;span style="color:#cd5555">&amp;#34;李明&amp;#34;&lt;/span>, age=&lt;span style="color:#b452cd">30&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> scores=&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">85&lt;/span>, &lt;span style="color:#b452cd">76&lt;/span>, &lt;span style="color:#b452cd">90&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $name&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;李明&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $age&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 30&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $scores&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 76 90&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec$age &lt;span style="color:#228b22"># 或 rec[[&amp;#34;age&amp;#34;]]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。&lt;/p></description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
 &lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
 &lt;h2 id="预处理">预处理&lt;/h2>
 &lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
@@ -276,7 +820,11 @@
 &lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>转换之&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
 &lt;blockquote>
 &lt;p>下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜&lt;/p>
 &lt;/blockquote>

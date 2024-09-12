@@ -4,7 +4,277 @@
 &lt;/blockquote>
 &lt;p>众所周知，&lt;abbr class="abbr" title="操作系统">MacOS&lt;/abbr> 有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。举个例子， &lt;kbd>⌘←&lt;/kbd>将光标移动到当前行的开头。&lt;/p>
 &lt;p>尽管它们在官方的文档中有提及&lt;a href="https://support.apple.com/en-us/HT201236">(Mac 键盘快捷键)&lt;/a>，但似乎不太为人所知的是， &lt;abbr class="abbr">MacOS&lt;/abbr > 还原生支持某些 Emacs 键盘快捷键。 例如，要移动到当前行的开头或结尾，可以按 &lt;kbd>⌃A&lt;/kbd> 或 &lt;kbd>⌃E&lt;/kbd>。 要删除光标后当前行上的所有内容，请使用 &lt;kbd>⌃K&lt;/kbd>。 要调换光标左右两侧的字符的位置，请按 &lt;kbd>⌃T&lt;/kbd>。 要在当前行上居中视口，请按 &lt;kbd>⌃L&lt;/kbd>。 像这样的快捷用法比使用方向键更快，后者需要将手指从键盘的主行移开。&lt;/p>
-&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p></description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="/img/RStudio.png"
+&lt;p>下表比较了 Emacs 按键绑定与 &lt;abbr class="abbr">MacOS&lt;/abbr> 按键绑定（类似 Emacs 的子集）。 对于 &lt;abbr class="abbr">MacOS&lt;/abbr> 快捷键，我们使用常用符号来表示 Command &lt;kbd>⌘&lt;/kbd>、Shift &lt;kbd>⇧&lt;/kbd>、Option &lt;kbd>⌥&lt;/kbd>、Control &lt;kbd>⌃&lt;/kbd>、Caps Lock &lt;kbd>⇪&lt;/kbd>、Delete &lt;kbd>⌫&lt;/kbd> 和 Function &lt;kbd>Fn&lt;/kbd> 键，并且将所有字母用大写表示。&lt;/p>
+&lt;p>Emacs 按键绑定以 Control &lt;kbd>C&lt;/kbd>、Meta (Alt) &lt;kbd>M&lt;/kbd>、Shift &lt;kbd>S&lt;/kbd> 前缀和 Delete &lt;kbd>DEL&lt;/kbd> 键，并且将所有字母用小写表示。&lt;/p>
+&lt;h2 id="emacs-和-abbr-classabbrmacosabbr-键盘快捷键对比">Emacs 和 &lt;abbr class="abbr">MacOS&lt;/abbr> 键盘快捷键对比&lt;/h2>
+&lt;table>
+&lt;colgroup>
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;col style="text-align:left;">
+&lt;/colgroup>
+&lt;thead>
+&lt;tr>
+	&lt;th style="text-align:left;">对象&lt;/th>
+	&lt;th style="text-align:left;">方向&lt;/th>
+	&lt;th style="text-align:left;">Emacs&lt;/th>
+	&lt;th style="text-align:left;" colspan="2">&lt;abbr class="abbr">MacOS&lt;/abbr>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>光标移动:&lt;/strong> 移动光标 by character, word, line, etc.&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃A&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃E&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃P&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃N&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">doc&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-&amp;lt;&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-&amp;gt;&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>文本选中:&lt;/strong> 扩展选中文本 by character, word, paragraph, and line&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-b&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧B&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⇧←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-f&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⌥⇧F&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⇧→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="4">line&lt;/td>
+	&lt;td style="text-align:left;">begin&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-a&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧A&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘←&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">end&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-e&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧E&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘→&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-p&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧P&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-n&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃⇧N&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>文本删除:&lt;/strong> 移除 characters, words, and lines&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">char&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-h&lt;/kbd>, &lt;kbd>DEL&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃H&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-d&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃D&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">word&lt;/td>
+	&lt;td style="text-align:left;">left&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-DEL&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">right&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-d&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>⌥⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="2">line&lt;/td>
+	&lt;td style="text-align:left;">backwards&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C–0 C-k&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘⌫&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">forwards&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-k&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>搜索:&lt;/strong> 查找文本和在结果间移动&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="3">result&lt;/td>
+	&lt;td style="text-align:left;">first&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘F&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">next&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-s&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">previous&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-r&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⇧⌘G&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>滚动:&lt;/strong> 滚动编辑窗口&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;" rowspan="3">page&lt;/td>
+	&lt;td style="text-align:left;">up&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>M-v&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↑&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">down&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-v&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃V&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>Fn&lt;/kbd>+&lt;kbd>↓&lt;/kbd>&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">recenter&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-l&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃L&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tbody>
+&lt;tr>
+	&lt;td style="text-align:left;" colspan="5">&lt;strong>杂项:&lt;/strong> 其他的插入、编辑等操作&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">char&lt;/td>
+	&lt;td style="text-align:left;">transpose&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-t&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃T&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">line&lt;/td>
+	&lt;td style="text-align:left;">insert&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-o&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃O&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">kill&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-w&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃K&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;tr>
+	&lt;td style="text-align:left;">&lt;/td>
+	&lt;td style="text-align:left;">yank&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>C-y&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;kbd>⌃Y&lt;/kbd>&lt;/td>
+	&lt;td style="text-align:left;">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>参考：&lt;/p></description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="/img/RStudio.png"
  alt="RStudio">&lt;figcaption>
  &lt;p>RStudio&lt;/p>
  &lt;/figcaption>
@@ -26,7 +296,29 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">5&lt;/span>) &amp;gt; &lt;span style="color:#b452cd">2&lt;/span> &lt;span style="color:#228b22"># [1] FALSE TRUE TRUE&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 字符型&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s1 &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;abc&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;a cat&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">NA&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;李明&amp;#39;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>内建的大多数函数以向量为参数时，会对向量内的元素逐个运算，然后返回一个和原来一样长的向量。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">sqrt&lt;/span>(&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">4&lt;/span>, &lt;span style="color:#b452cd">6.25&lt;/span>)) &lt;span style="color:#228b22"># [1] 1.0 2.0 2.5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x &amp;lt;- &lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">33&lt;/span>, &lt;span style="color:#b452cd">55&lt;/span>, &lt;span style="color:#b452cd">11&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008b45">order&lt;/span>(x) &lt;span style="color:#228b22"># [1] 3 1 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>x&lt;span style="color:#008b45">[order&lt;/span>(x)] &lt;span style="color:#228b22"># [1] 11 33 55&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="列表">列表&lt;/h3>
+&lt;p>R中列表(&lt;code>list&lt;/code>)类型来保存&lt;strong>不同&lt;/strong>类型的数据。一个主要目的是提供R分析结果输出包装：输出一个变量，这个变量包括回归系数、预测值、残差、检验结果等等一系列不能放到规则形状数据结构中的内容。实际上，数据框也是列表的一种，但是数据框要求各列等长，而列表不要求。&lt;/p>
+&lt;p>列表可以命名，命名后类似字典，可以通过名字访问。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>rec &amp;lt;- &lt;span style="color:#008b45">list&lt;/span>(name=&lt;span style="color:#cd5555">&amp;#34;李明&amp;#34;&lt;/span>, age=&lt;span style="color:#b452cd">30&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> scores=&lt;span style="color:#008b45">c&lt;/span>(&lt;span style="color:#b452cd">85&lt;/span>, &lt;span style="color:#b452cd">76&lt;/span>, &lt;span style="color:#b452cd">90&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $name&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] &amp;#34;李明&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $age&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 30&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## $scores&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22">## [1] 85 76 90&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rec$age &lt;span style="color:#228b22"># 或 rec[[&amp;#34;age&amp;#34;]]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以通过下标访问，但需要两重中括号。如果使用单重方括号对列表取子集，结果还是列表而不是列表元素。&lt;/p></description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>/posts/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书&lt;/h2>
 &lt;p>以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN">the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
 &lt;h2 id="预处理">预处理&lt;/h2>
 &lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
@@ -43,4 +335,8 @@
 &lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm install gitbook-cli -g
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>转换之&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gitbook pdf ./ ./book.pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

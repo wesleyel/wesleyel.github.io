@@ -182,7 +182,16 @@
 &lt;p>&lt;a href="https://buildroot.org/downloads/manual/manual.html#ccache">在 Buildroot 中使用 ccache&lt;/a>&lt;/p>
 &lt;p>&lt;code>ccache&lt;/code> 支持已集成在 Buildroot 中。只需在 &lt;code>Build options&lt;/code> 中启用 &lt;code>Enable compiler cache&lt;/code>。这将自动构建 &lt;code>ccache&lt;/code> 并将其用于每个主机和目标编译。&lt;/p>
 &lt;p>&lt;code>cache&lt;/code> 位于 &lt;code>BR2_CCACHE_DIR&lt;/code> 配置选项定义的目录中，默认值为 &lt;code>$HOME/.buildroot-ccache&lt;/code>。此默认位置在 Buildroot 输出目录之外，因此可以由单独的 Buildroot 构建共享。如果要删除缓存，只需删除此目录。&lt;/p>
-- /posts/buildroot-cheetsheet/ -</description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>Magical trees, take me home. /posts/yocto-cheetsheet/ -&lt;blockquote>
+&lt;h3 id="如何重新生成targetrootfs">如何重新生成target/rootfs&lt;/h3>
+&lt;p>&lt;a href="https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot">How to clean only target in buildroot&lt;/a>&lt;/p>
+&lt;p>由于&lt;code>rm -rf output/target &amp;amp;&amp;amp; make&lt;/code>并不会触发install操作，所以需要用以下hack来实现：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>rm -rf output/target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 删除所有的 .stamp_target_installed 文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>find ../ -name &lt;span style="color:#cd5555">&amp;#34;.stamp_target_installed&amp;#34;&lt;/span> -delete
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm -f output/build/host-gcc-final-*/.stamp_host_installed
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/buildroot-cheetsheet/ -</description></item><item><title>Yocto &amp; Bitbake 速查表</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>Magical trees, take me home. /posts/yocto-cheetsheet/ -&lt;blockquote>
 &lt;p>完整文档可以在&lt;a href="https://docs.yoctoproject.org/">Yocto 文档网站&lt;/a>找到。
 参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet">yoctoproject-cheatsheet&lt;/a>。&lt;/p>
 &lt;/blockquote>

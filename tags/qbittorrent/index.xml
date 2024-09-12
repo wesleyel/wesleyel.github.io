@@ -16,4 +16,27 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api">官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">State&lt;/th>
+ &lt;th style="text-align: left">Version&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">Current&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v4.1+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Previous&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v3.2.0-v4.0.4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Obsolete&lt;/td>
+ &lt;td style="text-align: left">qBittorrent v3.1.x&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p></description></item></channel></rss>
