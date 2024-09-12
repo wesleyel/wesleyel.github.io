@@ -119,3 +119,18 @@ $(eval $(cmake-package))
 `ccache` 支持已集成在 Buildroot 中。只需在 `Build options` 中启用 `Enable compiler cache`。这将自动构建 `ccache` 并将其用于每个主机和目标编译。
 
 `cache` 位于 `BR2_CCACHE_DIR` 配置选项定义的目录中，默认值为 `$HOME/.buildroot-ccache`。此默认位置在 Buildroot 输出目录之外，因此可以由单独的 Buildroot 构建共享。如果要删除缓存，只需删除此目录。
+
+### 如何重新生成target/rootfs
+
+[How to clean only target in buildroot](https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot)
+
+由于`rm -rf output/target && make`并不会触发install操作，所以需要用以下hack来实现：
+
+```bash
+rm -rf output/target
+
+# 删除所有的 .stamp_target_installed 文件
+find ../ -name ".stamp_target_installed" -delete
+
+rm -f output/build/host-gcc-final-*/.stamp_host_installed
+```
