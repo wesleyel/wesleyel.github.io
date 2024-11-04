@@ -1,11 +1,11 @@
 +++
-title = "Buildroot 速查表"
+title = "Buildroot Cheatsheet"
 date = "2024-09-04T00:00:00+08:00"
 author = "Magicewenli"
 cover = ""
 tags = ["速查表", "buildroot"]
 categories = "嵌入式"
-description = "我会在玩 buildroot 时不断更新我的笔记。"
+description = "I'll keep updating this cheatsheet while I'm playing Buildroot"
 showFullContent = false
 readingTime = true
 Toc = true
@@ -13,6 +13,19 @@ Toc = true
 +++
 
 > 完整文档可以在[官方网站](https://buildroot.org/downloads/manual/manual.html)找到。
+
+## 快速开始一个buildroot项目
+
+```bash
+buildroot_repo=https://github.com/buildroot/buildroot.git
+buildroot_version=2022.11
+buildroot_src=buildroot-$buildroot_version
+buildroot_defcfg=raspberrypi4_defconfig
+
+git clone --branch $buildroot_version --depth 1 $buildroot_repo
+make -C $buildroot_src defconfig BR2_DEFCONFIG=$buildroot_defcfg
+make -C $buildroot_src linux-reconfigure all
+```
 
 ## 基本命令
 
@@ -60,7 +73,7 @@ Toc = true
 | output/images  | 构建的内核、引导加载程序和根文件系统镜像的位置                                        |
 | output/staging | 交叉编译工具链和用户空间包的头文件和库的位置（这是 host/<toolchains>/sysroot 的软链） |
 | output/host    | 包括交叉编译工具链在内的主机工具的位置                                                |
-| output/target  | 几乎是最终的目标根文件系统                                                              |
+| output/target  | 几乎是最终的目标根文件系统                                                            |
 
 ## `.mk` 文件
 
