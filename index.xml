@@ -7,38 +7,38 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">命令&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">make&lt;/td>
-&lt;td style="text-align: left">构建 rootfs&lt;/td>
+&lt;td>make&lt;/td>
+&lt;td>构建 rootfs&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make xyz_defconfig&lt;/td>
-&lt;td style="text-align: left">选择配置文件&lt;/td>
+&lt;td>make xyz_defconfig&lt;/td>
+&lt;td>选择配置文件&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make menuconfig&lt;/td>
-&lt;td style="text-align: left">打开配置菜单&lt;/td>
+&lt;td>make menuconfig&lt;/td>
+&lt;td>打开配置菜单&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make savedefconfig&lt;/td>
-&lt;td style="text-align: left">将当前配置保存到 defconfig 文件中&lt;/td>
+&lt;td>make savedefconfig&lt;/td>
+&lt;td>将当前配置保存到 defconfig 文件中&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make source&lt;/td>
-&lt;td style="text-align: left">下载包的源代码&lt;/td>
+&lt;td>make source&lt;/td>
+&lt;td>下载包的源代码&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make clean&lt;/td>
-&lt;td style="text-align: left">清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td>
+&lt;td>make clean&lt;/td>
+&lt;td>清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make distclean&lt;/td>
-&lt;td style="text-align: left">清理所有内容，包括配置&lt;/td>
+&lt;td>make distclean&lt;/td>
+&lt;td>清理所有内容，包括配置&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -49,30 +49,30 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">命令&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;&lt;/td>
-&lt;td style="text-align: left">构建一个包&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;&lt;/td>
+&lt;td>构建一个包&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
-&lt;td style="text-align: left">重新安装一个包&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
+&lt;td>重新安装一个包&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
-&lt;td style="text-align: left">重新构建一个包（这意味着重新安装）&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
+&lt;td>重新构建一个包（这意味着重新安装）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
-&lt;td style="text-align: left">重新配置一个包（这意味着重新构建）&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
+&lt;td>重新配置一个包（这意味着重新构建）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
-&lt;td style="text-align: left">清理包目录&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
+&lt;td>清理包目录&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -80,18 +80,18 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">命令&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">make graph-depends&lt;/td>
-&lt;td style="text-align: left">生成依赖关系图&lt;/td>
+&lt;td>make graph-depends&lt;/td>
+&lt;td>生成依赖关系图&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
-&lt;td style="text-align: left">生成包的依赖关系图&lt;/td>
+&lt;td>make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
+&lt;td>生成包的依赖关系图&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -99,42 +99,42 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">目录&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>目录&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">configs&lt;/td>
-&lt;td style="text-align: left">单板的配置和 defconfig 文件的位置&lt;/td>
+&lt;td>configs&lt;/td>
+&lt;td>单板的配置和 defconfig 文件的位置&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">package&lt;/td>
-&lt;td style="text-align: left">包定义的位置&lt;/td>
+&lt;td>package&lt;/td>
+&lt;td>包定义的位置&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">dl&lt;/td>
-&lt;td style="text-align: left">下载的源代码压缩包&lt;/td>
+&lt;td>dl&lt;/td>
+&lt;td>下载的源代码压缩包&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">output/build&lt;/td>
-&lt;td style="text-align: left">所有组件构建的目录&lt;/td>
+&lt;td>output/build&lt;/td>
+&lt;td>所有组件构建的目录&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">output/images&lt;/td>
-&lt;td style="text-align: left">构建的内核、引导加载程序和根文件系统镜像的位置&lt;/td>
+&lt;td>output/images&lt;/td>
+&lt;td>构建的内核、引导加载程序和根文件系统镜像的位置&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">output/staging&lt;/td>
-&lt;td style="text-align: left">交叉编译工具链和用户空间包的头文件和库的位置（这是 host/&lt;toolchains>/sysroot 的软链）&lt;/td>
+&lt;td>output/staging&lt;/td>
+&lt;td>交叉编译工具链和用户空间包的头文件和库的位置（这是 host/&lt;toolchains>/sysroot 的软链）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">output/host&lt;/td>
-&lt;td style="text-align: left">包括交叉编译工具链在内的主机工具的位置&lt;/td>
+&lt;td>output/host&lt;/td>
+&lt;td>包括交叉编译工具链在内的主机工具的位置&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">output/target&lt;/td>
-&lt;td style="text-align: left">几乎是最终的目标根文件系统&lt;/td>
+&lt;td>output/target&lt;/td>
+&lt;td>几乎是最终的目标根文件系统&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -199,14 +199,14 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">命令&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">todo&lt;/td>
-&lt;td style="text-align: left">todo&lt;/td>
+&lt;td>todo&lt;/td>
+&lt;td>todo&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -218,62 +218,62 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">语法&lt;/th>
-&lt;th style="text-align: left">描述&lt;/th>
+&lt;th>语法&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置变量&lt;/td>
+&lt;td>&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
+&lt;td>&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
+&lt;td>如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置变量为空&lt;/td>
+&lt;td>&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为空&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置变量为一个空格&lt;/td>
+&lt;td>&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为一个空格&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
-&lt;td style="text-align: left">通过单引号设置含有双引号的变量&lt;/td>
+&lt;td>&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
+&lt;td>通过单引号设置含有双引号的变量&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
+&lt;td>&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
+&lt;td>&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
+&lt;td>&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">设置&lt;em>弱&lt;/em>默认值，见&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value">弱默认值&lt;/a>&lt;/td>
+&lt;td>&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置&lt;em>弱&lt;/em>默认值，见&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value">弱默认值&lt;/a>&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">追加变量值（带空格）&lt;/td>
+&lt;td>&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（带空格）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">在变量值前面追加（带空格）&lt;/td>
+&lt;td>&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值前面追加（带空格）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">追加变量值（无空格）&lt;/td>
+&lt;td>&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（无空格）&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">在变量值后面追加（无空格）&lt;/td>
+&lt;td>&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值后面追加（无空格）&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -285,18 +285,18 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">配置&lt;/th>
-&lt;th style="text-align: left">作用&lt;/th>
+&lt;th>配置&lt;/th>
+&lt;th>作用&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>RM_WORK_EXCLUDE += &amp;quot;recipe_name&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">编译后&lt;strong>不删除&lt;/strong>指定的 recipe 的工作目录，用于调试&lt;/td>
+&lt;td>&lt;code>RM_WORK_EXCLUDE += &amp;quot;recipe_name&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>不删除&lt;/strong>指定的 recipe 的工作目录，用于调试&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">&lt;code>INHERIT += &amp;quot;rm_work&amp;quot;&lt;/code>&lt;/td>
-&lt;td style="text-align: left">编译后&lt;strong>删除&lt;/strong>工作目录&lt;/td>
+&lt;td>&lt;code>INHERIT += &amp;quot;rm_work&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>删除&lt;/strong>工作目录&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -679,22 +679,22 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">State&lt;/th>
-&lt;th style="text-align: left">Version&lt;/th>
+&lt;th>State&lt;/th>
+&lt;th>Version&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">Current&lt;/td>
-&lt;td style="text-align: left">qBittorrent v4.1+&lt;/td>
+&lt;td>Current&lt;/td>
+&lt;td>qBittorrent v4.1+&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">Previous&lt;/td>
-&lt;td style="text-align: left">qBittorrent v3.2.0-v4.0.4&lt;/td>
+&lt;td>Previous&lt;/td>
+&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">Obsolete&lt;/td>
-&lt;td style="text-align: left">qBittorrent v3.1.x&lt;/td>
+&lt;td>Obsolete&lt;/td>
+&lt;td>qBittorrent v3.1.x&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1079,7 +1079,7 @@ qBittorrent Web API: 2.1.1
 &lt;/ol>
 &lt;/div>
 - /posts/android-emulator-packet-capture-and-everything/ -</description></item><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>/posts/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 17:28:19 +0800</pubDate><guid>/posts/r-lang-useful-tricks/</guid><description>Magical trees, take me home. /posts/r-lang-useful-tricks/ -&lt;figure>&lt;img src="/img/RStudio.png"
-alt="RStudio">&lt;figcaption>
+alt="RStudio"/>&lt;figcaption>
 &lt;p>RStudio&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
