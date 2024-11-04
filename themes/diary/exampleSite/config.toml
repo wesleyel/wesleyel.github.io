@@ -53,7 +53,7 @@ theme="github-light"
 
 # Please visit https://giscus.app/ to generate settings.
 [params.giscus]
-    data_repo="magicwenli/magicwenli.github.io"
+    data_repo="snowmemo/snowmemo.github.io"
     data_repo_id="R_kgDOGXgP8g"    
     data_category="Announcements"
     data_category_id="DIC_kwDOGXgP8s4CiMOo"

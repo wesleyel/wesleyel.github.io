@@ -1,7 +1,7 @@
 +++
 title = "Hello World"
 date = "2021-11-09T17:18:22+08:00"
-author = "Magicwenli"
+author = "SnowMemo"
 cover = "img/helloworld.jpeg"
 description = "辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。"
 +++

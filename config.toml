@@ -27,7 +27,7 @@ enableGitInfo = true
   unsafe = true
 
 [params]
-subtitle = "Magicwenli's blog"
+subtitle = "SnowMemo's blog"
 favicon = "/img/favicon/favicon.ico"
 enableGiscus = true
 enableReadingTime=true
@@ -36,12 +36,12 @@ enableAutoDarkMode=true
 # Twitter Card and Open Graph settings
 enableOpenGraph = true
 enableTwitterCards = true
-title = "Magicwenli" # will set 'og:site_name'
+title = "SnowMemo" # will set 'og:site_name'
 description = "Markdown around"  # will set 'og:description'
 
 [params.gitalk]
-  owner = "magicwenli"
-  repo = "magicwenli.github.io"
+  owner = "snowmemo"
+  repo = "snowmemo.github.io"
   client_id = "your client id"
   client_secret = "your client secret"
 [taxonomies]
@@ -49,13 +49,13 @@ description = "Markdown around"  # will set 'og:description'
    category = "categories"
 
 [params.utterances]
-repo="magicwenli.github.io"
+repo="snowmemo.github.io"
 term="[ENTER TERM HERE]"
 label="your label"
 theme="github-light"
 
 [params.giscus]
-    data_repo="magicwenli/magicwenli.github.io"
+    data_repo="snowmemo/snowmemo.github.io"
     data_repo_id="R_kgDOGXgP8g"    
     data_category="Announcements"
     data_category_id="DIC_kwDOGXgP8s4CiMOo"
