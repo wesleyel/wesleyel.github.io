@@ -144,8 +144,9 @@ params:
       mapping: title
       lightTheme: preferred_color_scheme
       reactionsEnabled: 1
-      emitMetadata: 1
+      emitMetadata: 0
       inputPosition: bottom
+      lang: zh-CN
 
     gitalk:
       owner:
