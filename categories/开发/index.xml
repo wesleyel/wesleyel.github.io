@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%BC%80%E5%8F%91/</link><description>Recent content in 开发 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Fri, 26 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml"/><item><title>Android 抓包以及 mitmproxy</title><link>https://wesleyel.github.io/p/android-emulator-packet-capture-and-everything/</link><pubDate>Fri, 26 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/android-emulator-packet-capture-and-everything/</guid><description>&lt;h2 id="最佳实践">最佳实践
+&lt;/h2>&lt;blockquote>
+&lt;p>经过一段时间的研究，又有了新的看法。&lt;/p>
+&lt;/blockquote>
+&lt;p>准备以下两种工具：&lt;/p>
+&lt;ul>
+&lt;li>mitmproxy&lt;/li>
+&lt;li>Android Emulator(MuMu, BlueStack &amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;h3 id="mitmproxy">mitmproxy
+&lt;/h3>&lt;p>&lt;code>mitmproxy&lt;/code>最好使用&lt;a class="link" href="https://pypa.github.io/pipx/" target="_blank" rel="noopener"
+>pipx&lt;/a>安装。因为&lt;code>mitmproxy&lt;/code>运行在独立的&lt;code>venv&lt;/code>中，使用&lt;code>pipx&lt;/code>方便为&lt;code>mitmproxy&lt;/code>安装额外的 python 包。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install pipx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pipx install mitmproxy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>最好按照提示说明，使用&lt;code>pipx ensurepath&lt;/code>修改环境变量。&lt;/p>
+&lt;p>这样我们就可以为&lt;code>mitmproxy&lt;/code>安装额外的 python 包了。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pipx inject mitmproxy pycryptodome &lt;span class="c1"># 安装 pycryptodome 包，用于AES解码&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>将浏览器代理设置到&lt;code>8080&lt;/code>端口，打开(mitm.it)[mitm.it]下载对应平台的证书。&lt;/p>
+&lt;h3 id="android-emulator">Android Emulator
+&lt;/h3>&lt;p>抓包之前有两个步骤：&lt;/p>
+&lt;ol>
+&lt;li>设置手动代理&lt;/li>
+&lt;li>安装并信任自签名 https 证书&lt;/li>
+&lt;/ol>
+&lt;p>设置 WiFi 代理为主机&lt;code>8080&lt;/code>端口：&lt;/p>
+&lt;p>&lt;img src="https://wesleyel.github.io/img/Snipaste_2021-11-26_01-17-55.png"
+loading="lazy"
+alt="Snipaste_2021-11-26_01-12-38"
+>&lt;/p>
+&lt;p>以下是简化的脚本&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，先看看&lt;code>adb devices&lt;/code>信息，是否已经连接。如果没有成功连接需要&lt;code>adb kill-server&lt;/code>，再重试几次。或者参照后文&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>。
+直接运行以下脚本&lt;code>./push.sh YOUR_CRT.crt&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PEM_FILE_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$PEM_FILE_NAME&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">hash&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>openssl x509 -inform PEM -subject_hash_old -in &lt;span class="nv">$PEM_FILE_NAME&lt;/span> &lt;span class="p">|&lt;/span> head -1&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">OUT_FILE_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$hash&lt;/span>&lt;span class="s2">.0&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp &lt;span class="nv">$PEM_FILE_NAME&lt;/span> &lt;span class="nv">$OUT_FILE_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">openssl x509 -inform PEM -text -in &lt;span class="nv">$PEM_FILE_NAME&lt;/span> -out /dev/null &amp;gt;&amp;gt; &lt;span class="nv">$OUT_FILE_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Saved to &lt;/span>&lt;span class="nv">$OUT_FILE_NAME&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adb shell mount -o rw,remount,rw /system
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adb push &lt;span class="nv">$OUT_FILE_NAME&lt;/span> /system/etc/security/cacerts/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adb shell mount -o ro,remount,ro /system
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adb reboot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果模拟器正常重启的话应该就可以了。&lt;/p>
+&lt;h3 id="抓包">抓包
+&lt;/h3>&lt;p>运行&lt;code>mitmweb&lt;/code>，通过 web 界面观察包的发送和接收。&lt;/p>
+&lt;p>&lt;img src="https://wesleyel.github.io/img/mitmweb.png"
+loading="lazy"
+alt="123"
+>&lt;/p>
+&lt;p>&lt;code>mitmproxy&lt;/code> 是一个非常强大的工具，其用法如恒河沙数，无不天花乱坠。&lt;a class="link" href="https://docs.mitmproxy.org/stable/addons-examples/" target="_blank" rel="noopener"
+>官方文档提供的用例&lt;/a>很值得仔细参阅，这里只介绍一个简单的例子。&lt;/p>
+&lt;p>&lt;code>ContentView&lt;/code>是显示&lt;code>request&lt;/code>或&lt;code>response&lt;/code>负载的界面。有时需要查看的&lt;code>payload&lt;/code>不是明文的&lt;code>json&lt;/code>或&lt;code>plain text&lt;/code>，默认情况下会以&lt;code>raw&lt;/code>格式显示。&lt;/p>
+&lt;p>&lt;img src="https://wesleyel.github.io/img/content_view.png"
+loading="lazy"
+alt="content view"
+>&lt;/p>
+&lt;p>这样会很麻烦。&lt;/p>
+&lt;p>所以可以考虑通过插件增加一个&lt;code>ContentView&lt;/code>的选项，让请求以我想要的方式显示。模仿&lt;a class="link" href="https://docs.mitmproxy.org/stable/addons-examples/#contentview" target="_blank" rel="noopener"
+>addons-examples/#contentview&lt;/a>，以挂载脚本的方式启动&lt;code>mitmweb -S decode.py&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mitmproxy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">contentviews&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flow&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mitmproxy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">http&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mitmproxy.contentviews.json&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">format_json&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Cipher&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">AES&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">hashlib&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">json&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">ViewAESDecode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">contentviews&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">View&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;AES decode&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__call__&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">content_type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">flow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Flow&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">http_message&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Message&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">**&lt;/span>&lt;span class="n">unknown_metadata&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">jsdata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">jsdata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">json&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">loads&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">jsdata&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;AES decode&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">format_json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">jsdata&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">render_priority&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">content_type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">flow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Flow&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">http_message&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Optional&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Message&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">**&lt;/span>&lt;span class="n">unknown_metadata&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;what I want&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">flow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="c1"># 出现的权重，为10的话会在最前面&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;1234567890123456&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">iv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;1234567890123456&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">AES&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">MODE_CBC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cryptor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">AES&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">iv&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">base64&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b64decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">decrypted&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cryptor&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">decrypted&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">load&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">l&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">contentviews&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">done&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">contentviews&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">remove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>结果如下：
+&lt;img src="https://wesleyel.github.io/img/content_result.png"
+loading="lazy"
+alt="content view"
+>&lt;/p>
+&lt;h2 id="adb-无法连接的问题">ADB 无法连接的问题
+&lt;/h2>&lt;p>打开 USB 调试。&lt;code>夜神&lt;/code>的 USB 调试并不通过默认的 5037 端口与 adb 客户端通信，可能是考虑多开也许超过 16 个客户端的官方限制。&lt;/p>
+&lt;p>一般情况下，只需以下步骤就能连接 adb&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WSL ubuntu 18.04&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">List of devices attached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connected to 127.0.0.1:62001
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">List of devices attached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.0.1:62001 device
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>虚拟机比较多时就无效了，需要手动找到端口&lt;sup id="fnref1:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Powershell&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">PS &lt;/span>&lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Users&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Vita&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nb">Get-Process&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="nb">where &lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="o">-like&lt;/span> &lt;span class="s2">&amp;#34;Nox*&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Handles&lt;/span> &lt;span class="n">NPM&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">K&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">PM&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">K&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">WS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">K&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">CPU&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">Id&lt;/span> &lt;span class="nb">SI &lt;/span>&lt;span class="n">ProcessName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">-------&lt;/span> &lt;span class="p">------&lt;/span> &lt;span class="p">-----&lt;/span> &lt;span class="p">-----&lt;/span> &lt;span class="p">------&lt;/span> &lt;span class="p">--&lt;/span> &lt;span class="p">--&lt;/span> &lt;span class="p">-----------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">1037&lt;/span> &lt;span class="mf">184&lt;/span> &lt;span class="mf">177620&lt;/span> &lt;span class="mf">49000&lt;/span> &lt;span class="mf">161.20&lt;/span> &lt;span class="mf">28604&lt;/span> &lt;span class="mf">1&lt;/span> &lt;span class="n">Nox&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">2006&lt;/span> &lt;span class="mf">173&lt;/span> &lt;span class="mf">1046392&lt;/span> &lt;span class="mf">46020&lt;/span> &lt;span class="mf">251.53&lt;/span> &lt;span class="mf">4716&lt;/span> &lt;span class="mf">1&lt;/span> &lt;span class="n">NoxVMHandle&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">3058&lt;/span> &lt;span class="mf">16&lt;/span> &lt;span class="mf">6268&lt;/span> &lt;span class="mf">19040&lt;/span> &lt;span class="mf">0.67&lt;/span> &lt;span class="mf">27528&lt;/span> &lt;span class="mf">1&lt;/span> &lt;span class="n">NoxVMSVC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">PS &lt;/span>&lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Users&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Vita&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nb">Get-NetTcpConnection&lt;/span> &lt;span class="n">-OwningProcess&lt;/span> &lt;span class="mf">4716&lt;/span> &lt;span class="n">-State&lt;/span> &lt;span class="n">Listen&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">LocalAddress&lt;/span> &lt;span class="n">LocalPort&lt;/span> &lt;span class="n">RemoteAddress&lt;/span> &lt;span class="n">RemotePort&lt;/span> &lt;span class="n">State&lt;/span> &lt;span class="n">AppliedSetting&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">------------&lt;/span> &lt;span class="p">---------&lt;/span> &lt;span class="p">-------------&lt;/span> &lt;span class="p">----------&lt;/span> &lt;span class="p">-----&lt;/span> &lt;span class="p">--------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">1&lt;/span> &lt;span class="mf">64001&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span> &lt;span class="mf">0&lt;/span> &lt;span class="n">Listen&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">1&lt;/span> &lt;span class="mf">63001&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span> &lt;span class="mf">0&lt;/span> &lt;span class="n">Listen&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">1&lt;/span> &lt;span class="mf">62001&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span> &lt;span class="mf">0&lt;/span> &lt;span class="n">Listen&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">1&lt;/span> &lt;span class="mf">61001&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">0&lt;/span> &lt;span class="mf">0&lt;/span> &lt;span class="n">Listen&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>依次尝试连接这些&lt;code>LocalPort&lt;/code>，验证&lt;code>adb devices&lt;/code>是否正常。&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>pwlin, “Android : add cert to system store,” &lt;em>Gist&lt;/em>, Mar. 07, 2016. &lt;a class="link" href="https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb" target="_blank" rel="noopener"
+>https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb&lt;/a> (accessed Nov. 25, 2021).&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Mateusz, “ADB can’t connect to Nox,” &lt;em>Stack Overflow&lt;/em>, Jul. 06, 2018. &lt;a class="link" href="https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox" target="_blank" rel="noopener"
+>https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox&lt;/a> (accessed Nov. 25, 2021).&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&amp;#160;&lt;a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

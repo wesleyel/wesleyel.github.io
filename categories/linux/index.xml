@@ -1,15 +1,135 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Magical trees, take me home.</title><link>/categories/linux/</link><description>Recent content in Linux on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Tue, 25 Jul 2023 14:41:26 +0000</lastBuildDate><atom:link href="/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Process 的内存布局</title><link>/posts/linux-memory-layout-of-process/</link><pubDate>Tue, 25 Jul 2023 22:17:00 +0800</pubDate><guid>/posts/linux-memory-layout-of-process/</guid><description>内存布局 一般而言，C程序通常由一下几个部分组成。
-正文段
-正文段是用于存储代码的，也称之为代码段。如果函数是可重入的，那么代码段是可以共享的。正文段通常都是只读的，以防止被更改。 初始化数据段
-初始化数据段包含了程序中需要明确初始化的变量。 未初始化数据段
-未初始化数据段也被称为bss段。这里的存放的数据是交由内核来完成初始化为0的操作。例如：函数外定义的数组，它会在程序执行之前被内核全部初始化为0。 栈区
-自动变量以及每次函数调用时需要保存的信息都被保存在这个区域。 堆区
-通常在堆区进行动态内存分配。 对于Intel x86处理器上的Linux操作系统而言，典型的存储空间布局如下：
-命令行参数和环境变量 命令行参数是指从命令行执行程序的时候，给程序的参数。C语言总是从main函数执行的，它的命令行参数被ISO C和POSIX规定为如下：
-int main(int argc,char *argv[]); main函数的第一个参数argc保存的是程序执行的时候，命令行输入的参数总个数。其中第0个参数就是被执行的程序名字。第二个参数argv是用来保存命令行参数的。ISO C和POSIX都要求argv[argc]是一个空指针。
-一个简单的实例如下：
-#include&amp;lt;stdio.h&amp;gt; int main(int argc,char *argv[]) { printf(&amp;#34;程序执行名：%s\n&amp;#34;,argv[0]); printf(&amp;#34;参数列表：\n&amp;#34;); for (int i = 1; i &amp;lt; argc; i++) { printf(&amp;#34;%s\n&amp;#34;,argv[i]); } return 0; } 执行结果如下： 现在，POSIX规定了不使用第三个参数，通常使用getenv函数和putenv函数来访问环境变量。
-每次程序都有一张环境表，当我们需要查看整个环境的时候，可以使用全局变量environ。它包含了该指针数字的地址。
-extern char **environ;
-我们来写个程序打印一下全部的环境变量。
-#include&amp;lt;stdio.h&amp;gt; extern char **environ; int main(int argc,char *argv[]) { for (int i = 0; NULL != environ[i]; i++) { printf(&amp;#34;%s\n&amp;#34;,environ[i]); } return 0; } 执行以后的结果如下： 依照惯例，环境变量应该是name=value这样的字符串构成。ISO C给我们提供了一些和环境变量有关的函数。可以通过以下方法查询：</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Country Road</title><link>https://wesleyel.github.io/categories/linux/</link><description>Recent content in Linux on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Tue, 25 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Process 的内存布局</title><link>https://wesleyel.github.io/p/linux-process-memory-layout/</link><pubDate>Tue, 25 Jul 2023 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/linux-process-memory-layout/</guid><description>&lt;h2 id="内存布局">内存布局
+&lt;/h2>&lt;p>一般而言，C程序通常由一下几个部分组成。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>正文段&lt;/p>
+&lt;ul>
+&lt;li>正文段是用于存储代码的，也称之为代码段。如果函数是可重入的，那么代码段是可以共享的。正文段通常都是只读的，以防止被更改。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>初始化数据段&lt;/p>
+&lt;ul>
+&lt;li>初始化数据段包含了程序中需要明确初始化的变量。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>未初始化数据段&lt;/p>
+&lt;ul>
+&lt;li>未初始化数据段也被称为bss段。这里的存放的数据是交由内核来完成初始化为0的操作。例如：函数外定义的数组，它会在程序执行之前被内核全部初始化为0。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>栈区&lt;/p>
+&lt;ul>
+&lt;li>自动变量以及每次函数调用时需要保存的信息都被保存在这个区域。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>堆区&lt;/p>
+&lt;ul>
+&lt;li>通常在堆区进行动态内存分配。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>对于Intel x86处理器上的Linux操作系统而言，典型的存储空间布局如下：&lt;/p>
+&lt;p>&lt;img src="https://wesleyel.github.io/img/process_memory_layout.png"
+loading="lazy"
+alt="内存布局"
+>&lt;/p>
+&lt;h2 id="命令行参数和环境变量">命令行参数和环境变量
+&lt;/h2>&lt;p>命令行参数是指从命令行执行程序的时候，给程序的参数。C语言总是从main函数执行的，它的命令行参数被ISO C和POSIX规定为如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>main函数的第一个参数argc保存的是程序执行的时候，命令行输入的参数总个数。其中第0个参数就是被执行的程序名字。第二个参数argv是用来保存命令行参数的。ISO C和POSIX都要求argv[argc]是一个空指针。&lt;/p>
+&lt;p>一个简单的实例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;程序执行名：%s&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;参数列表：&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>执行结果如下：
+&lt;img src="https://wesleyel.github.io/img/argc_argv_example.jpg"
+loading="lazy"
+alt="example"
+>&lt;/p>
+&lt;p>现在，POSIX规定了不使用第三个参数，通常使用getenv函数和putenv函数来访问环境变量。&lt;/p>
+&lt;p>每次程序都有一张环境表，当我们需要查看整个环境的时候，可以使用全局变量environ。它包含了该指针数字的地址。&lt;/p>
+&lt;p>&lt;code>extern char **environ;&lt;/code>&lt;/p>
+&lt;p>我们来写个程序打印一下全部的环境变量。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="k">extern&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="n">environ&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nb">NULL&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">environ&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">environ&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>执行以后的结果如下：
+&lt;img src="https://wesleyel.github.io/img/environ_example.jpg"
+loading="lazy"
+alt="example"
+>&lt;/p>
+&lt;p>依照惯例，环境变量应该是&lt;code>name=value&lt;/code>这样的字符串构成。ISO C给我们提供了一些和环境变量有关的函数。可以通过以下方法查询：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">man getenv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">man setenv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,221 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="这篇文章介绍了如何使用 mitmproxy 抓取 Android Emulator 的包。"><title>Android 抓包以及 mitmproxy</title>
+<link rel=canonical href=https://wesleyel.github.io/p/android-emulator-packet-capture-and-everything/><link rel=stylesheet href=/scss/style.min.ef4908f7fb3b27995b4b37ff780f5d5509be74a560b6c756786a6b4928e37e99.css><meta property='og:title' content="Android 抓包以及 mitmproxy"><meta property='og:description' content="这篇文章介绍了如何使用 mitmproxy 抓取 Android Emulator 的包。"><meta property='og:url' content='https://wesleyel.github.io/p/android-emulator-packet-capture-and-everything/'><meta property='og:site_name' content='Country Road'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Android'><meta property='article:tag' content='抓包'><meta property='article:published_time' content='2021-11-26T00:00:00+00:00'><meta property='article:modified_time' content='2021-11-26T00:00:00+00:00'><meta name=twitter:site content="@wesleyel"><meta name=twitter:creator content="@wesleyel"><meta name=twitter:title content="Android 抓包以及 mitmproxy"><meta name=twitter:description content="这篇文章介绍了如何使用 mitmproxy 抓取 Android Emulator 的包。"><link rel="shortcut icon" href=/favicon.ico><script async src="https://www.googletagmanager.com/gtag/js?id=G-KKMPD9QE50"></script><script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KKMPD9QE50",{anonymize_ip:!1})}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu61e14af445866093e7a3a43c1f480b53_50282_300x0_resize_q75_box.jpeg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>Country Road</a></h1><h2 class=site-description>Take me home</h2></div></header><ol class=menu-social><li><a href=https://github.com/wesleyel target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/%E6%AD%A4%E6%97%B6%E6%AD%A4%E5%88%BB/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>此时此刻</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E9%93%BE%E6%8E%A5/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>链接</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#最佳实践>最佳实践</a><ol><li><a href=#mitmproxy>mitmproxy</a></li><li><a href=#android-emulator>Android Emulator</a></li><li><a href=#抓包>抓包</a></li></ol></li><li><a href=#adb-无法连接的问题>ADB 无法连接的问题</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E5%BC%80%E5%8F%91/>开发</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/android-emulator-packet-capture-and-everything/>Android 抓包以及 mitmproxy</a></h2><h3 class=article-subtitle>这篇文章介绍了如何使用 mitmproxy 抓取 Android Emulator 的包。</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Nov 26, 2021</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 3 分钟</time></div></footer></div></header><section class=article-content><h2 id=最佳实践>最佳实践</h2><blockquote><p>经过一段时间的研究，又有了新的看法。</p></blockquote><p>准备以下两种工具：</p><ul><li>mitmproxy</li><li>Android Emulator(MuMu, BlueStack &mldr;)</li></ul><h3 id=mitmproxy>mitmproxy</h3><p><code>mitmproxy</code>最好使用<a class=link href=https://pypa.github.io/pipx/ target=_blank rel=noopener>pipx</a>安装。因为<code>mitmproxy</code>运行在独立的<code>venv</code>中，使用<code>pipx</code>方便为<code>mitmproxy</code>安装额外的 python 包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install pipx
+</span></span><span class=line><span class=cl>pipx install mitmproxy
+</span></span></code></pre></td></tr></table></div></div><p>最好按照提示说明，使用<code>pipx ensurepath</code>修改环境变量。</p><p>这样我们就可以为<code>mitmproxy</code>安装额外的 python 包了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pipx inject mitmproxy pycryptodome <span class=c1># 安装 pycryptodome 包，用于AES解码</span>
+</span></span></code></pre></td></tr></table></div></div><p>将浏览器代理设置到<code>8080</code>端口，打开(mitm.it)[mitm.it]下载对应平台的证书。</p><h3 id=android-emulator>Android Emulator</h3><p>抓包之前有两个步骤：</p><ol><li>设置手动代理</li><li>安装并信任自签名 https 证书</li></ol><p>设置 WiFi 代理为主机<code>8080</code>端口：</p><p><img src=/img/Snipaste_2021-11-26_01-17-55.png loading=lazy alt=Snipaste_2021-11-26_01-12-38></p><p>以下是简化的脚本<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>，先看看<code>adb devices</code>信息，是否已经连接。如果没有成功连接需要<code>adb kill-server</code>，再重试几次。或者参照后文<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>。
+直接运行以下脚本<code>./push.sh YOUR_CRT.crt</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nv>PEM_FILE_NAME</span><span class=o>=</span><span class=nv>$1</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$PEM_FILE_NAME</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>hash</span><span class=o>=</span><span class=k>$(</span>openssl x509 -inform PEM -subject_hash_old -in <span class=nv>$PEM_FILE_NAME</span> <span class=p>|</span> head -1<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=nv>OUT_FILE_NAME</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$hash</span><span class=s2>.0&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>cp <span class=nv>$PEM_FILE_NAME</span> <span class=nv>$OUT_FILE_NAME</span>
+</span></span><span class=line><span class=cl>openssl x509 -inform PEM -text -in <span class=nv>$PEM_FILE_NAME</span> -out /dev/null &gt;&gt; <span class=nv>$OUT_FILE_NAME</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Saved to </span><span class=nv>$OUT_FILE_NAME</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>adb shell mount -o rw,remount,rw /system
+</span></span><span class=line><span class=cl>adb push <span class=nv>$OUT_FILE_NAME</span> /system/etc/security/cacerts/
+</span></span><span class=line><span class=cl>adb shell mount -o ro,remount,ro /system
+</span></span><span class=line><span class=cl>adb reboot
+</span></span></code></pre></td></tr></table></div></div><p>如果模拟器正常重启的话应该就可以了。</p><h3 id=抓包>抓包</h3><p>运行<code>mitmweb</code>，通过 web 界面观察包的发送和接收。</p><p><img src=/img/mitmweb.png loading=lazy alt=123></p><p><code>mitmproxy</code> 是一个非常强大的工具，其用法如恒河沙数，无不天花乱坠。<a class=link href=https://docs.mitmproxy.org/stable/addons-examples/ target=_blank rel=noopener>官方文档提供的用例</a>很值得仔细参阅，这里只介绍一个简单的例子。</p><p><code>ContentView</code>是显示<code>request</code>或<code>response</code>负载的界面。有时需要查看的<code>payload</code>不是明文的<code>json</code>或<code>plain text</code>，默认情况下会以<code>raw</code>格式显示。</p><p><img src=/img/content_view.png loading=lazy alt="content view"></p><p>这样会很麻烦。</p><p>所以可以考虑通过插件增加一个<code>ContentView</code>的选项，让请求以我想要的方式显示。模仿<a class=link href=https://docs.mitmproxy.org/stable/addons-examples/#contentview target=_blank rel=noopener>addons-examples/#contentview</a>，以挂载脚本的方式启动<code>mitmweb -S decode.py</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>mitmproxy</span> <span class=kn>import</span> <span class=n>contentviews</span><span class=p>,</span> <span class=n>flow</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>mitmproxy</span> <span class=kn>import</span> <span class=n>http</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>mitmproxy.contentviews.json</span> <span class=kn>import</span> <span class=n>format_json</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Cipher</span> <span class=kn>import</span> <span class=n>AES</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>hashlib</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ViewAESDecode</span><span class=p>(</span><span class=n>contentviews</span><span class=o>.</span><span class=n>View</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>name</span> <span class=o>=</span> <span class=s2>&#34;AES decode&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__call__</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span><span class=p>:</span> <span class=nb>bytes</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=o>*</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>content_type</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=nb>str</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>flow</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=n>flow</span><span class=o>.</span><span class=n>Flow</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>http_message</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=n>http</span><span class=o>.</span><span class=n>Message</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=o>**</span><span class=n>unknown_metadata</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>jsdata</span> <span class=o>=</span> <span class=n>decrypt</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>jsdata</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>jsdata</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;AES decode&#34;</span><span class=p>,</span> <span class=n>format_json</span><span class=p>(</span><span class=n>jsdata</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>render_priority</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span><span class=p>:</span> <span class=nb>bytes</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=o>*</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>content_type</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=nb>str</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>flow</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=n>flow</span><span class=o>.</span><span class=n>Flow</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>http_message</span><span class=p>:</span> <span class=n>Optional</span><span class=p>[</span><span class=n>http</span><span class=o>.</span><span class=n>Message</span><span class=p>]</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=o>**</span><span class=n>unknown_metadata</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=s1>&#39;what I want&#39;</span> <span class=ow>in</span> <span class=n>flow</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>host</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=mi>10</span>  <span class=c1># 出现的权重，为10的话会在最前面</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>decrypt</span><span class=p>(</span><span class=n>data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>   <span class=n>key</span> <span class=o>=</span> <span class=s1>&#39;1234567890123456&#39;</span>
+</span></span><span class=line><span class=cl>   <span class=n>iv</span> <span class=o>=</span> <span class=s1>&#39;1234567890123456&#39;</span>
+</span></span><span class=line><span class=cl>   <span class=n>mode</span> <span class=o>=</span> <span class=n>AES</span><span class=o>.</span><span class=n>MODE_CBC</span>
+</span></span><span class=line><span class=cl>   <span class=n>cryptor</span> <span class=o>=</span> <span class=n>AES</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>mode</span><span class=p>,</span> <span class=n>iv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=n>data</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=n>decrypted</span> <span class=o>=</span> <span class=n>cryptor</span><span class=o>.</span><span class=n>decrypt</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=k>return</span> <span class=n>decrypted</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>load</span><span class=p>(</span><span class=n>l</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>contentviews</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>view</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>done</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>contentviews</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>view</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>结果如下：
+<img src=/img/content_result.png loading=lazy alt="content view"></p><h2 id=adb-无法连接的问题>ADB 无法连接的问题</h2><p>打开 USB 调试。<code>夜神</code>的 USB 调试并不通过默认的 5037 端口与 adb 客户端通信，可能是考虑多开也许超过 16 个客户端的官方限制。</p><p>一般情况下，只需以下步骤就能连接 adb</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># WSL ubuntu 18.04</span>
+</span></span><span class=line><span class=cl>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+</span></span><span class=line><span class=cl>List of devices attached
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb connect 127.0.0.1:62001
+</span></span><span class=line><span class=cl>connected to 127.0.0.1:62001
+</span></span><span class=line><span class=cl>wesley@WIN10:/mnt/c/Users/Vita/Desktop$ adb devices
+</span></span><span class=line><span class=cl>List of devices attached
+</span></span><span class=line><span class=cl>127.0.0.1:62001 device
+</span></span></code></pre></td></tr></table></div></div><p>虚拟机比较多时就无效了，需要手动找到端口<sup id=fnref1:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=c># Powershell</span>
+</span></span><span class=line><span class=cl><span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>Vita</span><span class=p>&gt;</span> <span class=nb>Get-Process</span> <span class=p>|</span> <span class=nb>where </span><span class=n>name</span> <span class=o>-like</span> <span class=s2>&#34;Nox*&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Handles</span>  <span class=n>NPM</span><span class=p>(</span><span class=n>K</span><span class=p>)</span>    <span class=n>PM</span><span class=p>(</span><span class=n>K</span><span class=p>)</span>      <span class=n>WS</span><span class=p>(</span><span class=n>K</span><span class=p>)</span>     <span class=n>CPU</span><span class=p>(</span><span class=n>s</span><span class=p>)</span>     <span class=n>Id</span>  <span class=nb>SI </span><span class=n>ProcessName</span>
+</span></span><span class=line><span class=cl><span class=p>-------</span>  <span class=p>------</span>    <span class=p>-----</span>      <span class=p>-----</span>     <span class=p>------</span>     <span class=p>--</span>  <span class=p>--</span> <span class=p>-----------</span>
+</span></span><span class=line><span class=cl>   <span class=mf>1037</span>     <span class=mf>184</span>   <span class=mf>177620</span>      <span class=mf>49000</span>     <span class=mf>161.20</span>  <span class=mf>28604</span>   <span class=mf>1</span> <span class=n>Nox</span>
+</span></span><span class=line><span class=cl>   <span class=mf>2006</span>     <span class=mf>173</span>  <span class=mf>1046392</span>      <span class=mf>46020</span>     <span class=mf>251.53</span>   <span class=mf>4716</span>   <span class=mf>1</span> <span class=n>NoxVMHandle</span>
+</span></span><span class=line><span class=cl>   <span class=mf>3058</span>      <span class=mf>16</span>     <span class=mf>6268</span>      <span class=mf>19040</span>       <span class=mf>0.67</span>  <span class=mf>27528</span>   <span class=mf>1</span> <span class=n>NoxVMSVC</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>Vita</span><span class=p>&gt;</span> <span class=nb>Get-NetTcpConnection</span> <span class=n>-OwningProcess</span> <span class=mf>4716</span> <span class=n>-State</span> <span class=n>Listen</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>LocalAddress</span>    <span class=n>LocalPort</span> <span class=n>RemoteAddress</span>   <span class=n>RemotePort</span> <span class=n>State</span>   <span class=n>AppliedSetting</span>
+</span></span><span class=line><span class=cl><span class=p>------------</span>    <span class=p>---------</span> <span class=p>-------------</span>   <span class=p>----------</span> <span class=p>-----</span>   <span class=p>--------------</span>
+</span></span><span class=line><span class=cl><span class=mf>127.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>1</span>       <span class=mf>64001</span>     <span class=mf>0.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>0</span>         <span class=mf>0</span>          <span class=n>Listen</span>
+</span></span><span class=line><span class=cl><span class=mf>127.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>1</span>       <span class=mf>63001</span>     <span class=mf>0.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>0</span>         <span class=mf>0</span>          <span class=n>Listen</span>
+</span></span><span class=line><span class=cl><span class=mf>127.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>1</span>       <span class=mf>62001</span>     <span class=mf>0.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>0</span>         <span class=mf>0</span>          <span class=n>Listen</span>
+</span></span><span class=line><span class=cl><span class=mf>127.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>1</span>       <span class=mf>61001</span>     <span class=mf>0.0</span><span class=p>.</span><span class=py>0</span><span class=p>.</span><span class=py>0</span>         <span class=mf>0</span>          <span class=n>Listen</span>
+</span></span></code></pre></td></tr></table></div></div><p>依次尝试连接这些<code>LocalPort</code>，验证<code>adb devices</code>是否正常。</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>pwlin, “Android : add cert to system store,” <em>Gist</em>, Mar. 07, 2016. <a class=link href=https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb target=_blank rel=noopener>https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb</a> (accessed Nov. 25, 2021).&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>Mateusz, “ADB can’t connect to Nox,” <em>Stack Overflow</em>, Jul. 06, 2018. <a class=link href=https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox target=_blank rel=noopener>https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox</a> (accessed Nov. 25, 2021).&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a>&#160;<a href=#fnref1:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></section><footer class=article-footer><section class=article-tags><a href=/tags/android/>Android</a>
+<a href=/tags/%E6%8A%93%E5%8C%85/>抓包</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><script src=https://giscus.app/client.js data-repo=wesleyel/wesleyel.github.io data-repo-id=R_kgDOGXgP8g data-category=Announcements data-category-id=DIC_kwDOGXgP8s4CiMOo data-mapping=title data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-cn data-loading crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"preferred_color_scheme":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2022 -
+2025 Wesley Yang</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

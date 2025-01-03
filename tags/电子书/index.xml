@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>电子书 on Country Road</title><link>https://wesleyel.github.io/tags/%E7%94%B5%E5%AD%90%E4%B9%A6/</link><description>Recent content in 电子书 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/%E7%94%B5%E5%AD%90%E4%B9%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书
+&lt;/h2>&lt;p>以《&lt;a class="link" href="https://github.com/unknwon/the-way-to-go_ZH_CN" target="_blank" rel="noopener"
+>the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
+&lt;h2 id="预处理">预处理
+&lt;/h2>&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
+&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">grep -rl &lt;span class="s2">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ &lt;span class="p">|&lt;/span> xargs sed -i &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="s1">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="开始转换">开始转换
+&lt;/h2>&lt;p>安装&lt;a class="link" href="https://calibre-ebook.com" target="_blank" rel="noopener"
+>calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
+&lt;ol>
+&lt;li>创建一个符号连接&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
+&lt;ol start="2">
+&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install gitbook-cli -g
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>转换之&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gitbook pdf ./ ./book.pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

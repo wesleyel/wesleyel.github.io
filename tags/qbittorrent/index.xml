@@ -1,10 +1,306 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>QBittorrent on Magical trees, take me home.</title><link>/tags/qbittorrent/</link><description>Recent content in QBittorrent on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Mon, 09 May 2022 20:28:24 +0800</lastBuildDate><atom:link href="/tags/qbittorrent/index.xml" rel="self" type="application/rss+xml"/><item><title>qBittorrent 的一些事儿</title><link>/posts/usage-of-qbittorrent/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0800</pubDate><guid>/posts/usage-of-qbittorrent/</guid><description>Introduction 大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。
-有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。
-对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。
-之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。
-今天看到了这篇文章，感觉很有参考意义。本文就是在此基础上做的一点修改。
-qbittorrent-api qbittorrent-api 是qBittorrent Web API的Python实现。RTD
-它支持qBittorrent v4.1.0+版本，基本实现了所有API。
-支持的版本：
-from qbittorrentapi import Version versions = Version.supported_app_versions() print(sorted(versions)) # [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;, # &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;, # &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;, # &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;] qBittorrent有许多版本，有些版本API变化很大。官方WIKI中将WebUI API划为三个版本。
-State Version Current qBittorrent v4.1+ Previous qBittorrent v3.2.0-v4.0.4 Obsolete qBittorrent v3.1.x 有一些PT站点限定使用v3.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>QBittorrent on Country Road</title><link>https://wesleyel.github.io/tags/qbittorrent/</link><description>Recent content in QBittorrent on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/qbittorrent/index.xml" rel="self" type="application/rss+xml"/><item><title>qbittorrent-api 的一些用法</title><link>https://wesleyel.github.io/p/qbittorrent-api-usage/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/qbittorrent-api-usage/</guid><description>&lt;h2 id="introduction">Introduction
+&lt;/h2>&lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
+&lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
+&lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
+&lt;p>之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。&lt;/p>
+&lt;p>今天看到了&lt;a class="link" href="https://tomorrow505.xyz/%E5%9F%BA%E4%BA%8Eqbittorrentapi%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%8A%A0%E8%BD%BD%E7%A7%8D%E5%AD%90%E8%B7%B3%E6%A3%80/" target="_blank" rel="noopener"
+>这篇文章&lt;/a>，感觉很有参考意义。本文就是在此基础上做的一点修改。&lt;/p>
+&lt;h2 id="qbittorrent-api">qbittorrent-api
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/rmartin16/qbittorrent-api" target="_blank" rel="noopener"
+>qbittorrent-api&lt;/a> 是qBittorrent Web API的Python实现。&lt;a class="link" href="https://qbittorrent-api.readthedocs.io/en/latest/introduction.html" target="_blank" rel="noopener"
+>RTD&lt;/a>&lt;/p>
+&lt;p>它支持qBittorrent v4.1.0+版本，基本实现了所有API。&lt;/p>
+&lt;p>支持的版本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Version&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">supported_app_versions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">versions&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a class="link" href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api" target="_blank" rel="noopener"
+>官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>State&lt;/th>
+&lt;th>Version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Current&lt;/td>
+&lt;td>qBittorrent v4.1+&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Previous&lt;/td>
+&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Obsolete&lt;/td>
+&lt;td>qBittorrent v3.1.x&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p>
+&lt;p>例如&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>v3.*.*&lt;/code>的login接口为 &lt;code>http://localhost:8080/login&lt;/code>&lt;/li>
+&lt;li>&lt;code>v4.1.*&lt;/code>的login接口为&lt;code>http://localhost:8080/api/v2/auth/login&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a class="link" href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/" target="_blank" rel="noopener"
+>sourceforge&lt;/a>.&lt;/p>
+&lt;h2 id="skip-hash-detection">Skip hash detection
+&lt;/h2>&lt;h3 id="bug-fix">Bug fix
+&lt;/h3>&lt;p>根据&lt;a class="link" href="https://github.com/7sDream/torrent_parser/issues/11" target="_blank" rel="noopener"
+>torrent_parser issue#11&lt;/a>,&lt;/p>
+&lt;p>torrent_parser.py#L46: &lt;code>from typing_extensions import OrderedDict&lt;/code>&lt;/p>
+&lt;p>这一行是误加入，运行前应该手动在源码中删除。&lt;/p>
+&lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
+&lt;h3 id="full-code">Full code
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;span class="lnt">86
+&lt;/span>&lt;span class="lnt">87
+&lt;/span>&lt;span class="lnt">88
+&lt;/span>&lt;span class="lnt">89
+&lt;/span>&lt;span class="lnt">90
+&lt;/span>&lt;span class="lnt">91
+&lt;/span>&lt;span class="lnt">92
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">LoginFailed&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torrent_parser&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">load&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">hashlib&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">bencodepy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">CLoader&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">Loader&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="ne">ImportError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Loader&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 获取客户端实例&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">:&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;ip&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;port&amp;#39;&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">username&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;user&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pwd&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 客户端进行登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">auth_log_in&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="n">LoginFailed&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输出客户端信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent Web API: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">web_api_version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">qb&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 根据种子路径获取其hash值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">metainfo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">metainfo&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">hashlib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sha1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hexdigest&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 加载配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">load_config&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./config.yml&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">Loader&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Loader&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取种子文件列表信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tp&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse_torrent_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">keys&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;path&amp;#39;&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">file_paths&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 主程序入口&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">user_info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load_config&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;qb&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">save_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;save_path&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输入种子所在目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrents_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">listdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 循环处理种子信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">files&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">endswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.torrent&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;*********************** 当前处理种子文件：&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s2"> ***********************&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 种子已经存在于客户端，跳过&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hash_value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_hashes&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">hash_value&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 判断种子文件是否存在于常用的保存路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子文件包含&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">个文件&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">save_path&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">save_paths&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">torrent_file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">torrent_files&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">isfile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1"> 文件不存在，跳出……&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">flag&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_skip_checking&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_paused&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子检验完毕，保存路径为&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">，已经添加！！&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># result
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent: v4.1.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent Web API: 2.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子文件包含9个文件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">qb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ip&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;192.168.123.189&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;12345&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pwd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">adminadmin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">save_path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="kc">Y&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="l">\Transmission\DOWNLOADS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

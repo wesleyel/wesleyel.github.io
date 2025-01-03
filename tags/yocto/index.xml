@@ -1,3 +1,220 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yocto on Magical trees, take me home.</title><link>/tags/yocto/</link><description>Recent content in Yocto on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Mon, 04 Nov 2024 06:40:28 +0000</lastBuildDate><atom:link href="/tags/yocto/index.xml" rel="self" type="application/rss+xml"/><item><title>Yocto &amp; Bitbake Cheatsheet</title><link>/posts/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0800</pubDate><guid>/posts/yocto-cheetsheet/</guid><description>完整文档可以在Yocto 文档网站找到。 参考自yoctoproject-cheatsheet。
-Cli 命令 需要先通过source setup-environment设置Bitbake环境
-命令 描述 bitbake 编译指定的 image bitbake -c 执行指定的 task。 可选的 task 有: fetch, unpack, patch, configure, compile, install, package, clean, cleansstate, rebuild, reconfigure, reinstall等。 bitbake -c cleanall 清理指定的 recipe. 包括工作目录和 sstate cache bitbake -c devshell 进入指定 recipe 的 shell 环境 bitbake -c listtasks 列出指定 recipe 的所有 task bitbake -c showappends 显示指定 recipe 的所有 append 文件 bitbake -e 显示指定 recipe 的所有变量 bitbake -s 列出所有可用的 recipe bitbake -S 显示指定 recipe 的依赖关系 bitbake &amp;ndash;graphviz &amp;ndash;ui=depexp 生成的包依赖关系图 bitbake-layers show-layers 显示所有的 layer bitbake-layers show-appends 显示所有的 append 文件 bitbake-layers show-recipes 显示所有的 recipe bitbake-layers show-recipes &amp;ldquo;gdb*&amp;rdquo; 搜索 recipe bitbake-layers show-depends 显示所有的依赖关系 变量语法和操作 参考自Bitbake User Manual</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yocto on Country Road</title><link>https://wesleyel.github.io/tags/yocto/</link><description>Recent content in Yocto on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/yocto/index.xml" rel="self" type="application/rss+xml"/><item><title>Yocto &amp; Bitbake 速查</title><link>https://wesleyel.github.io/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/yocto-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a class="link" href="https://docs.yoctoproject.org/" target="_blank" rel="noopener"
+>Yocto 文档网站&lt;/a>找到。
+参考自&lt;a class="link" href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet" target="_blank" rel="noopener"
+>yoctoproject-cheatsheet&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="cli-命令">Cli 命令
+&lt;/h2>&lt;p>需要先通过&lt;code>source setup-environment&lt;/code>设置Bitbake环境&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>bitbake &lt;image>&lt;/td>
+&lt;td>编译指定的 image&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c &lt;task> &lt;recipe>&lt;/td>
+&lt;td>执行指定的 task。 可选的 task 有: &lt;code>fetch&lt;/code>, &lt;code>unpack&lt;/code>, &lt;code>patch&lt;/code>, &lt;code>configure&lt;/code>, &lt;code>compile&lt;/code>, &lt;code>install&lt;/code>, &lt;code>package&lt;/code>, &lt;code>clean&lt;/code>, &lt;code>cleansstate&lt;/code>, &lt;code>rebuild&lt;/code>, &lt;code>reconfigure&lt;/code>, &lt;code>reinstall&lt;/code>等。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c cleanall &lt;recipe>&lt;/td>
+&lt;td>清理指定的 recipe. 包括工作目录和 sstate cache&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c devshell &lt;recipe>&lt;/td>
+&lt;td>进入指定 recipe 的 shell 环境&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c listtasks &lt;recipe>&lt;/td>
+&lt;td>列出指定 recipe 的所有 task&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c showappends &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的所有 append 文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -e &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的所有变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -s&lt;/td>
+&lt;td>列出所有可用的 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -S &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的依赖关系&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake &lt;image> &amp;ndash;graphviz &amp;ndash;ui=depexp&lt;/td>
+&lt;td>生成&lt;image>的包依赖关系图&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-layers&lt;/td>
+&lt;td>显示所有的 layer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-appends&lt;/td>
+&lt;td>显示所有的 append 文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-recipes&lt;/td>
+&lt;td>显示所有的 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-recipes &amp;ldquo;gdb*&amp;rdquo;&lt;/td>
+&lt;td>搜索 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-depends&lt;/td>
+&lt;td>显示所有的依赖关系&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="变量语法和操作">变量语法和操作
+&lt;/h2>&lt;blockquote>
+&lt;p>参考自&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html" target="_blank" rel="noopener"
+>Bitbake User Manual&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>可以随时使用 &lt;code>bitbake -e&lt;/code> 查看编译时的变量。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>语法&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
+&lt;td>如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为空&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为一个空格&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
+&lt;td>通过单引号设置含有双引号的变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置&lt;em>弱&lt;/em>默认值，见&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value" target="_blank" rel="noopener"
+>弱默认值&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值前面追加（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（无空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值后面追加（无空格）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>TODO&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="localconf-配置">&lt;code>local.conf&lt;/code> 配置
+&lt;/h2>&lt;p>这些配置可以加入到 &lt;code>local.conf&lt;/code> 或者&lt;code>bblayers.conf&lt;/code>文件中，也根据需求加入其他 Machine 配置中。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>配置&lt;/th>
+&lt;th>作用&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>RM_WORK_EXCLUDE += &amp;quot;recipe_name&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>不删除&lt;/strong>指定的 recipe 的工作目录，用于调试&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>INHERIT += &amp;quot;rm_work&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>删除&lt;/strong>工作目录&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="faq">FAQ
+&lt;/h2>&lt;h3 id="note-reconnecting-to-bitbake-server">NOTE: Reconnecting to bitbake server
+&lt;/h3>&lt;p>删除 bitbake.lock&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm -rf &amp;lt;build-dir&amp;gt;/bitbake.lock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="error-nothing-provides-a-needed-by-b">ERROR: nothing provides A needed by B
+&lt;/h3>&lt;ul>
+&lt;li>情况一： recipe A 不存在，没有被添加到 packagegroup 或者 dependcy 中&lt;/li>
+&lt;li>情况二： recipe A 编出来是空包，没有生成任何文件。需要在 A 的 recipe 中添加 &lt;code>ALLOW_EMPTY_${PN} = &amp;quot;1&amp;quot;&lt;/code> 来解决&lt;/li>
+&lt;/ul>
+&lt;p>经常在编译动态库时会遇到这个问题，因为动态库的 recipe 生成的是一个空包。&lt;/p>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/59091938/yocto-oe-recipe-with-cmake-install-a-shared-library-so" target="_blank" rel="noopener"
+>Yocto / OE : recipe with CMake install a shared library .so - Stack Overflow&lt;/a>
+&lt;a class="link" href="https://docs.yoctoproject.org/pipermail/yocto/2015-January/022921.html" target="_blank" rel="noopener"
+>do_rootfs missing package (ipk) or not found in base feeds (rpm) (yoctoproject.org)&lt;/a>&lt;/p>
+&lt;p>只有 &lt;code>*.so.*&lt;/code>（包含版本号的动态库）会被打包进 FILES_${PN}，而软链接 &lt;code>*.so&lt;/code> 会被打包进 &lt;code>-dev&lt;/code>package&lt;/p>
+&lt;h3 id="如何使用-devtool-新增patch">如何使用 &lt;code>devtool&lt;/code> 新增patch
+&lt;/h3>&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/33939837/what-is-best-practice-to-do-small-changes-in-source-code-in-yocto" target="_blank" rel="noopener"
+>bitbake - What is best practice to do small changes in source code in Yocto - Stack Overflow&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">devtool modify -x &amp;lt;recipe&amp;gt; &amp;lt;path-to-unpack&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool build &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改位于&amp;lt;path-to-unpack&amp;gt;的源码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool update-recipe &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool reset &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

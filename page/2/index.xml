@@ -1,6 +1,0 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magical trees, take me home.</title><link>/</link><description>Recent content on Magical trees, take me home.</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello World</title><link>/posts/hello/</link><pubDate>Tue, 09 Nov 2021 17:18:22 +0800</pubDate><guid>/posts/hello/</guid><description>Magical trees, take me home. /posts/hello/ -&lt;p>辗转反复多次，最后终于意识到比写博客有意思的是折腾博客。&lt;/p>
-&lt;blockquote>
-&lt;p>下次记得留下一些被打败的凹痕，以作纪念。 - 蕾欧娜&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>console.log(&lt;span style="color:#cd5555">&amp;#34;Hello World&amp;#34;&lt;/span>);
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- /posts/hello/ -</description></item></channel></rss>

@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工具货架 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/</link><description>Recent content in 工具货架 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html" target="_blank" rel="noopener"
+>官方网站&lt;/a>找到。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="快速开始一个-buildroot-项目">快速开始一个 buildroot 项目
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_repo&lt;/span>&lt;span class="o">=&lt;/span>https://github.com/buildroot/buildroot.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_version&lt;/span>&lt;span class="o">=&lt;/span>2022.11
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_src&lt;/span>&lt;span class="o">=&lt;/span>buildroot-&lt;span class="nv">$buildroot_version&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_defcfg&lt;/span>&lt;span class="o">=&lt;/span>raspberrypi4_defconfig
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone --branch &lt;span class="nv">$buildroot_version&lt;/span> --depth &lt;span class="m">1&lt;/span> &lt;span class="nv">$buildroot_repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -C &lt;span class="nv">$buildroot_src&lt;/span> defconfig &lt;span class="nv">BR2_DEFCONFIG&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$buildroot_defcfg&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -C &lt;span class="nv">$buildroot_src&lt;/span> linux-reconfigure all
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="基本命令">基本命令
+&lt;/h2>&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#make-tips" target="_blank" rel="noopener"
+>Make 提示&lt;/a>&lt;/p>
+&lt;p>使用 &lt;code>make help&lt;/code> 获取所有可用目标的列表。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>make&lt;/td>
+&lt;td>构建 rootfs&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make xyz_defconfig&lt;/td>
+&lt;td>选择配置文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make menuconfig&lt;/td>
+&lt;td>打开配置菜单&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make savedefconfig&lt;/td>
+&lt;td>将当前配置保存到 defconfig 文件中&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make source&lt;/td>
+&lt;td>下载包的源代码&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make clean&lt;/td>
+&lt;td>清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make distclean&lt;/td>
+&lt;td>清理所有内容，包括配置&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="包管理">包管理
+&lt;/h3>&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps" target="_blank" rel="noopener"
+>特定包的 make 目标&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;&lt;/td>
+&lt;td>构建一个包&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
+&lt;td>重新安装一个包&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
+&lt;td>重新构建一个包（这意味着重新安装）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
+&lt;td>重新配置一个包（这意味着重新构建）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
+&lt;td>清理包目录&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="调试">调试
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>make graph-depends&lt;/td>
+&lt;td>生成依赖关系图&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
+&lt;td>生成包的依赖关系图&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="目录结构">目录结构
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>目录&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>configs&lt;/td>
+&lt;td>单板的配置和 defconfig 文件的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>package&lt;/td>
+&lt;td>包定义的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>dl&lt;/td>
+&lt;td>下载的源代码压缩包&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>output/build&lt;/td>
+&lt;td>所有组件构建的目录&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>output/images&lt;/td>
+&lt;td>构建的内核、引导加载程序和根文件系统镜像的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>output/staging&lt;/td>
+&lt;td>交叉编译工具链和用户空间包的头文件和库的位置（这是 host/&lt;toolchains>/sysroot 的软链）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>output/host&lt;/td>
+&lt;td>包括交叉编译工具链在内的主机工具的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>output/target&lt;/td>
+&lt;td>几乎是最终的目标根文件系统&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="mk-文件">&lt;code>.mk&lt;/code> 文件
+&lt;/h2>&lt;h3 id="cmake">Cmake
+&lt;/h3>&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial" target="_blank" rel="noopener"
+>cmake 包教程&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>一个 cmake 包的示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># libfoo
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_VERSION&lt;/span> &lt;span class="o">=&lt;/span> 1.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_SOURCE&lt;/span> &lt;span class="o">=&lt;/span> libfoo-&lt;span class="k">$(&lt;/span>LIBFOO_VERSION&lt;span class="k">)&lt;/span>.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_SITE&lt;/span> &lt;span class="o">=&lt;/span> http://www.foosoftware.org/download
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_INSTALL_STAGING&lt;/span> &lt;span class="o">=&lt;/span> YES
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_INSTALL_TARGET&lt;/span> &lt;span class="o">=&lt;/span> NO
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_CONF_OPTS&lt;/span> &lt;span class="o">=&lt;/span> -DBUILD_DEMOS&lt;span class="o">=&lt;/span>ON
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_DEPENDENCIES&lt;/span> &lt;span class="o">=&lt;/span> libglib2 host-pkgconf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">eval&lt;/span> &lt;span class="k">$(&lt;/span>&lt;span class="nv">cmake&lt;/span>-&lt;span class="nv">package&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="外部包和-sysvinit">外部包和 sysvinit
+&lt;/h3>&lt;p>一个带有 sysvinit 的外部包示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># gsmmux 项目
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_SITE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">$(&lt;/span>TOPDIR&lt;span class="k">)&lt;/span>/../external/path/gsmmux
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_SITE_METHOD&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">local&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_INSTALL_STAGING&lt;/span> &lt;span class="o">=&lt;/span> YES
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_VERSION&lt;/span> &lt;span class="o">=&lt;/span> 1.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">define&lt;/span> &lt;span class="err">GSMMUX_INSTALL_INIT_SYSV&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">INSTALL&lt;/span>&lt;span class="k">)&lt;/span> &lt;span class="err">-D&lt;/span> &lt;span class="err">-m&lt;/span> &lt;span class="err">755&lt;/span> &lt;span class="k">$(&lt;/span>@&lt;span class="nv">D&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="err">/S50start_cmuxd&lt;/span> &lt;span class="err">\&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">$(&lt;/span>&lt;span class="nv">TARGET_DIR&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="err">/etc/init.d/S50start_cmuxd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">endef&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">eval&lt;/span> &lt;span class="k">$(&lt;/span>&lt;span class="nv">cmake&lt;/span>-&lt;span class="nv">package&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="如何设置-ccache编译缓存">如何设置 ccache（编译缓存）？
+&lt;/h3>&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#ccache" target="_blank" rel="noopener"
+>在 Buildroot 中使用 ccache&lt;/a>&lt;/p>
+&lt;p>&lt;code>ccache&lt;/code> 支持已集成在 Buildroot 中。只需在 &lt;code>Build options&lt;/code> 中启用 &lt;code>Enable compiler cache&lt;/code>。这将自动构建 &lt;code>ccache&lt;/code> 并将其用于每个主机和目标编译。&lt;/p>
+&lt;p>&lt;code>cache&lt;/code> 位于 &lt;code>BR2_CCACHE_DIR&lt;/code> 配置选项定义的目录中，默认值为 &lt;code>$HOME/.buildroot-ccache&lt;/code>。此默认位置在 Buildroot 输出目录之外，因此可以由单独的 Buildroot 构建共享。如果要删除缓存，只需删除此目录。&lt;/p>
+&lt;h3 id="如何重新生成-targetrootfs">如何重新生成 target/rootfs
+&lt;/h3>&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot" target="_blank" rel="noopener"
+>How to clean only target in buildroot&lt;/a>&lt;/p>
+&lt;p>由于&lt;code>rm -rf output/target &amp;amp;&amp;amp; make&lt;/code>并不会触发 install 操作，所以需要用以下 hack 来实现：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm -rf output/target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除所有的 .stamp_target_installed 文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find ../ -name &lt;span class="s2">&amp;#34;.stamp_target_installed&amp;#34;&lt;/span> -delete
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -f output/build/host-gcc-final-*/.stamp_host_installed
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Yocto &amp; Bitbake 速查</title><link>https://wesleyel.github.io/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/yocto-cheetsheet/</guid><description>&lt;blockquote>
+&lt;p>完整文档可以在&lt;a class="link" href="https://docs.yoctoproject.org/" target="_blank" rel="noopener"
+>Yocto 文档网站&lt;/a>找到。
+参考自&lt;a class="link" href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet" target="_blank" rel="noopener"
+>yoctoproject-cheatsheet&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="cli-命令">Cli 命令
+&lt;/h2>&lt;p>需要先通过&lt;code>source setup-environment&lt;/code>设置Bitbake环境&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>bitbake &lt;image>&lt;/td>
+&lt;td>编译指定的 image&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c &lt;task> &lt;recipe>&lt;/td>
+&lt;td>执行指定的 task。 可选的 task 有: &lt;code>fetch&lt;/code>, &lt;code>unpack&lt;/code>, &lt;code>patch&lt;/code>, &lt;code>configure&lt;/code>, &lt;code>compile&lt;/code>, &lt;code>install&lt;/code>, &lt;code>package&lt;/code>, &lt;code>clean&lt;/code>, &lt;code>cleansstate&lt;/code>, &lt;code>rebuild&lt;/code>, &lt;code>reconfigure&lt;/code>, &lt;code>reinstall&lt;/code>等。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c cleanall &lt;recipe>&lt;/td>
+&lt;td>清理指定的 recipe. 包括工作目录和 sstate cache&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c devshell &lt;recipe>&lt;/td>
+&lt;td>进入指定 recipe 的 shell 环境&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c listtasks &lt;recipe>&lt;/td>
+&lt;td>列出指定 recipe 的所有 task&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -c showappends &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的所有 append 文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -e &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的所有变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -s&lt;/td>
+&lt;td>列出所有可用的 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake -S &lt;recipe>&lt;/td>
+&lt;td>显示指定 recipe 的依赖关系&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake &lt;image> &amp;ndash;graphviz &amp;ndash;ui=depexp&lt;/td>
+&lt;td>生成&lt;image>的包依赖关系图&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-layers&lt;/td>
+&lt;td>显示所有的 layer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-appends&lt;/td>
+&lt;td>显示所有的 append 文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-recipes&lt;/td>
+&lt;td>显示所有的 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-recipes &amp;ldquo;gdb*&amp;rdquo;&lt;/td>
+&lt;td>搜索 recipe&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bitbake-layers show-depends&lt;/td>
+&lt;td>显示所有的依赖关系&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="变量语法和操作">变量语法和操作
+&lt;/h2>&lt;blockquote>
+&lt;p>参考自&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html" target="_blank" rel="noopener"
+>Bitbake User Manual&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>可以随时使用 &lt;code>bitbake -e&lt;/code> 查看编译时的变量。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>语法&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
+&lt;td>如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为空&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量为一个空格&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
+&lt;td>通过单引号设置含有双引号的变量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置&lt;em>弱&lt;/em>默认值，见&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value" target="_blank" rel="noopener"
+>弱默认值&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值前面追加（带空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>追加变量值（无空格）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在变量值后面追加（无空格）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>TODO&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="localconf-配置">&lt;code>local.conf&lt;/code> 配置
+&lt;/h2>&lt;p>这些配置可以加入到 &lt;code>local.conf&lt;/code> 或者&lt;code>bblayers.conf&lt;/code>文件中，也根据需求加入其他 Machine 配置中。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>配置&lt;/th>
+&lt;th>作用&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>RM_WORK_EXCLUDE += &amp;quot;recipe_name&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>不删除&lt;/strong>指定的 recipe 的工作目录，用于调试&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>INHERIT += &amp;quot;rm_work&amp;quot;&lt;/code>&lt;/td>
+&lt;td>编译后&lt;strong>删除&lt;/strong>工作目录&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="faq">FAQ
+&lt;/h2>&lt;h3 id="note-reconnecting-to-bitbake-server">NOTE: Reconnecting to bitbake server
+&lt;/h3>&lt;p>删除 bitbake.lock&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm -rf &amp;lt;build-dir&amp;gt;/bitbake.lock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="error-nothing-provides-a-needed-by-b">ERROR: nothing provides A needed by B
+&lt;/h3>&lt;ul>
+&lt;li>情况一： recipe A 不存在，没有被添加到 packagegroup 或者 dependcy 中&lt;/li>
+&lt;li>情况二： recipe A 编出来是空包，没有生成任何文件。需要在 A 的 recipe 中添加 &lt;code>ALLOW_EMPTY_${PN} = &amp;quot;1&amp;quot;&lt;/code> 来解决&lt;/li>
+&lt;/ul>
+&lt;p>经常在编译动态库时会遇到这个问题，因为动态库的 recipe 生成的是一个空包。&lt;/p>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/59091938/yocto-oe-recipe-with-cmake-install-a-shared-library-so" target="_blank" rel="noopener"
+>Yocto / OE : recipe with CMake install a shared library .so - Stack Overflow&lt;/a>
+&lt;a class="link" href="https://docs.yoctoproject.org/pipermail/yocto/2015-January/022921.html" target="_blank" rel="noopener"
+>do_rootfs missing package (ipk) or not found in base feeds (rpm) (yoctoproject.org)&lt;/a>&lt;/p>
+&lt;p>只有 &lt;code>*.so.*&lt;/code>（包含版本号的动态库）会被打包进 FILES_${PN}，而软链接 &lt;code>*.so&lt;/code> 会被打包进 &lt;code>-dev&lt;/code>package&lt;/p>
+&lt;h3 id="如何使用-devtool-新增patch">如何使用 &lt;code>devtool&lt;/code> 新增patch
+&lt;/h3>&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/33939837/what-is-best-practice-to-do-small-changes-in-source-code-in-yocto" target="_blank" rel="noopener"
+>bitbake - What is best practice to do small changes in source code in Yocto - Stack Overflow&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">devtool modify -x &amp;lt;recipe&amp;gt; &amp;lt;path-to-unpack&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool build &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改位于&amp;lt;path-to-unpack&amp;gt;的源码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool update-recipe &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool reset &amp;lt;recipe&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>qbittorrent-api 的一些用法</title><link>https://wesleyel.github.io/p/qbittorrent-api-usage/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/qbittorrent-api-usage/</guid><description>&lt;h2 id="introduction">Introduction
+&lt;/h2>&lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
+&lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
+&lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
+&lt;p>之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。&lt;/p>
+&lt;p>今天看到了&lt;a class="link" href="https://tomorrow505.xyz/%E5%9F%BA%E4%BA%8Eqbittorrentapi%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%8A%A0%E8%BD%BD%E7%A7%8D%E5%AD%90%E8%B7%B3%E6%A3%80/" target="_blank" rel="noopener"
+>这篇文章&lt;/a>，感觉很有参考意义。本文就是在此基础上做的一点修改。&lt;/p>
+&lt;h2 id="qbittorrent-api">qbittorrent-api
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/rmartin16/qbittorrent-api" target="_blank" rel="noopener"
+>qbittorrent-api&lt;/a> 是qBittorrent Web API的Python实现。&lt;a class="link" href="https://qbittorrent-api.readthedocs.io/en/latest/introduction.html" target="_blank" rel="noopener"
+>RTD&lt;/a>&lt;/p>
+&lt;p>它支持qBittorrent v4.1.0+版本，基本实现了所有API。&lt;/p>
+&lt;p>支持的版本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Version&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">supported_app_versions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">versions&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a class="link" href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api" target="_blank" rel="noopener"
+>官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>State&lt;/th>
+&lt;th>Version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Current&lt;/td>
+&lt;td>qBittorrent v4.1+&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Previous&lt;/td>
+&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Obsolete&lt;/td>
+&lt;td>qBittorrent v3.1.x&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p>
+&lt;p>例如&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>v3.*.*&lt;/code>的login接口为 &lt;code>http://localhost:8080/login&lt;/code>&lt;/li>
+&lt;li>&lt;code>v4.1.*&lt;/code>的login接口为&lt;code>http://localhost:8080/api/v2/auth/login&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a class="link" href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/" target="_blank" rel="noopener"
+>sourceforge&lt;/a>.&lt;/p>
+&lt;h2 id="skip-hash-detection">Skip hash detection
+&lt;/h2>&lt;h3 id="bug-fix">Bug fix
+&lt;/h3>&lt;p>根据&lt;a class="link" href="https://github.com/7sDream/torrent_parser/issues/11" target="_blank" rel="noopener"
+>torrent_parser issue#11&lt;/a>,&lt;/p>
+&lt;p>torrent_parser.py#L46: &lt;code>from typing_extensions import OrderedDict&lt;/code>&lt;/p>
+&lt;p>这一行是误加入，运行前应该手动在源码中删除。&lt;/p>
+&lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
+&lt;h3 id="full-code">Full code
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;span class="lnt">86
+&lt;/span>&lt;span class="lnt">87
+&lt;/span>&lt;span class="lnt">88
+&lt;/span>&lt;span class="lnt">89
+&lt;/span>&lt;span class="lnt">90
+&lt;/span>&lt;span class="lnt">91
+&lt;/span>&lt;span class="lnt">92
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">LoginFailed&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torrent_parser&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">load&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">hashlib&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">bencodepy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">CLoader&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">Loader&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="ne">ImportError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Loader&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 获取客户端实例&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">:&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;ip&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;port&amp;#39;&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">username&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;user&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pwd&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 客户端进行登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">auth_log_in&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="n">LoginFailed&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输出客户端信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent Web API: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">web_api_version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">qb&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 根据种子路径获取其hash值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">metainfo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">metainfo&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">hashlib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sha1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hexdigest&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 加载配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">load_config&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./config.yml&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">Loader&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Loader&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取种子文件列表信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tp&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse_torrent_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">keys&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;path&amp;#39;&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">file_paths&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 主程序入口&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">user_info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load_config&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;qb&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">save_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;save_path&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输入种子所在目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrents_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">listdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 循环处理种子信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">files&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">endswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.torrent&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;*********************** 当前处理种子文件：&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s2"> ***********************&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 种子已经存在于客户端，跳过&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hash_value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_hashes&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">hash_value&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 判断种子文件是否存在于常用的保存路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子文件包含&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">个文件&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">save_path&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">save_paths&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">torrent_file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">torrent_files&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">isfile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1"> 文件不存在，跳出……&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">flag&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_skip_checking&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_paused&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子检验完毕，保存路径为&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">，已经添加！！&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># result
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent: v4.1.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent Web API: 2.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子文件包含9个文件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">qb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ip&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;192.168.123.189&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;12345&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pwd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">adminadmin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">save_path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="kc">Y&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="l">\Transmission\DOWNLOADS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书
+&lt;/h2>&lt;p>以《&lt;a class="link" href="https://github.com/unknwon/the-way-to-go_ZH_CN" target="_blank" rel="noopener"
+>the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
+&lt;h2 id="预处理">预处理
+&lt;/h2>&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
+&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">grep -rl &lt;span class="s2">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ &lt;span class="p">|&lt;/span> xargs sed -i &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="s1">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="开始转换">开始转换
+&lt;/h2>&lt;p>安装&lt;a class="link" href="https://calibre-ebook.com" target="_blank" rel="noopener"
+>calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
+&lt;ol>
+&lt;li>创建一个符号连接&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
+&lt;ol start="2">
+&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install gitbook-cli -g
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>转换之&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gitbook pdf ./ ./book.pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
