@@ -191,6 +191,9 @@ LocalAddress    LocalPort RemoteAddress   RemotePort State   AppliedSetting
 依次尝试连接这些`LocalPort`，验证`adb devices`是否正常。
 
 [^1]: loco, “当你写爬虫抓不到 APP 请求包的时候该怎么办？【中级篇】,” _知乎专栏_, 2019. <https://zhuanlan.zhihu.com/p/56397466> (accessed Nov. 25, 2021).
+
 [^2]: 空夜无殇, “手机抓不到包的原因与解决方法（非 xposed 框架）,” _知乎专栏_, 2021. <https://zhuanlan.zhihu.com/p/349267640> (accessed Nov. 25, 2021).
+
 [^3]: Mateusz, “ADB can’t connect to Nox,” _Stack Overflow_, Jul. 06, 2018. <https://stackoverflow.com/questions/51214825/adb-cant-connect-to-nox> (accessed Nov. 25, 2021).
+
 [^4]: pwlin, “Android : add cert to system store,” _Gist_, Mar. 07, 2016. <https://gist.github.com/pwlin/8a0d01e6428b7a96e2eb> (accessed Nov. 25, 2021).

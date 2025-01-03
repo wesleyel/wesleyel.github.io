@@ -2,10 +2,10 @@
 title: "Yocto & Bitbake 速查"
 date: 2024-09-04
 categories:
-    - 工具货架
+  - 工具货架
 tags:
-    - Yocto
-    - 嵌入式
+  - Yocto
+  - 嵌入式
 description: "如果我有空的话，我会更新这个文档，我是说如果。"
 slug: Yocto-cheetsheet
 ---
@@ -32,9 +32,8 @@ slug: Yocto-cheetsheet
 | bitbake-layers show-layers             | 显示所有的 layer                                                                                                                                                              |
 | bitbake-layers show-appends            | 显示所有的 append 文件                                                                                                                                                        |
 | bitbake-layers show-recipes            | 显示所有的 recipe                                                                                                                                                             |
-| bitbake-layers show-recipes "gdb*"     | 搜索 recipe                                                                                                                                                                   |
+| bitbake-layers show-recipes "gdb\*"    | 搜索 recipe                                                                                                                                                                   |
 | bitbake-layers show-depends            | 显示所有的依赖关系                                                                                                                                                            |
-
 
 ## 变量语法和操作
 
@@ -89,7 +88,7 @@ rm -rf <build-dir>/bitbake.lock
 [Yocto / OE : recipe with CMake install a shared library .so - Stack Overflow](https://stackoverflow.com/questions/59091938/yocto-oe-recipe-with-cmake-install-a-shared-library-so)
 [do_rootfs missing package (ipk) or not found in base feeds (rpm) (yoctoproject.org)](https://docs.yoctoproject.org/pipermail/yocto/2015-January/022921.html)
 
-只有 `*.so.*`（包含版本号的动态库）会被打包进 FILES_${PN}，而软链接 `*.so` 会被打包进 `-dev`package
+只有 `*.so.*`（包含版本号的动态库）会被打包进 FILES\_${PN}，而软链接 `*.so` 会被打包进 `-dev`package
 
 ### 如何使用 `devtool` 新增patch
 

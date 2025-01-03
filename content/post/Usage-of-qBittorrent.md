@@ -2,9 +2,9 @@
 title: "qbittorrent-api 的一些用法"
 date: 2022-04-22
 categories:
-    - 工具货架
+  - 工具货架
 tags:
-    - qBittorrent
+  - qBittorrent
 description: "使用qBittorrent和qbittorrent-api批量添加种子"
 slug: qbittorrent-api-usage
 ---
@@ -21,7 +21,6 @@ slug: qbittorrent-api-usage
 
 今天看到了[这篇文章](https://tomorrow505.xyz/%E5%9F%BA%E4%BA%8Eqbittorrentapi%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%8A%A0%E8%BD%BD%E7%A7%8D%E5%AD%90%E8%B7%B3%E6%A3%80/)，感觉很有参考意义。本文就是在此基础上做的一点修改。
 
-
 ## qbittorrent-api
 
 [qbittorrent-api](https://github.com/rmartin16/qbittorrent-api) 是qBittorrent Web API的Python实现。[RTD](https://qbittorrent-api.readthedocs.io/en/latest/introduction.html)
@@ -29,22 +28,22 @@ slug: qbittorrent-api-usage
 它支持qBittorrent v4.1.0+版本，基本实现了所有API。
 
 支持的版本：
+
 ```python
 from qbittorrentapi import Version
 versions = Version.supported_app_versions()
 print(sorted(versions))
 
-# ['v4.1.0', 'v4.1.1', 'v4.1.2', 'v4.1.3', 'v4.1.4', 'v4.1.5', 'v4.1.6', 'v4.1.7', 
-#  'v4.1.8', 'v4.1.9', 'v4.1.9.1', 'v4.2.0', 'v4.2.1', 'v4.2.2', 'v4.2.3', 'v4.2.4', 
-#  'v4.2.5', 'v4.3.0', 'v4.3.0.1', 'v4.3.1', 'v4.3.2', 'v4.3.3', 'v4.3.4.1', 'v4.3.5', 
+# ['v4.1.0', 'v4.1.1', 'v4.1.2', 'v4.1.3', 'v4.1.4', 'v4.1.5', 'v4.1.6', 'v4.1.7',
+#  'v4.1.8', 'v4.1.9', 'v4.1.9.1', 'v4.2.0', 'v4.2.1', 'v4.2.2', 'v4.2.3', 'v4.2.4',
+#  'v4.2.5', 'v4.3.0', 'v4.3.0.1', 'v4.3.1', 'v4.3.2', 'v4.3.3', 'v4.3.4.1', 'v4.3.5',
 #  'v4.3.6', 'v4.3.7', 'v4.3.8', 'v4.3.9', 'v4.4.0', 'v4.4.1', 'v4.4.2']
 ```
 
 qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api)中将WebUI API划为三个版本。
 
-
 | State    | Version                   |
-|----------|---------------------------|
+| -------- | ------------------------- |
 | Current  | qBittorrent v4.1+         |
 | Previous | qBittorrent v3.2.0-v4.0.4 |
 | Obsolete | qBittorrent v3.1.x        |
@@ -52,6 +51,7 @@ qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://
 有一些PT站点限定使用`v3.*.*`版本，这样的话，就需要自己更新API了。
 
 例如
+
 - `v3.*.*`的login接口为 `http://localhost:8080/login`
 - `v4.1.*`的login接口为`http://localhost:8080/api/v2/auth/login`
 
@@ -61,7 +61,7 @@ qBittorrent有许多版本，有些版本API变化很大。[官方WIKI](https://
 
 ### Bug fix
 
-根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11), 
+根据[torrent_parser issue#11](https://github.com/7sDream/torrent_parser/issues/11),
 
 torrent_parser.py#L46: `from typing_extensions import OrderedDict`
 
@@ -132,25 +132,25 @@ if __name__ == '__main__':
     user_info = load_config()
     qb = get_qb(user_info['qb'])
     save_paths = user_info['save_path']
-    
+
     # 输入种子所在目录
     torrents_path = input("请输入种子保存路径>>")
     files = os.listdir(torrents_path)
-    
+
     # 循环处理种子信息
     for file in files:
         if not file.endswith('.torrent'):
             continue
         print("*********************** 当前处理种子文件：%s ***********************" % file)
         torrent_path = os.path.join(torrents_path, file)
-        
+
         # 种子已经存在于客户端，跳过
         hash_value = get_hash(torrent_path)
         torrent = qb.torrents_info(torrent_hashes=hash_value)
         if len(torrent) == 1:
             print("当前种子已经存在于客户端，跳出……")
             continue
-        
+
         # 判断种子文件是否存在于常用的保存路径
         torrent_files = pars_torrent(torrent_path)
         print('种子文件包含%d个文件'%len(torrent_files))
@@ -178,10 +178,10 @@ qBittorrent Web API: 2.1.1
 
 ```yaml
 qb:
-  ip: '192.168.123.189'
-  port: '12345'
+  ip: "192.168.123.189"
+  port: "12345"
   user: admin
   pwd: adminadmin
 save_path:
-    - Y:\Transmission\DOWNLOADS
+  - Y:\Transmission\DOWNLOADS
 ```

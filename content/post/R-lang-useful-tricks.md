@@ -2,14 +2,13 @@
 title: "R语言列表操作和连接MongoDB经验之谈"
 date: 2021-11-10
 categories:
-    - 经验
+  - 经验
 tags:
-    - R
-    - 数据分析
+  - R
+  - 数据分析
 description: "在分析云顶之弈数据时，使用R语言连接MongoDB，并进行数据处理和分析的经验"
 slug: R-lang-useful-tricks
 ---
-
 
 {{<figure src="/img/RStudio.png" alt="RStudio" position="center" style="border-radius: 8px;" caption="RStudio" captionPosition="left" captionStyle="color: black; " >}}
 
@@ -23,7 +22,7 @@ slug: R-lang-useful-tricks
 
 最后终于接触到了R语言，这真是个好工具。配合RStudio，顺手又高效。它解决了上面的所有问题，而且内建和社区的函数和包为分析过程提供了很大帮助，为我节省了很多时间。它的一些用法和其他语言显得有些奇怪，理解和熟悉需要一些时间，但R语言的学习绝对物超所值。
 
-李东风老师的开源R语言教程很好，推荐一下：[https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html](https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html)
+李东风老师的开源R语言教程很好，推荐一下：[https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/\_Rbook/index.html](https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/index.html)
 
 ## R语言的数据类型
 
@@ -63,10 +62,10 @@ rec <- list(name="李明", age=30,
 rec
 ## $name
 ## [1] "李明"
-## 
+##
 ## $age
 ## [1] 30
-## 
+##
 ## $scores
 ## [1] 85 76 90
 
@@ -93,10 +92,10 @@ rec[["age"]] <- NULL
 rec[["身高"]] <- 178
 ## $name
 ## [1] "李明"
-## 
+##
 ## $三科分数
 ## [1] 85  0 90
-## 
+##
 ## $身高
 ## [1] 178
 ```
@@ -110,7 +109,7 @@ rec[["身高"]] <- 178
 ```r
 d<-data.frame(TraitsComb=character(0),Top4=double(0),Winner=double(0),AvgPlacement=double(0),PickTimes=integer(0))
 print(d)
-## [1] TraitsComb   Top4         Winner       AvgPlacement PickTimes   
+## [1] TraitsComb   Top4         Winner       AvgPlacement PickTimes
 ## <0 行> (或0-长度的row.names)
 
 d[1,]<-list("a", 1.2, 2.3, 3.4, 5)
@@ -142,11 +141,11 @@ tiers<-rev(c("DIAMOND","PLATINUM","GOLD","SILVER","BRONZE","IRON"))
 ranks<-rev(c("I","II","III","IV","V"))
 tire_order<-lapply(tiers,function(x) paste(x,ranks,sep="-")) %>% unlist
 
-## [1] "IRON-V"          "IRON-IV"         "IRON-III"        "IRON-II"         "IRON-I"          "BRONZE-V"       
-## [7] "BRONZE-IV"       "BRONZE-III"      "BRONZE-II"       "BRONZE-I"        "SILVER-V"        "SILVER-IV"      
-## [13] "SILVER-III"      "SILVER-II"       "SILVER-I"        "GOLD-V"          "GOLD-IV"         "GOLD-III"       
-## [19] "GOLD-II"         "GOLD-I"          "PLATINUM-V"      "PLATINUM-IV"     "PLATINUM-III"    "PLATINUM-II"    
-## [25] "PLATINUM-I"      "DIAMOND-V"       "DIAMOND-IV"      "DIAMOND-III"     "DIAMOND-II"      "DIAMOND-I"      
+## [1] "IRON-V"          "IRON-IV"         "IRON-III"        "IRON-II"         "IRON-I"          "BRONZE-V"
+## [7] "BRONZE-IV"       "BRONZE-III"      "BRONZE-II"       "BRONZE-I"        "SILVER-V"        "SILVER-IV"
+## [13] "SILVER-III"      "SILVER-II"       "SILVER-I"        "GOLD-V"          "GOLD-IV"         "GOLD-III"
+## [19] "GOLD-II"         "GOLD-I"          "PLATINUM-V"      "PLATINUM-IV"     "PLATINUM-III"    "PLATINUM-II"
+## [25] "PLATINUM-I"      "DIAMOND-V"       "DIAMOND-IV"      "DIAMOND-III"     "DIAMOND-II"      "DIAMOND-I"
 ```
 
 这里`lapply`是对列表遍历，将每个元素先赋值为`x`，然后应用`function(x)`函数。`paste`函数是将两个参数连接起来，`sep`是连接符。

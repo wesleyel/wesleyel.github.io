@@ -2,14 +2,14 @@
 title: "通过Gitbook将Markdown电子书转换为PDF格式"
 date: 2021-11-10
 categories:
-    - 工具货架
+  - 工具货架
 tags:
-    - 电子书
+  - 电子书
 description: "以《[the-way-to-go_ZH_CN](https://github.com/unknwon/the-way-to-go_ZH_CN)》为例，将它转换为PDF文档。"
 slug: convert-gitbook-to-pdf
 ---
 
-##  找到一本电子书
+## 找到一本电子书
 
 以《[the-way-to-go_ZH_CN](https://github.com/unknwon/the-way-to-go_ZH_CN)》为例，先`clone`下来。
 
