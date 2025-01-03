@@ -102,8 +102,7 @@
   <body>
     <div class="douban_show">
       {{ $dbUrl := .Get 0 }} {{ $dbApiUrl :=
-      "https://neodb.social/api/catalog/fetch?url=" }} {{ $dbFetch := getJSON
-      $dbApiUrl $dbUrl }} {{ if $dbFetch }} {{ $itemRating := 0 }}{{ with
+      "https://neodb.social/api/catalog/fetch?url=" }} {{ $dbFetch := resources.GetRemote ( print $dbApiUrl $dbUrl) | transform.Unmarshal }} {{ if $dbFetch }} {{ $itemRating := 0 }}{{ with
       $dbFetch.rating }}{{ $itemRating = . }}{{ end }}
       <div class="db-card">
         <div class="db-card-subject">
