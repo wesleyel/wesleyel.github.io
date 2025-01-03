@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R on Country Road</title><link>https://wesleyel.github.io/tags/r/</link><description>Recent content in R on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/r/index.xml" rel="self" type="application/rss+xml"/><item><title>R语言列表操作和连接MongoDB经验之谈</title><link>https://wesleyel.github.io/p/r-lang-useful-tricks/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/r-lang-useful-tricks/</guid><description>&lt;figure>&lt;img src="https://wesleyel.github.io/img/RStudio.png"
-alt="RStudio"/>&lt;figcaption>
+alt="RStudio">&lt;figcaption>
 &lt;p>RStudio&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
