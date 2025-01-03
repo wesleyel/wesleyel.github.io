@@ -1,0 +1,172 @@
+baseURL = 'https://wesleyel.github.io/'
+languageCode = 'zh-cn'
+title = 'Country road'
+theme = 'hugo-theme-stack'
+copyright = "Wesley Yang"
+DefaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+
+[languages.zh-cn]
+languageName = "中文"
+title = "Country Road"
+weight = 1
+
+[languages.zh-cn.params.sidebar]
+subtitle = "Take me home"
+
+[languages.en]
+languageName = "English"
+title = "Example Site"
+weight = 2
+
+[languages.en.params.sidebar]
+subtitle = "Take me home"
+
+[services.disqus]
+shortname = "hugo-theme-stack"
+
+[services.googleAnalytics]
+id = "G-KKMPD9QE50"
+
+[pagination]
+pagerSize = 5
+
+[permalinks]
+post = "/p/:slug/"
+page = "/:slug/"
+
+[params]
+mainSections = ["post"]
+featuredImageField = "image"
+rssFullContent = true
+favicon = "/favicon.ico"
+
+
+[params.footer]
+since = 2022
+customText = "Made with ❤️ by Wesley Yang"
+
+[params.dateFormat]
+published = "Jan 02, 2006"
+lastUpdated = "Jan 02, 2006 15:04 MST"
+
+[params.sidebar]
+emoji = "🍥"
+subtitle = "这世界很美好，值得我们为之奋斗"
+
+[params.sidebar.avatar]
+enabled = true
+local = true
+src = "/avatar.jpeg"
+
+[params.article]
+math = true
+toc = true
+readingTime = true
+
+[params.article.license]
+enabled = true
+default = "Licensed under CC BY-NC-SA 4.0"
+
+[params.comments]
+enabled = true
+provider = "giscus"
+
+[params.comments.giscus]
+repo = "wesleyel/wesleyel.github.io"
+repoID = "R_kgDOGXgP8g"
+category = "Announcements"
+categoryID = "DIC_kwDOGXgP8s4CiMOo"
+mapping = "title"
+lightTheme = "light"
+darkTheme = "dark"
+
+[[params.widgets.homepage]]
+type = "search"
+
+[[params.widgets.homepage]]
+type = "archives"
+
+[params.widgets.homepage.params]
+limit = 5
+
+[[params.widgets.homepage]]
+type = "categories"
+
+[params.widgets.homepage.params]
+limit = 10
+
+[[params.widgets.homepage]]
+type = "tag-cloud"
+
+[params.widgets.homepage.params]
+limit = 10
+
+[[params.widgets.page]]
+type = "toc"
+
+[params.opengraph.twitter]
+site = "wesleyel"
+card = "summary_large_image"
+
+[params.defaultImage.opengraph]
+enabled = false
+local = false
+
+[params.colorScheme]
+toggle = true
+default = "dark"
+
+[params.imageProcessing.cover]
+enabled = true
+
+[params.imageProcessing.content]
+enabled = true
+
+[menu]
+main = []
+
+[[menu.social]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/wesleyel"
+
+[menu.social.params]
+icon = "brand-github"
+
+[related]
+includeNewer = true
+threshold = 60
+toLower = false
+
+[[related.indices]]
+name = "tags"
+weight = 100
+
+[[related.indices]]
+name = "categories"
+weight = 200
+
+[markup.goldmark.extensions.passthrough]
+enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [["\\[", "\\]"], ["$$", "$$"]]
+inline = [["\\(", "\\)"]]
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.tableOfContents]
+endLevel = 4
+ordered = true
+startLevel = 2
+
+[markup.highlight]
+noClasses = false
+codeFences = true
+guessSyntax = true
+lineNoStart = 1
+lineNos = true
+lineNumbersInTable = true
+tabWidth = 4
