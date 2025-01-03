@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工具货架 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/</link><description>Recent content in 工具货架 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工具货架 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/</link><description>Recent content in 工具货架 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Fri, 03 Jan 2025 21:59:46 +0800</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>Synology Proxy Config</title><link>https://wesleyel.github.io/p/synology-proxy-config/</link><pubDate>Fri, 03 Jan 2025 21:59:46 +0800</pubDate><guid>https://wesleyel.github.io/p/synology-proxy-config/</guid><description>&lt;blockquote>
+&lt;p>refer: &lt;a class="link" href="https://blog.mitsea.com/8c059ad1807e424d8f7059b330525443/" target="_blank" rel="noopener"
+>给群晖 Docker 命令配置代理&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>首先确保内网里有一个能够访问互联网的代理，随便什么设备，随便什么客户端，只要能起 http 代理就行，注意打开 LAN 访问权限&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>执行下面的命令创建文件夹&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo mkdir -p /etc/systemd/system/pkg-ContainerManager-dockerd.service.d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>执行下面的命令创建配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo vi /etc/systemd/system/pkg-ContainerManager-dockerd.service.d/http-proxy.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>编辑内容如下，地址根据自己的 IP 和客户端端口修改&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;HTTP_PROXY=http://192.168.2.52:6152&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;HTTPS_PROXY=http://192.168.2.52:6152&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;NO_PROXY=localhost,127.0.0.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>应用配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>重启服务，注意所有的容器都会被关闭&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl restart pkg-ContainerManager-dockerd.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol></description></item><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote>
 &lt;p>完整文档可以在&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html" target="_blank" rel="noopener"
 >官方网站&lt;/a>找到。&lt;/p>
 &lt;/blockquote>
