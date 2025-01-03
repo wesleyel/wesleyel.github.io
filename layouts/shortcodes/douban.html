@@ -1,0 +1,50 @@
+<!-- https://immmmm.com/hugo-shortcodes-douban/ -->
+<div class="douban_show">
+  {{ $dbUrl := .Get 0 }}
+  {{ $dbApiUrl := "https://neodb.social/api/catalog/fetch?url=" }}
+  {{ $realUrl := print $dbApiUrl $dbUrl }}
+  {{ with resources.GetRemote $realUrl }}
+    {{ with .Err }}
+      {{ errorf "%s" . }}
+    {{ else }}
+      {{ $dbFetch := . | transform.Unmarshal }}
+      {{ $itemRating := 0 }}
+      {{ with $dbFetch.rating }}{{ $itemRating = . }}{{ end }}
+      <div class="db-card">
+        <div class="db-card-subject">
+          <div class="db-card-post">
+            <img 
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+              src="{{ $dbFetch.cover_image_url }}"
+              alt="{{ $dbFetch.title }}"
+            />
+          </div>
+          <div class="db-card-content">
+            <div class="db-card-title">
+              <a href="{{ $dbUrl }}" class="cute" target="_blank" rel="noreferrer">
+                {{ $dbFetch.title }}
+              </a>
+            </div>
+            <div class="rating">
+              <span class="allstardark">
+                <span 
+                  class="allstarlight" 
+                  style="width: {{ mul 10 $itemRating }}%"
+                ></span>
+              </span>
+              <span class="rating_nums">{{ $itemRating }}</span>
+            </div>
+            <div class="db-card-abstract">{{ $dbFetch.brief }}</div>
+          </div>
+          <div class="db-card-cate">{{ $dbFetch.category }}</div>
+        </div>
+      </div>
+    {{ end }}
+  {{ else }}
+    <p style="text-align: center">
+        <small>远程获取内容失败，请检查 API 有效性。({{ $realUrl }})</small>
+    </p>
+  {{ end }}
+</div>

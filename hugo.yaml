@@ -139,13 +139,13 @@ params:
     giscus:
       repo: wesleyel/wesleyel.github.io
       repoID: R_kgDOGXgP8g
-      category: General
+      category: Announcements
       categoryID: DIC_kwDOGXgP8s4CiMOo
-      mapping: pathname
-      lightTheme: light
-      darkTheme: dark
+      mapping: title
+      lightTheme: preferred_color_scheme
       reactionsEnabled: 1
-      emitMetadata: 0
+      emitMetadata: 1
+      inputPosition: bottom
 
     gitalk:
       owner:
