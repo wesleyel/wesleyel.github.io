@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rime on Country Road</title><link>https://wesleyel.github.io/tags/rime/</link><description>Recent content in Rime on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Tue, 02 Jun 2026 12:00:00 +0800</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/rime/index.xml" rel="self" type="application/rss+xml"/><item><title>Rime + VS Code + Typst：中英输入法自动切换实践</title><link>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</link><pubDate>Tue, 02 Jun 2026 12:00:00 +0800</pubDate><guid>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</guid><description>&lt;p>用 &lt;a class="link" href="https://typst.app/" target="_blank" rel="noopener"
+>Typst&lt;/a> 写笔记时，一个很常见的节奏是：&lt;strong>正文用中文&lt;/strong>，&lt;strong>公式和符号用英文&lt;/strong>。光标在 &lt;code>$x^2$&lt;/code> 里要英文布局，移出 &lt;code>$...$&lt;/code> 又要立刻回到中文——如果全靠 &lt;code>Shift&lt;/code> 在 Rime 的 ASCII 模式（英文直出）和中文模式之间切换，长时间编辑很容易误触，小指也会很累。&lt;/p>
+&lt;p>这篇文章记录我摸索出来的一套方案：&lt;strong>不切换系统输入法&lt;/strong>，而是让 &lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
+>鼠须管（Squirrel）&lt;/a> 在 Rime 内部的 &lt;strong>ascii / nascii&lt;/strong> 模式间切换；再用 VS Code 扩展根据 &lt;strong>Typst 编辑上下文&lt;/strong> 自动调用 CLI。整体比较稳定，开销也小。&lt;/p>
+&lt;h2 id="背景typst-里的两种语言环境">背景：Typst 里的「两种语言环境」
+&lt;/h2>&lt;p>Typst 文档里至少有两类输入场景：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>场景&lt;/th>
+&lt;th>典型内容&lt;/th>
+&lt;th>期望输入状态&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>普通正文&lt;/td>
+&lt;td>中文叙述、列表、标题&lt;/td>
+&lt;td>中文模式（Rime &lt;strong>nascii&lt;/strong>）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>行内/块级数学&lt;/td>
+&lt;td>&lt;code>$...$&lt;/code>、&lt;code>$ ... $&lt;/code> 块&lt;/td>
+&lt;td>英文模式（Rime &lt;strong>ascii&lt;/strong>，直出符号与字母）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>在 VS Code 里用 &lt;a class="link" href="https://github.com/Myriad-Dreamin/tinymist" target="_blank" rel="noopener"
+>Tinymist&lt;/a> 编辑 &lt;code>.typ&lt;/code> 时，语言服务会给光标位置打上语义信息。例如行内数学附近，语义 token 往往带有 &lt;code>modifiers: math&lt;/code>；普通内容则是 &lt;code>text&lt;/code> 一类。理论上可以据此判断「现在该中文还是该英文」——后面介绍的 &lt;a class="link" href="#%e5%8f%82%e8%80%83%e9%a1%b9%e7%9b%ae-vscode-smart-ime" >vscode-smart-ime&lt;/a> 走的就是 &lt;strong>TextMate scope / 语义区域&lt;/strong> 这条路。&lt;/p>
+&lt;p>我当前的实现则针对 Typst 做了更轻量的启发式（见 &lt;a class="link" href="#typst-smart-ime%e6%89%a9%e5%b1%95" >Typst Smart IME&lt;/a>），但对「数学区英文、正文中文」这个目标是一致的。&lt;/p>
+&lt;h2 id="为什么不用系统输入法切换">为什么不用「系统输入法切换」？
+&lt;/h2>&lt;p>市面上有不少通过命令行切换 &lt;strong>macOS 当前输入法&lt;/strong> 的工具，例如 IME Select、im-select，或各编辑器里的 IME 插件。我试过一段时间，体感问题比较集中：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>和 Rime 的内部状态不同步&lt;/strong>&lt;br>
+切到「中文输入法」后，Rime 有时仍停在 &lt;strong>ASCII 模式&lt;/strong>（图标像英文），还得再按一次 &lt;code>Shift&lt;/code>，等于多一步，也抵消了自动化的意义。鼠须管官方长期缺少从外部切换 ascii 模式的接口，相关讨论见 &lt;a class="link" href="https://github.com/rime/squirrel/issues/774" target="_blank" rel="noopener"
+>rime/squirrel#774&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>对其他输入法副作用&lt;/strong>&lt;br>
+例如豆包输入法：切到英文后输入 UI 偶发不消失，属于 IME 层面的 bug，和「只改 Rime 模式」不是一类问题。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>性能与稳定性&lt;/strong>&lt;br>
+频繁查询、切换系统 TIS（Text Input Source）比调用本机 Rime 进程一条 CLI 更重，也更容易和焦点、远程窗口等行为打架。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Rime 本身就把 &lt;strong>ASCII 模式&lt;/strong>（临时英文直出）和 &lt;strong>中文输入&lt;/strong> 分成两种状态；我们真正需要的是在编辑器的语义边界上触发 &lt;strong>模式切换&lt;/strong>，而不是在 ABC / 鼠须管 / 搜狗之间来回换。&lt;/p>
+&lt;h2 id="关键拼图鼠须管-cli-的---ascii----nascii">关键拼图：鼠须管 CLI 的 &lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code>
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
+>鼠须管&lt;/a> 是 Rime 在 macOS 上的官方前端。直到 2025 年，仍很难从外部程序可靠地设置「当前是否 ascii 模式」。&lt;/p>
+&lt;p>社区 PR &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
+>rime/squirrel#1070&lt;/a>（作者 &lt;a class="link" href="https://github.com/Parsifa1" target="_blank" rel="noopener"
+>@Parsifa1&lt;/a>）为 Squirrel 可执行文件增加了子命令，API 参考了 Windows 小狼毫的 &lt;a class="link" href="https://github.com/rime/weasel/pull/1113" target="_blank" rel="noopener"
+>rime/weasel#1113&lt;/a>，并关联了早期的 &lt;a class="link" href="https://github.com/rime/squirrel/pull/797" target="_blank" rel="noopener"
+>PR #797&lt;/a>、&lt;a class="link" href="https://github.com/rime/squirrel/pull/123" target="_blank" rel="noopener"
+>#123&lt;/a>。截至写作时 PR 仍 &lt;strong>未合并进官方 master&lt;/strong>，需要自行 &lt;strong>cherry-pick 后编译&lt;/strong> 安装。&lt;/p>
+&lt;p>合并后（或本地构建后）可用的 CLI 示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 英文直出（ascii 模式）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回到中文输入（nascii 模式）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --nascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查询当前模式（输出 ascii / 其他）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --getascii
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>PR 讨论里也有人用 Neovim 的 &lt;code>InsertEnter&lt;/code> / &lt;code>InsertLeave&lt;/code> 配合 &lt;code>--getascii&lt;/code> 做中英文恢复，见 &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
+>PR #1070 讨论区&lt;/a> 中的 Lua 示例（思路相同：离开插入时用 CLI 拉回 ascii）。&lt;/p>
+&lt;h3 id="本地构建鼠须管简要">本地构建鼠须管（简要）
+&lt;/h3>&lt;ol>
+&lt;li>Clone &lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
+>rime/squirrel&lt;/a>，checkout 你日常使用的版本。&lt;/li>
+&lt;li>Cherry-pick &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
+>PR #1070 的 commit&lt;/a>（&lt;code>d8794f8&lt;/code> 一带）。&lt;/li>
+&lt;li>按仓库 README 用 Xcode 编译，将生成的 &lt;code>Squirrel.app&lt;/code> 安装到 &lt;code>/Library/Input Methods/&lt;/code>（或用户目录，并相应修改扩展里的路径）。&lt;/li>
+&lt;li>在终端验证：&lt;code>Squirrel --getascii&lt;/code> 能返回当前模式，&lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code> 能即时改变候选栏与直出行为。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>若你使用官方发行版且未打补丁，VS Code 扩展调用 CLI 会失败；状态栏扩展会给出一次性警告。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="何时切换vs-code-与-typst-smart-ime-扩展">何时切换：VS Code 与 Typst Smart IME 扩展
+&lt;/h2>&lt;p>VS Code 的扩展 API 可以在光标移动、选区变化、文档编辑时拿到 &lt;strong>活动编辑器&lt;/strong> 和 &lt;strong>语言 ID&lt;/strong>。结合 Typst 的语法结构，就能定义「当前应使用 ascii 还是 nascii」。&lt;/p>
+&lt;p>我在本地笔记仓库 &lt;strong>learnote&lt;/strong> 里维护了一个 VS Code 扩展 &lt;strong>&lt;code>typst-smart-im&lt;/code>&lt;/strong>（路径：&lt;code>_scripts/typst-smart-im&lt;/code>），只做一件事：&lt;strong>在 Typst 文件中根据光标是否在 &lt;code>$...$&lt;/code> 内，debounce 后调用鼠须管 CLI&lt;/strong>。&lt;/p>
+&lt;h3 id="检测逻辑当前实现">检测逻辑（当前实现）
+&lt;/h3>&lt;p>实现刻意保持简单，避免依赖额外 grammar 包：&lt;/p>
+&lt;ol>
+&lt;li>取光标前的全文前缀，统计 &lt;code>$&lt;/code> 的个数。&lt;/li>
+&lt;li>若 &lt;code>$&lt;/code> 个数为 &lt;strong>偶数&lt;/strong>（成对闭合），认为光标在 &lt;strong>行内数学内&lt;/strong> → &lt;code>english&lt;/code> → &lt;code>--ascii&lt;/code>。&lt;/li>
+&lt;li>否则使用配置项 &lt;code>typstSmartIM.defaultMode&lt;/code>（默认 &lt;code>chinese&lt;/code>）→ &lt;code>--nascii&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>对应核心代码：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 摘自 typstMode.ts：$ 成对则视为数学环境
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">prefix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">mode&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;english&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">matchKind&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;heuristic&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">matchName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;inline-math&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>扩展还会在 &lt;strong>mode 实际变化&lt;/strong> 时才调用 Squirrel（默认 debounce 200ms），避免每次按键都 exec，对性能和电池更友好。检测 debounce 50ms，切换 debounce 200ms，CLI 超时默认 1s。&lt;/p>
+&lt;h3 id="配置项">配置项
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>键&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.enabled&lt;/code>&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;td>总开关&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.defaultMode&lt;/code>&lt;/td>
+&lt;td>&lt;code>chinese&lt;/code>&lt;/td>
+&lt;td>&lt;code>$...$&lt;/code> 外的模式&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.squirrelPath&lt;/code>&lt;/td>
+&lt;td>鼠须管 CLI 路径&lt;/td>
+&lt;td>自定义构建时改这里&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.switchDebounceMs&lt;/code>&lt;/td>
+&lt;td>&lt;code>200&lt;/code>&lt;/td>
+&lt;td>模式变化后调用 CLI 的 debounce&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.switchTimeoutMs&lt;/code>&lt;/td>
+&lt;td>&lt;code>1000&lt;/code>&lt;/td>
+&lt;td>CLI 超时&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.statusBarEnabled&lt;/code>&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;td>状态栏显示「中 / EN」&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>typstSmartIM.debugLogging&lt;/code>&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;td>输出通道调试日志&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>命令面板：&lt;code>Toggle Typst Smart IME Switching&lt;/code>（&lt;code>typst-smart-im.toggle&lt;/code>）。&lt;/p>
+&lt;h3 id="安装扩展本地">安装扩展（本地）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /path/to/learnote/_scripts/typst-smart-im
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> npm run build
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>将编译结果以 VS Code 扩展方式加载（任选其一）：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>开发宿主&lt;/strong>：在该目录 &lt;code>F5&lt;/code> 启动 Extension Development Host；或&lt;/li>
+&lt;li>&lt;strong>拷贝到扩展目录&lt;/strong>：把文件夹链到 &lt;code>~/.vscode/extensions/typst-smart-im&lt;/code>，重启 VS Code。&lt;/li>
+&lt;/ul>
+&lt;p>确保工作区已安装 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist" target="_blank" rel="noopener"
+>Tinymist&lt;/a>，且 &lt;code>[typst]&lt;/code> 文件关联正确。我在 learnote 的 &lt;code>.vscode/settings.json&lt;/code> 里开启了 &lt;code>typstSmartIM.defaultMode: chinese&lt;/code>。&lt;/p>
+&lt;h3 id="架构一览">架构一览
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">flowchart LR
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> A[光标移动 / 编辑 Typst] --&amp;gt; B[typst-smart-im 检测 $ 上下文]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> B --&amp;gt; C{mode 变化?}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C --&amp;gt;|是| D[Squirrel CLI]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> D --&amp;gt; E[&amp;#34;--ascii / --nascii&amp;#34;]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> E --&amp;gt; F[Rime librime 模式]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C --&amp;gt;|否| G[跳过]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>与「切换系统输入法」相比，链路短：&lt;strong>编辑器 → 本机 Rime 前端 → 模式位&lt;/strong>，没有 TIS 枚举，也没有 IME 切换动画。&lt;/p>
+&lt;h3 id="已知限制">已知限制
+&lt;/h3>&lt;ul>
+&lt;li>仅处理 &lt;strong>行内 &lt;code>$...$&lt;/code>&lt;/strong> 启发式；&lt;code>#math.block(...)&lt;/code> 等块级公式若不用 &lt;code>$&lt;/code> 包裹，需要以后扩展（例如读 Tinymist 的 semantic token 或 scope）。&lt;/li>
+&lt;li>字符串里的 &lt;code>$&lt;/code> 可能误判；Typst 笔记里我尽量用 &lt;code>#raw&lt;/code> 或转义避免正文中的裸 &lt;code>$&lt;/code>。&lt;/li>
+&lt;li>PR #1070 未进官方包前，需自备 Squirrel 构建。&lt;/li>
+&lt;/ul>
+&lt;h2 id="参考项目vscode-smart-ime">参考项目：vscode-smart-ime
+&lt;/h2>&lt;p>在写 Typst 专用扩展之前，我参考过 &lt;a class="link" href="https://github.com/OrangeX4/vscode-smart-ime" target="_blank" rel="noopener"
+>OrangeX4/vscode-smart-ime&lt;/a>（&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=OrangeX4.vscode-smart-ime" target="_blank" rel="noopener"
+>VS Marketplace&lt;/a>）。它面向 &lt;strong>通用编程 / Markdown / LaTeX&lt;/strong>，特性包括：&lt;/p>
+&lt;ul>
+&lt;li>前一个字符是中文时自动切中文（可配间隔，默认 2s，&lt;strong>相对耗电&lt;/strong>）；&lt;/li>
+&lt;li>中文后单空格切英文、英文后双空格切中文（可选）；&lt;/li>
+&lt;li>进入/离开 &lt;strong>comment&lt;/strong>、&lt;strong>string&lt;/strong>、&lt;strong>markup.math&lt;/strong> 等 &lt;a class="link" href="https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide#scope-and-inspect-editor-tokens" target="_blank" rel="noopener"
+>scope&lt;/a> 时切换；&lt;/li>
+&lt;li>纯英文文档、Vim Normal、远程窗口等禁用策略。&lt;/li>
+&lt;/ul>
+&lt;p>它依赖 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=beishanyufu.ime-and-cursor" target="_blank" rel="noopener"
+>IME and Cursor&lt;/a> 与 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=draivin.hscopes" target="_blank" rel="noopener"
+>HyperScopes&lt;/a>，通过配置的 &lt;code>ObtainIMCmd&lt;/code> 获取当前输入法 key，再调用外部命令切换——和本文的 &lt;strong>Rime 内部 ascii 切换&lt;/strong> 是不同层级的方案。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>维度&lt;/th>
+&lt;th>vscode-smart-ime&lt;/th>
+&lt;th>typst-smart-im（本文）&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>目标场景&lt;/td>
+&lt;td>多语言代码、MD、TeX&lt;/td>
+&lt;td>Typst 笔记&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>切换对象&lt;/td>
+&lt;td>系统输入法 / IME key&lt;/td>
+&lt;td>鼠须管 &lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>上下文来源&lt;/td>
+&lt;td>TextMate scope 前缀匹配&lt;/td>
+&lt;td>&lt;code>$&lt;/code> 成对启发式&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>依赖&lt;/td>
+&lt;td>多个扩展 + 外部 im 命令&lt;/td>
+&lt;td>打补丁的 Squirrel + Tinymist&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>性能&lt;/td>
+&lt;td>部分特性轮询感强&lt;/td>
+&lt;td>仅在 mode 变化时 exec CLI&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>对 Typst 这种 &lt;strong>数学与中文高频交替&lt;/strong> 的介质，专用扩展 + Rime CLI 更贴需求；若你主要在 LaTeX/Markdown 里写，smart-ime 的 &lt;code>markup.math,meta.math&lt;/code> 配置仍值得一看。&lt;/p>
+&lt;h2 id="其他相关链接">其他相关链接
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>资源&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/rime/squirrel/issues/774" target="_blank" rel="noopener"
+>rime/squirrel#774&lt;/a>&lt;/td>
+&lt;td>请求命令行切换中英文状态（本文 PR 试图关闭）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
+>rime/squirrel#1070&lt;/a>&lt;/td>
+&lt;td>&lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code> / &lt;code>--getascii&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/rime/weasel/pull/1113" target="_blank" rel="noopener"
+>rime/weasel#1113&lt;/a>&lt;/td>
+&lt;td>Windows 小狼毫同类 API&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/Myriad-Dreamin/tinymist" target="_blank" rel="noopener"
+>Myriad-Dreamin/tinymist&lt;/a>&lt;/td>
+&lt;td>Typst 语言服务器与 VS Code 集成&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://typst.app/" target="_blank" rel="noopener"
+>typst.app&lt;/a>&lt;/td>
+&lt;td>Typst 官方站点&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>本地 &lt;code>learnote/_scripts/typst-smart-im&lt;/code>&lt;/td>
+&lt;td>本扩展源码与 README&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="小结">小结
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>问题&lt;/strong>：Typst 中英文混排时，反复 &lt;code>Shift&lt;/code> 切 Rime ASCII 模式成本高，系统级 IME 切换又与 Rime 内部状态脱节。&lt;/li>
+&lt;li>&lt;strong>手段&lt;/strong>：给鼠须管打上 &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
+>PR #1070&lt;/a>，用 CLI 切换 ascii/nascii。&lt;/li>
+&lt;li>&lt;strong>触发&lt;/strong>：VS Code 扩展 &lt;code>typst-smart-im&lt;/code> 根据 &lt;code>$...$&lt;/code> 上下文 debounce 调用 CLI，仅在模式变化时执行。&lt;/li>
+&lt;li>&lt;strong>参考&lt;/strong>：&lt;a class="link" href="https://github.com/OrangeX4/vscode-smart-ime" target="_blank" rel="noopener"
+>vscode-smart-ime&lt;/a> 提供了 scope 驱动的通用思路；Typst 场景下专用扩展 + Rime 原生模式更合适。&lt;/li>
+&lt;/ol>
+&lt;p>若 PR #1070 合并进官方鼠须管，安装步骤会简单很多；在此之前，cherry-pick 一次、配上扩展，已经是我日常写 Typst 笔记最省心的一组组合。&lt;/p></description></item></channel></rss>
