@@ -4,6 +4,7 @@
   <p class="home-desc">{{ . }}</p>
   {{- end }}
   {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.mainSections | default (slice "post")) }}
+  {{- $pages = $pages.ByDate.Reverse }}
   {{- $paginator := .Paginate $pages }}
   <ul
     class="post-list"
