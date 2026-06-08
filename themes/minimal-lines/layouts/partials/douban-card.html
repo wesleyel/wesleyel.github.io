@@ -8,34 +8,32 @@
     {{ $dbFetch := .Content | transform.Unmarshal }}
     {{ $itemRating := 0 }}
     {{ with $dbFetch.rating }}{{ $itemRating = . }}{{ end }}
-    <div class="db-card">
-      <div class="db-card-subject">
-        <div class="db-card-post">
-          <img
-            loading="lazy"
-            decoding="async"
-            referrerpolicy="no-referrer"
-            src="{{ $dbFetch.cover_image_url }}"
-            alt="{{ $dbFetch.title }}"
-          />
+    <aside class="db-subject" aria-label="豆瓣条目">
+      <a class="db-cover" href="{{ $dbUrl }}" target="_blank" rel="noreferrer">
+        <img
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+          src="{{ $dbFetch.cover_image_url }}"
+          alt="{{ $dbFetch.title }}"
+        />
+      </a>
+      <div class="db-body">
+        <div class="db-header">
+          <a class="db-title" href="{{ $dbUrl }}" target="_blank" rel="noreferrer">
+            {{ $dbFetch.title }}
+          </a>
+          <span class="db-cate">{{ $dbFetch.category }}</span>
         </div>
-        <div class="db-card-content">
-          <div class="db-card-title">
-            <a href="{{ $dbUrl }}" target="_blank" rel="noreferrer">
-              {{ $dbFetch.title }}
-            </a>
-          </div>
-          <div class="rating">
-            <span class="allstardark">
-              <span class="allstarlight" style="width: {{ mul 10 $itemRating }}%"></span>
-            </span>
-            <span class="rating_nums">{{ $itemRating }}</span>
-          </div>
-          <div class="db-card-abstract">{{ $dbFetch.brief }}</div>
+        <div class="db-rating">
+          <span class="allstardark">
+            <span class="allstarlight" style="width: {{ mul 10 $itemRating }}%"></span>
+          </span>
+          <span class="rating_nums">{{ $itemRating }}</span>
         </div>
-        <div class="db-card-cate">{{ $dbFetch.category }}</div>
+        <p class="db-brief">{{ $dbFetch.brief }}</p>
       </div>
-    </div>
+    </aside>
   {{ else }}
     <p class="douban-error"><small>远程获取内容失败。({{ $realUrl }})</small></p>
   {{ end }}

@@ -5,7 +5,13 @@
   {{- end }}
   {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.mainSections | default (slice "post")) }}
   {{- $paginator := .Paginate $pages }}
-  <ul class="post-list">
+  <ul
+    class="post-list"
+    {{- if gt $paginator.TotalPages 1 }}
+    data-infinite-scroll
+    {{- if $paginator.HasNext }} data-next-page="{{ $paginator.Next.URL }}"{{ end }}
+    {{- end }}
+  >
     {{- range $paginator.Pages }}
     <li class="post-item">
       <article>
@@ -20,6 +26,13 @@
     </li>
     {{- end }}
   </ul>
-  {{- partial "pagination.html" . }}
+  {{- if gt $paginator.TotalPages 1 }}
+  <div class="infinite-scroll" aria-live="polite">
+    <div class="infinite-scroll-sentinel"></div>
+    <p class="infinite-scroll-status" hidden>加载中…</p>
+    <p class="infinite-scroll-end" hidden>已加载全部</p>
+  </div>
+  <noscript>{{ partial "pagination.html" . }}</noscript>
+  {{- end }}
 </section>
 {{ end }}

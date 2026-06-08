@@ -1,5 +1,9 @@
 {{- $js := resources.Get "js/lines.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- if .IsHome }}
+{{- $infinite := resources.Get "js/infinite-scroll.js" | minify | fingerprint }}
+<script src="{{ $infinite.RelPermalink }}" integrity="{{ $infinite.Data.Integrity }}" defer></script>
+{{- end }}
 {{- $theme := resources.Get "js/theme.js" | minify | fingerprint }}
 <script src="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}" defer></script>
 {{- if .Page.Store.Get "hasMermaid" }}
