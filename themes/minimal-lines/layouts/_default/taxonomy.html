@@ -8,7 +8,7 @@
       <a href="{{ (printf "/%s/" .Data.Plural) | relLangURL }}">{{ .Data.Plural | humanize }}</a>
     </p>
   </header>
-  {{- $paginator := .Paginate .Pages }}
+  {{- $paginator := .Paginate (.Pages.ByDate.Reverse) }}
   <ul class="post-list">
     {{- range $paginator.Pages }}
     <li class="post-item">

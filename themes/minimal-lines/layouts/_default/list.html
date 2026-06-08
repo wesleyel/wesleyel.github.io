@@ -5,7 +5,7 @@
     {{- with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
   </header>
   {{- if .Pages }}
-  {{- $paginator := .Paginate .Pages }}
+  {{- $paginator := .Paginate (.Pages.ByDate.Reverse) }}
   <ul class="post-list">
     {{- range $paginator.Pages }}
     <li class="post-item">

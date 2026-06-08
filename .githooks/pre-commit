@@ -2,4 +2,5 @@
 set -e
 
 ROOT="$(git rev-parse --show-toplevel)"
+python3 "$ROOT/scripts/remove-duplicate-h1.py" --staged
 python3 "$ROOT/scripts/fix-chinese-punctuation.py" --staged

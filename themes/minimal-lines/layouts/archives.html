@@ -4,6 +4,7 @@
     <h1 class="page-title">{{ .Title }}</h1>
   </header>
   {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.mainSections | default (slice "post")) }}
+  {{- $pages = $pages.ByDate.Reverse }}
   {{- range ($pages.GroupByDate "2006") }}
   <div class="archive-year">
     <h2 class="archive-year-title">{{ .Key }}</h2>
