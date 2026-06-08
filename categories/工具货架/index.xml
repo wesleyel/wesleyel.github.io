@@ -1,1237 +1,146 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工具货架 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/</link><description>Recent content in 工具货架 on Country Road</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Tue, 02 Jun 2026 12:00:00 +0800</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>Rime + VS Code + Typst：中英输入法自动切换实践</title><link>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</link><pubDate>Tue, 02 Jun 2026 12:00:00 +0800</pubDate><guid>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</guid><description>&lt;p>用 &lt;a class="link" href="https://typst.app/" target="_blank" rel="noopener"
->Typst&lt;/a> 写笔记时，一个很常见的节奏是：&lt;strong>正文用中文&lt;/strong>，&lt;strong>公式和符号用英文&lt;/strong>。光标在 &lt;code>$x^2$&lt;/code> 里要英文布局，移出 &lt;code>$...$&lt;/code> 又要立刻回到中文——如果全靠 &lt;code>Shift&lt;/code> 在 Rime 的 ASCII 模式（英文直出）和中文模式之间切换，长时间编辑很容易误触，小指也会很累。&lt;/p>
-&lt;p>这篇文章记录我摸索出来的一套方案：&lt;strong>不切换系统输入法&lt;/strong>，而是让 &lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
->鼠须管（Squirrel）&lt;/a> 在 Rime 内部的 &lt;strong>ascii / nascii&lt;/strong> 模式间切换；再用 VS Code 扩展根据 &lt;strong>Typst 编辑上下文&lt;/strong> 自动调用 CLI。整体比较稳定，开销也小。&lt;/p>
-&lt;h2 id="背景typst-里的两种语言环境">背景：Typst 里的「两种语言环境」
-&lt;/h2>&lt;p>Typst 文档里至少有两类输入场景：&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>场景&lt;/th>
-&lt;th>典型内容&lt;/th>
-&lt;th>期望输入状态&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>普通正文&lt;/td>
-&lt;td>中文叙述、列表、标题&lt;/td>
-&lt;td>中文模式（Rime &lt;strong>nascii&lt;/strong>）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>行内/块级数学&lt;/td>
-&lt;td>&lt;code>$...$&lt;/code>、&lt;code>$ ... $&lt;/code> 块&lt;/td>
-&lt;td>英文模式（Rime &lt;strong>ascii&lt;/strong>，直出符号与字母）&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>在 VS Code 里用 &lt;a class="link" href="https://github.com/Myriad-Dreamin/tinymist" target="_blank" rel="noopener"
->Tinymist&lt;/a> 编辑 &lt;code>.typ&lt;/code> 时，语言服务会给光标位置打上语义信息。例如行内数学附近，语义 token 往往带有 &lt;code>modifiers: math&lt;/code>；普通内容则是 &lt;code>text&lt;/code> 一类。理论上可以据此判断「现在该中文还是该英文」——后面介绍的 &lt;a class="link" href="#%e5%8f%82%e8%80%83%e9%a1%b9%e7%9b%ae-vscode-smart-ime" >vscode-smart-ime&lt;/a> 走的就是 &lt;strong>TextMate scope / 语义区域&lt;/strong> 这条路。&lt;/p>
-&lt;p>我当前的实现则针对 Typst 做了更轻量的启发式（见 &lt;a class="link" href="#typst-smart-ime%e6%89%a9%e5%b1%95" >Typst Smart IME&lt;/a>），但对「数学区英文、正文中文」这个目标是一致的。&lt;/p>
-&lt;h2 id="为什么不用系统输入法切换">为什么不用「系统输入法切换」？
-&lt;/h2>&lt;p>市面上有不少通过命令行切换 &lt;strong>macOS 当前输入法&lt;/strong> 的工具，例如 IME Select、im-select，或各编辑器里的 IME 插件。我试过一段时间，体感问题比较集中：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>和 Rime 的内部状态不同步&lt;/strong>&lt;br>
-切到「中文输入法」后，Rime 有时仍停在 &lt;strong>ASCII 模式&lt;/strong>（图标像英文），还得再按一次 &lt;code>Shift&lt;/code>，等于多一步，也抵消了自动化的意义。鼠须管官方长期缺少从外部切换 ascii 模式的接口，相关讨论见 &lt;a class="link" href="https://github.com/rime/squirrel/issues/774" target="_blank" rel="noopener"
->rime/squirrel#774&lt;/a>。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>对其他输入法副作用&lt;/strong>&lt;br>
-例如豆包输入法：切到英文后输入 UI 偶发不消失，属于 IME 层面的 bug，和「只改 Rime 模式」不是一类问题。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>性能与稳定性&lt;/strong>&lt;br>
-频繁查询、切换系统 TIS（Text Input Source）比调用本机 Rime 进程一条 CLI 更重，也更容易和焦点、远程窗口等行为打架。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>Rime 本身就把 &lt;strong>ASCII 模式&lt;/strong>（临时英文直出）和 &lt;strong>中文输入&lt;/strong> 分成两种状态；我们真正需要的是在编辑器的语义边界上触发 &lt;strong>模式切换&lt;/strong>，而不是在 ABC / 鼠须管 / 搜狗之间来回换。&lt;/p>
-&lt;h2 id="关键拼图鼠须管-cli-的---ascii----nascii">关键拼图：鼠须管 CLI 的 &lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code>
-&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
->鼠须管&lt;/a> 是 Rime 在 macOS 上的官方前端。直到 2025 年，仍很难从外部程序可靠地设置「当前是否 ascii 模式」。&lt;/p>
-&lt;p>社区 PR &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
->rime/squirrel#1070&lt;/a>（作者 &lt;a class="link" href="https://github.com/Parsifa1" target="_blank" rel="noopener"
->@Parsifa1&lt;/a>）为 Squirrel 可执行文件增加了子命令，API 参考了 Windows 小狼毫的 &lt;a class="link" href="https://github.com/rime/weasel/pull/1113" target="_blank" rel="noopener"
->rime/weasel#1113&lt;/a>，并关联了早期的 &lt;a class="link" href="https://github.com/rime/squirrel/pull/797" target="_blank" rel="noopener"
->PR #797&lt;/a>、&lt;a class="link" href="https://github.com/rime/squirrel/pull/123" target="_blank" rel="noopener"
->#123&lt;/a>。截至写作时 PR 仍 &lt;strong>未合并进官方 master&lt;/strong>，需要自行 &lt;strong>cherry-pick 后编译&lt;/strong> 安装。&lt;/p>
-&lt;p>合并后（或本地构建后）可用的 CLI 示例：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 英文直出（ascii 模式）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --ascii
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回到中文输入（nascii 模式）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --nascii
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查询当前模式（输出 ascii / 其他）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel&amp;#34;&lt;/span> --getascii
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>PR 讨论里也有人用 Neovim 的 &lt;code>InsertEnter&lt;/code> / &lt;code>InsertLeave&lt;/code> 配合 &lt;code>--getascii&lt;/code> 做中英文恢复，见 &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
->PR #1070 讨论区&lt;/a> 中的 Lua 示例（思路相同：离开插入时用 CLI 拉回 ascii）。&lt;/p>
-&lt;h3 id="本地构建鼠须管简要">本地构建鼠须管（简要）
-&lt;/h3>&lt;ol>
-&lt;li>Clone &lt;a class="link" href="https://github.com/rime/squirrel" target="_blank" rel="noopener"
->rime/squirrel&lt;/a>，checkout 你日常使用的版本。&lt;/li>
-&lt;li>Cherry-pick &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
->PR #1070 的 commit&lt;/a>（&lt;code>d8794f8&lt;/code> 一带）。&lt;/li>
-&lt;li>按仓库 README 用 Xcode 编译，将生成的 &lt;code>Squirrel.app&lt;/code> 安装到 &lt;code>/Library/Input Methods/&lt;/code>（或用户目录，并相应修改扩展里的路径）。&lt;/li>
-&lt;li>在终端验证：&lt;code>Squirrel --getascii&lt;/code> 能返回当前模式，&lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code> 能即时改变候选栏与直出行为。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>若你使用官方发行版且未打补丁，VS Code 扩展调用 CLI 会失败；状态栏扩展会给出一次性警告。&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="何时切换vs-code-与-typst-smart-ime-扩展">何时切换：VS Code 与 Typst Smart IME 扩展
-&lt;/h2>&lt;p>VS Code 的扩展 API 可以在光标移动、选区变化、文档编辑时拿到 &lt;strong>活动编辑器&lt;/strong> 和 &lt;strong>语言 ID&lt;/strong>。结合 Typst 的语法结构，就能定义「当前应使用 ascii 还是 nascii」。&lt;/p>
-&lt;p>我在本地笔记仓库 &lt;strong>learnote&lt;/strong> 里维护了一个 VS Code 扩展 &lt;strong>&lt;code>typst-smart-im&lt;/code>&lt;/strong>（路径：&lt;code>_scripts/typst-smart-im&lt;/code>），只做一件事：&lt;strong>在 Typst 文件中根据光标是否在 &lt;code>$...$&lt;/code> 内，debounce 后调用鼠须管 CLI&lt;/strong>。&lt;/p>
-&lt;h3 id="检测逻辑当前实现">检测逻辑（当前实现）
-&lt;/h3>&lt;p>实现刻意保持简单，避免依赖额外 grammar 包：&lt;/p>
-&lt;ol>
-&lt;li>取光标前的全文前缀，统计 &lt;code>$&lt;/code> 的个数。&lt;/li>
-&lt;li>若 &lt;code>$&lt;/code> 个数为 &lt;strong>偶数&lt;/strong>（成对闭合），认为光标在 &lt;strong>行内数学内&lt;/strong> → &lt;code>english&lt;/code> → &lt;code>--ascii&lt;/code>。&lt;/li>
-&lt;li>否则使用配置项 &lt;code>typstSmartIM.defaultMode&lt;/code>（默认 &lt;code>chinese&lt;/code>）→ &lt;code>--nascii&lt;/code>。&lt;/li>
-&lt;/ol>
-&lt;p>对应核心代码：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 摘自 typstMode.ts：$ 成对则视为数学环境
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">prefix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">mode&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;english&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">matchKind&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;heuristic&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">matchName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;inline-math&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>扩展还会在 &lt;strong>mode 实际变化&lt;/strong> 时才调用 Squirrel（默认 debounce 200ms），避免每次按键都 exec，对性能和电池更友好。检测 debounce 50ms，切换 debounce 200ms，CLI 超时默认 1s。&lt;/p>
-&lt;h3 id="配置项">配置项
-&lt;/h3>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>键&lt;/th>
-&lt;th>默认值&lt;/th>
-&lt;th>说明&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.enabled&lt;/code>&lt;/td>
-&lt;td>&lt;code>true&lt;/code>&lt;/td>
-&lt;td>总开关&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.defaultMode&lt;/code>&lt;/td>
-&lt;td>&lt;code>chinese&lt;/code>&lt;/td>
-&lt;td>&lt;code>$...$&lt;/code> 外的模式&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.squirrelPath&lt;/code>&lt;/td>
-&lt;td>鼠须管 CLI 路径&lt;/td>
-&lt;td>自定义构建时改这里&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.switchDebounceMs&lt;/code>&lt;/td>
-&lt;td>&lt;code>200&lt;/code>&lt;/td>
-&lt;td>模式变化后调用 CLI 的 debounce&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.switchTimeoutMs&lt;/code>&lt;/td>
-&lt;td>&lt;code>1000&lt;/code>&lt;/td>
-&lt;td>CLI 超时&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.statusBarEnabled&lt;/code>&lt;/td>
-&lt;td>&lt;code>true&lt;/code>&lt;/td>
-&lt;td>状态栏显示「中 / EN」&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>typstSmartIM.debugLogging&lt;/code>&lt;/td>
-&lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>输出通道调试日志&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>命令面板：&lt;code>Toggle Typst Smart IME Switching&lt;/code>（&lt;code>typst-smart-im.toggle&lt;/code>）。&lt;/p>
-&lt;h3 id="安装扩展本地">安装扩展（本地）
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /path/to/learnote/_scripts/typst-smart-im
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> npm run build
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>将编译结果以 VS Code 扩展方式加载（任选其一）：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>开发宿主&lt;/strong>：在该目录 &lt;code>F5&lt;/code> 启动 Extension Development Host；或&lt;/li>
-&lt;li>&lt;strong>拷贝到扩展目录&lt;/strong>：把文件夹链到 &lt;code>~/.vscode/extensions/typst-smart-im&lt;/code>，重启 VS Code。&lt;/li>
-&lt;/ul>
-&lt;p>确保工作区已安装 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist" target="_blank" rel="noopener"
->Tinymist&lt;/a>，且 &lt;code>[typst]&lt;/code> 文件关联正确。我在 learnote 的 &lt;code>.vscode/settings.json&lt;/code> 里开启了 &lt;code>typstSmartIM.defaultMode: chinese&lt;/code>。&lt;/p>
-&lt;h3 id="架构一览">架构一览
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">flowchart LR
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> A[光标移动 / 编辑 Typst] --&amp;gt; B[typst-smart-im 检测 $ 上下文]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> B --&amp;gt; C{mode 变化?}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C --&amp;gt;|是| D[Squirrel CLI]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> D --&amp;gt; E[&amp;#34;--ascii / --nascii&amp;#34;]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> E --&amp;gt; F[Rime librime 模式]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C --&amp;gt;|否| G[跳过]
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>与「切换系统输入法」相比，链路短：&lt;strong>编辑器 → 本机 Rime 前端 → 模式位&lt;/strong>，没有 TIS 枚举，也没有 IME 切换动画。&lt;/p>
-&lt;h3 id="已知限制">已知限制
-&lt;/h3>&lt;ul>
-&lt;li>仅处理 &lt;strong>行内 &lt;code>$...$&lt;/code>&lt;/strong> 启发式；&lt;code>#math.block(...)&lt;/code> 等块级公式若不用 &lt;code>$&lt;/code> 包裹，需要以后扩展（例如读 Tinymist 的 semantic token 或 scope）。&lt;/li>
-&lt;li>字符串里的 &lt;code>$&lt;/code> 可能误判；Typst 笔记里我尽量用 &lt;code>#raw&lt;/code> 或转义避免正文中的裸 &lt;code>$&lt;/code>。&lt;/li>
-&lt;li>PR #1070 未进官方包前，需自备 Squirrel 构建。&lt;/li>
-&lt;/ul>
-&lt;h2 id="参考项目vscode-smart-ime">参考项目：vscode-smart-ime
-&lt;/h2>&lt;p>在写 Typst 专用扩展之前，我参考过 &lt;a class="link" href="https://github.com/OrangeX4/vscode-smart-ime" target="_blank" rel="noopener"
->OrangeX4/vscode-smart-ime&lt;/a>（&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=OrangeX4.vscode-smart-ime" target="_blank" rel="noopener"
->VS Marketplace&lt;/a>）。它面向 &lt;strong>通用编程 / Markdown / LaTeX&lt;/strong>，特性包括：&lt;/p>
-&lt;ul>
-&lt;li>前一个字符是中文时自动切中文（可配间隔，默认 2s，&lt;strong>相对耗电&lt;/strong>）；&lt;/li>
-&lt;li>中文后单空格切英文、英文后双空格切中文（可选）；&lt;/li>
-&lt;li>进入/离开 &lt;strong>comment&lt;/strong>、&lt;strong>string&lt;/strong>、&lt;strong>markup.math&lt;/strong> 等 &lt;a class="link" href="https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide#scope-and-inspect-editor-tokens" target="_blank" rel="noopener"
->scope&lt;/a> 时切换；&lt;/li>
-&lt;li>纯英文文档、Vim Normal、远程窗口等禁用策略。&lt;/li>
-&lt;/ul>
-&lt;p>它依赖 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=beishanyufu.ime-and-cursor" target="_blank" rel="noopener"
->IME and Cursor&lt;/a> 与 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=draivin.hscopes" target="_blank" rel="noopener"
->HyperScopes&lt;/a>，通过配置的 &lt;code>ObtainIMCmd&lt;/code> 获取当前输入法 key，再调用外部命令切换——和本文的 &lt;strong>Rime 内部 ascii 切换&lt;/strong> 是不同层级的方案。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>维度&lt;/th>
-&lt;th>vscode-smart-ime&lt;/th>
-&lt;th>typst-smart-im（本文）&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>目标场景&lt;/td>
-&lt;td>多语言代码、MD、TeX&lt;/td>
-&lt;td>Typst 笔记&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>切换对象&lt;/td>
-&lt;td>系统输入法 / IME key&lt;/td>
-&lt;td>鼠须管 &lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>上下文来源&lt;/td>
-&lt;td>TextMate scope 前缀匹配&lt;/td>
-&lt;td>&lt;code>$&lt;/code> 成对启发式&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>依赖&lt;/td>
-&lt;td>多个扩展 + 外部 im 命令&lt;/td>
-&lt;td>打补丁的 Squirrel + Tinymist&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>性能&lt;/td>
-&lt;td>部分特性轮询感强&lt;/td>
-&lt;td>仅在 mode 变化时 exec CLI&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>对 Typst 这种 &lt;strong>数学与中文高频交替&lt;/strong> 的介质，专用扩展 + Rime CLI 更贴需求；若你主要在 LaTeX/Markdown 里写，smart-ime 的 &lt;code>markup.math,meta.math&lt;/code> 配置仍值得一看。&lt;/p>
-&lt;h2 id="其他相关链接">其他相关链接
-&lt;/h2>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>资源&lt;/th>
-&lt;th>说明&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;a class="link" href="https://github.com/rime/squirrel/issues/774" target="_blank" rel="noopener"
->rime/squirrel#774&lt;/a>&lt;/td>
-&lt;td>请求命令行切换中英文状态（本文 PR 试图关闭）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
->rime/squirrel#1070&lt;/a>&lt;/td>
-&lt;td>&lt;code>--ascii&lt;/code> / &lt;code>--nascii&lt;/code> / &lt;code>--getascii&lt;/code>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;a class="link" href="https://github.com/rime/weasel/pull/1113" target="_blank" rel="noopener"
->rime/weasel#1113&lt;/a>&lt;/td>
-&lt;td>Windows 小狼毫同类 API&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;a class="link" href="https://github.com/Myriad-Dreamin/tinymist" target="_blank" rel="noopener"
->Myriad-Dreamin/tinymist&lt;/a>&lt;/td>
-&lt;td>Typst 语言服务器与 VS Code 集成&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;a class="link" href="https://typst.app/" target="_blank" rel="noopener"
->typst.app&lt;/a>&lt;/td>
-&lt;td>Typst 官方站点&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>本地 &lt;code>learnote/_scripts/typst-smart-im&lt;/code>&lt;/td>
-&lt;td>本扩展源码与 README&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="小结">小结
-&lt;/h2>&lt;ol>
-&lt;li>&lt;strong>问题&lt;/strong>：Typst 中英文混排时，反复 &lt;code>Shift&lt;/code> 切 Rime ASCII 模式成本高，系统级 IME 切换又与 Rime 内部状态脱节。&lt;/li>
-&lt;li>&lt;strong>手段&lt;/strong>：给鼠须管打上 &lt;a class="link" href="https://github.com/rime/squirrel/pull/1070" target="_blank" rel="noopener"
->PR #1070&lt;/a>，用 CLI 切换 ascii/nascii。&lt;/li>
-&lt;li>&lt;strong>触发&lt;/strong>：VS Code 扩展 &lt;code>typst-smart-im&lt;/code> 根据 &lt;code>$...$&lt;/code> 上下文 debounce 调用 CLI，仅在模式变化时执行。&lt;/li>
-&lt;li>&lt;strong>参考&lt;/strong>：&lt;a class="link" href="https://github.com/OrangeX4/vscode-smart-ime" target="_blank" rel="noopener"
->vscode-smart-ime&lt;/a> 提供了 scope 驱动的通用思路；Typst 场景下专用扩展 + Rime 原生模式更合适。&lt;/li>
-&lt;/ol>
-&lt;p>若 PR #1070 合并进官方鼠须管，安装步骤会简单很多；在此之前，cherry-pick 一次、配上扩展，已经是我日常写 Typst 笔记最省心的一组组合。&lt;/p></description></item><item><title>Synology Proxy Config</title><link>https://wesleyel.github.io/p/synology-proxy-config/</link><pubDate>Fri, 03 Jan 2025 21:59:46 +0800</pubDate><guid>https://wesleyel.github.io/p/synology-proxy-config/</guid><description>&lt;blockquote>
-&lt;p>refer: &lt;a class="link" href="https://blog.mitsea.com/8c059ad1807e424d8f7059b330525443/" target="_blank" rel="noopener"
->给群晖 Docker 命令配置代理&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;ol>
-&lt;li>
-&lt;p>首先确保内网里有一个能够访问互联网的代理，随便什么设备，随便什么客户端，只要能起 http 代理就行，注意打开 LAN 访问权限&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>执行下面的命令创建文件夹&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo mkdir -p /etc/systemd/system/pkg-ContainerManager-dockerd.service.d
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>执行下面的命令创建配置文件&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo vi /etc/systemd/system/pkg-ContainerManager-dockerd.service.d/http-proxy.conf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>编辑内容如下，地址根据自己的 IP 和客户端端口修改&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;HTTP_PROXY=http://192.168.2.52:6152&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;HTTPS_PROXY=http://192.168.2.52:6152&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;NO_PROXY=localhost,127.0.0.1&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>应用配置文件&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl daemon-reload
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>重启服务，注意所有的容器都会被关闭&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl restart pkg-ContainerManager-dockerd.service
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
-&lt;/ol></description></item><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote>
-&lt;p>完整文档可以在&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html" target="_blank" rel="noopener"
->官方网站&lt;/a>找到。&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="快速开始一个-buildroot-项目">快速开始一个 buildroot 项目
-&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_repo&lt;/span>&lt;span class="o">=&lt;/span>https://github.com/buildroot/buildroot.git
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_version&lt;/span>&lt;span class="o">=&lt;/span>2022.11
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_src&lt;/span>&lt;span class="o">=&lt;/span>buildroot-&lt;span class="nv">$buildroot_version&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buildroot_defcfg&lt;/span>&lt;span class="o">=&lt;/span>raspberrypi4_defconfig
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone --branch &lt;span class="nv">$buildroot_version&lt;/span> --depth &lt;span class="m">1&lt;/span> &lt;span class="nv">$buildroot_repo&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -C &lt;span class="nv">$buildroot_src&lt;/span> defconfig &lt;span class="nv">BR2_DEFCONFIG&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$buildroot_defcfg&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -C &lt;span class="nv">$buildroot_src&lt;/span> linux-reconfigure all
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="基本命令">基本命令
-&lt;/h2>&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#make-tips" target="_blank" rel="noopener"
->Make 提示&lt;/a>&lt;/p>
-&lt;p>使用 &lt;code>make help&lt;/code> 获取所有可用目标的列表。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>命令&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>make&lt;/td>
-&lt;td>构建 rootfs&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make xyz_defconfig&lt;/td>
-&lt;td>选择配置文件&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make menuconfig&lt;/td>
-&lt;td>打开配置菜单&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make savedefconfig&lt;/td>
-&lt;td>将当前配置保存到 defconfig 文件中&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make source&lt;/td>
-&lt;td>下载包的源代码&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make clean&lt;/td>
-&lt;td>清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make distclean&lt;/td>
-&lt;td>清理所有内容，包括配置&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h3 id="包管理">包管理
-&lt;/h3>&lt;blockquote>
-&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps" target="_blank" rel="noopener"
->特定包的 make 目标&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>命令&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;&lt;/td>
-&lt;td>构建一个包&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;-reinstall&lt;/td>
-&lt;td>重新安装一个包&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;-rebuild&lt;/td>
-&lt;td>重新构建一个包（这意味着重新安装）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;-reconfigure&lt;/td>
-&lt;td>重新配置一个包（这意味着重新构建）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;-dirclean&lt;/td>
-&lt;td>清理包目录&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h3 id="调试">调试
-&lt;/h3>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>命令&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>make graph-depends&lt;/td>
-&lt;td>生成依赖关系图&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>make &amp;lt;pkg&amp;gt;-graph-depends&lt;/td>
-&lt;td>生成包的依赖关系图&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="目录结构">目录结构
-&lt;/h2>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>目录&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>configs&lt;/td>
-&lt;td>单板的配置和 defconfig 文件的位置&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>package&lt;/td>
-&lt;td>包定义的位置&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>dl&lt;/td>
-&lt;td>下载的源代码压缩包&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>output/build&lt;/td>
-&lt;td>所有组件构建的目录&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>output/images&lt;/td>
-&lt;td>构建的内核、引导加载程序和根文件系统镜像的位置&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>output/staging&lt;/td>
-&lt;td>交叉编译工具链和用户空间包的头文件和库的位置（这是 host/&lt;toolchains>/sysroot 的软链）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>output/host&lt;/td>
-&lt;td>包括交叉编译工具链在内的主机工具的位置&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>output/target&lt;/td>
-&lt;td>几乎是最终的目标根文件系统&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="mk-文件">&lt;code>.mk&lt;/code> 文件
-&lt;/h2>&lt;h3 id="cmake">Cmake
-&lt;/h3>&lt;blockquote>
-&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#cmake-package-tutorial" target="_blank" rel="noopener"
->cmake 包教程&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;p>一个 cmake 包的示例：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># libfoo
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_VERSION&lt;/span> &lt;span class="o">=&lt;/span> 1.0
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_SOURCE&lt;/span> &lt;span class="o">=&lt;/span> libfoo-&lt;span class="k">$(&lt;/span>LIBFOO_VERSION&lt;span class="k">)&lt;/span>.tar.gz
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_SITE&lt;/span> &lt;span class="o">=&lt;/span> http://www.foosoftware.org/download
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_INSTALL_STAGING&lt;/span> &lt;span class="o">=&lt;/span> YES
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_INSTALL_TARGET&lt;/span> &lt;span class="o">=&lt;/span> NO
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_CONF_OPTS&lt;/span> &lt;span class="o">=&lt;/span> -DBUILD_DEMOS&lt;span class="o">=&lt;/span>ON
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LIBFOO_DEPENDENCIES&lt;/span> &lt;span class="o">=&lt;/span> libglib2 host-pkgconf
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">eval&lt;/span> &lt;span class="k">$(&lt;/span>&lt;span class="nv">cmake&lt;/span>-&lt;span class="nv">package&lt;/span>&lt;span class="k">))&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="外部包和-sysvinit">外部包和 sysvinit
-&lt;/h3>&lt;p>一个带有 sysvinit 的外部包示例：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># gsmmux 项目
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">#
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">################################################################################
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_SITE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">$(&lt;/span>TOPDIR&lt;span class="k">)&lt;/span>/../external/path/gsmmux
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_SITE_METHOD&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">local&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_INSTALL_STAGING&lt;/span> &lt;span class="o">=&lt;/span> YES
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GSMMUX_VERSION&lt;/span> &lt;span class="o">=&lt;/span> 1.0
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">define&lt;/span> &lt;span class="err">GSMMUX_INSTALL_INIT_SYSV&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">INSTALL&lt;/span>&lt;span class="k">)&lt;/span> &lt;span class="err">-D&lt;/span> &lt;span class="err">-m&lt;/span> &lt;span class="err">755&lt;/span> &lt;span class="k">$(&lt;/span>@&lt;span class="nv">D&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="err">/S50start_cmuxd&lt;/span> &lt;span class="err">\&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">$(&lt;/span>&lt;span class="nv">TARGET_DIR&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="err">/etc/init.d/S50start_cmuxd&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">endef&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">$(&lt;/span>&lt;span class="nv">eval&lt;/span> &lt;span class="k">$(&lt;/span>&lt;span class="nv">cmake&lt;/span>-&lt;span class="nv">package&lt;/span>&lt;span class="k">))&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="如何设置-ccache编译缓存">如何设置 ccache（编译缓存）？
-&lt;/h3>&lt;p>&lt;a class="link" href="https://buildroot.org/downloads/manual/manual.html#ccache" target="_blank" rel="noopener"
->在 Buildroot 中使用 ccache&lt;/a>&lt;/p>
-&lt;p>&lt;code>ccache&lt;/code> 支持已集成在 Buildroot 中。只需在 &lt;code>Build options&lt;/code> 中启用 &lt;code>Enable compiler cache&lt;/code>。这将自动构建 &lt;code>ccache&lt;/code> 并将其用于每个主机和目标编译。&lt;/p>
-&lt;p>&lt;code>cache&lt;/code> 位于 &lt;code>BR2_CCACHE_DIR&lt;/code> 配置选项定义的目录中，默认值为 &lt;code>$HOME/.buildroot-ccache&lt;/code>。此默认位置在 Buildroot 输出目录之外，因此可以由单独的 Buildroot 构建共享。如果要删除缓存，只需删除此目录。&lt;/p>
-&lt;h3 id="如何重新生成-targetrootfs">如何重新生成 target/rootfs
-&lt;/h3>&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/47320800/how-to-clean-only-target-in-buildroot" target="_blank" rel="noopener"
->How to clean only target in buildroot&lt;/a>&lt;/p>
-&lt;p>由于&lt;code>rm -rf output/target &amp;amp;&amp;amp; make&lt;/code>并不会触发 install 操作，所以需要用以下 hack 来实现：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm -rf output/target
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除所有的 .stamp_target_installed 文件&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find ../ -name &lt;span class="s2">&amp;#34;.stamp_target_installed&amp;#34;&lt;/span> -delete
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -f output/build/host-gcc-final-*/.stamp_host_installed
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item><item><title>Yocto &amp; Bitbake 速查</title><link>https://wesleyel.github.io/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/yocto-cheetsheet/</guid><description>&lt;blockquote>
-&lt;p>完整文档可以在&lt;a class="link" href="https://docs.yoctoproject.org/" target="_blank" rel="noopener"
->Yocto 文档网站&lt;/a>找到。
-参考自&lt;a class="link" href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet" target="_blank" rel="noopener"
->yoctoproject-cheatsheet&lt;/a>。&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="cli-命令">Cli 命令
-&lt;/h2>&lt;p>需要先通过&lt;code>source setup-environment&lt;/code>设置Bitbake环境&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>命令&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>bitbake &lt;image>&lt;/td>
-&lt;td>编译指定的 image&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -c &lt;task> &lt;recipe>&lt;/td>
-&lt;td>执行指定的 task。 可选的 task 有: &lt;code>fetch&lt;/code>, &lt;code>unpack&lt;/code>, &lt;code>patch&lt;/code>, &lt;code>configure&lt;/code>, &lt;code>compile&lt;/code>, &lt;code>install&lt;/code>, &lt;code>package&lt;/code>, &lt;code>clean&lt;/code>, &lt;code>cleansstate&lt;/code>, &lt;code>rebuild&lt;/code>, &lt;code>reconfigure&lt;/code>, &lt;code>reinstall&lt;/code>等。&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -c cleanall &lt;recipe>&lt;/td>
-&lt;td>清理指定的 recipe. 包括工作目录和 sstate cache&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -c devshell &lt;recipe>&lt;/td>
-&lt;td>进入指定 recipe 的 shell 环境&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -c listtasks &lt;recipe>&lt;/td>
-&lt;td>列出指定 recipe 的所有 task&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -c showappends &lt;recipe>&lt;/td>
-&lt;td>显示指定 recipe 的所有 append 文件&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -e &lt;recipe>&lt;/td>
-&lt;td>显示指定 recipe 的所有变量&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -s&lt;/td>
-&lt;td>列出所有可用的 recipe&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake -S &lt;recipe>&lt;/td>
-&lt;td>显示指定 recipe 的依赖关系&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake &lt;image> &amp;ndash;graphviz &amp;ndash;ui=depexp&lt;/td>
-&lt;td>生成&lt;image>的包依赖关系图&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake-layers show-layers&lt;/td>
-&lt;td>显示所有的 layer&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake-layers show-appends&lt;/td>
-&lt;td>显示所有的 append 文件&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake-layers show-recipes&lt;/td>
-&lt;td>显示所有的 recipe&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake-layers show-recipes &amp;ldquo;gdb*&amp;rdquo;&lt;/td>
-&lt;td>搜索 recipe&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>bitbake-layers show-depends&lt;/td>
-&lt;td>显示所有的依赖关系&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="变量语法和操作">变量语法和操作
-&lt;/h2>&lt;blockquote>
-&lt;p>参考自&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html" target="_blank" rel="noopener"
->Bitbake User Manual&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;p>可以随时使用 &lt;code>bitbake -e&lt;/code> 查看编译时的变量。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>语法&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置变量&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = &amp;quot; value &amp;quot;&lt;/code>&lt;/td>
-&lt;td>如果变量值中有空格，那么空格会被&lt;strong>保留&lt;/strong>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = &amp;quot;&amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置变量为空&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = &amp;quot; &amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置变量为一个空格&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = '&amp;quot;'&lt;/code>&lt;/td>
-&lt;td>通过单引号设置含有双引号的变量&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE = &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
-&lt;td>引用其他变量, 变量在&lt;strong>真正使用时&lt;/strong>才会被展开&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE := &amp;quot;${OTHER_VARIABLE}&amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置变量，&lt;strong>立即展开&lt;/strong>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE ?= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置默认值，如果变量已经设置，那么不会覆盖&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE ??= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>设置&lt;em>弱&lt;/em>默认值，见&lt;a class="link" href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html#setting-a-weak-default-value" target="_blank" rel="noopener"
->弱默认值&lt;/a>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE += &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>追加变量值（带空格）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE =+ &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>在变量值前面追加（带空格）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE .= &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>追加变量值（无空格）&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>VARIABLE =. &amp;quot;value&amp;quot;&lt;/code>&lt;/td>
-&lt;td>在变量值后面追加（无空格）&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;blockquote>
-&lt;p>TODO&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="localconf-配置">&lt;code>local.conf&lt;/code> 配置
-&lt;/h2>&lt;p>这些配置可以加入到 &lt;code>local.conf&lt;/code> 或者&lt;code>bblayers.conf&lt;/code>文件中，也根据需求加入其他 Machine 配置中。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>配置&lt;/th>
-&lt;th>作用&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>RM_WORK_EXCLUDE += &amp;quot;recipe_name&amp;quot;&lt;/code>&lt;/td>
-&lt;td>编译后&lt;strong>不删除&lt;/strong>指定的 recipe 的工作目录，用于调试&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>INHERIT += &amp;quot;rm_work&amp;quot;&lt;/code>&lt;/td>
-&lt;td>编译后&lt;strong>删除&lt;/strong>工作目录&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="faq">FAQ
-&lt;/h2>&lt;h3 id="note-reconnecting-to-bitbake-server">NOTE: Reconnecting to bitbake server
-&lt;/h3>&lt;p>删除 bitbake.lock&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm -rf &amp;lt;build-dir&amp;gt;/bitbake.lock
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="error-nothing-provides-a-needed-by-b">ERROR: nothing provides A needed by B
-&lt;/h3>&lt;ul>
-&lt;li>情况一： recipe A 不存在，没有被添加到 packagegroup 或者 dependcy 中&lt;/li>
-&lt;li>情况二： recipe A 编出来是空包，没有生成任何文件。需要在 A 的 recipe 中添加 &lt;code>ALLOW_EMPTY_${PN} = &amp;quot;1&amp;quot;&lt;/code> 来解决&lt;/li>
-&lt;/ul>
-&lt;p>经常在编译动态库时会遇到这个问题，因为动态库的 recipe 生成的是一个空包。&lt;/p>
-&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/59091938/yocto-oe-recipe-with-cmake-install-a-shared-library-so" target="_blank" rel="noopener"
->Yocto / OE : recipe with CMake install a shared library .so - Stack Overflow&lt;/a>
-&lt;a class="link" href="https://docs.yoctoproject.org/pipermail/yocto/2015-January/022921.html" target="_blank" rel="noopener"
->do_rootfs missing package (ipk) or not found in base feeds (rpm) (yoctoproject.org)&lt;/a>&lt;/p>
-&lt;p>只有 &lt;code>*.so.*&lt;/code>（包含版本号的动态库）会被打包进 FILES_${PN}，而软链接 &lt;code>*.so&lt;/code> 会被打包进 &lt;code>-dev&lt;/code>package&lt;/p>
-&lt;h3 id="如何使用-devtool-新增patch">如何使用 &lt;code>devtool&lt;/code> 新增patch
-&lt;/h3>&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/33939837/what-is-best-practice-to-do-small-changes-in-source-code-in-yocto" target="_blank" rel="noopener"
->bitbake - What is best practice to do small changes in source code in Yocto - Stack Overflow&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">devtool modify -x &amp;lt;recipe&amp;gt; &amp;lt;path-to-unpack&amp;gt;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool build &amp;lt;recipe&amp;gt;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改位于&amp;lt;path-to-unpack&amp;gt;的源码&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool update-recipe &amp;lt;recipe&amp;gt;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">devtool reset &amp;lt;recipe&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item><item><title>qbittorrent-api 的一些用法</title><link>https://wesleyel.github.io/p/qbittorrent-api-usage/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/qbittorrent-api-usage/</guid><description>&lt;h2 id="introduction">Introduction
-&lt;/h2>&lt;p>大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p>
-&lt;p>有时会遇到种子掉线的问题，虽然出现的频率很低，但每次出现都让人困恼不已。具体情况是因为torrent下载工具和NAS不在同一个设备上，每当突然掉电后，恢复启动的torrent下载工具无法确定种子进度，于是种子进度干脆显示成0%。要想恢复做种进度，需要对所有种子重新进行散列检测。&lt;/p>
-&lt;p>对于数以TB的文件，重新检测不仅需要大量的时间，而且会消耗大量的硬盘写入量，这对无论哪种硬盘都是一个灾难。&lt;/p>
-&lt;p>之前开发过qBittorrent和uTorrent的备份工具，没有达到预期效果。&lt;/p>
-&lt;p>今天看到了&lt;a class="link" href="https://tomorrow505.xyz/%E5%9F%BA%E4%BA%8Eqbittorrentapi%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%8A%A0%E8%BD%BD%E7%A7%8D%E5%AD%90%E8%B7%B3%E6%A3%80/" target="_blank" rel="noopener"
->这篇文章&lt;/a>，感觉很有参考意义。本文就是在此基础上做的一点修改。&lt;/p>
-&lt;h2 id="qbittorrent-api">qbittorrent-api
-&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/rmartin16/qbittorrent-api" target="_blank" rel="noopener"
->qbittorrent-api&lt;/a> 是qBittorrent Web API的Python实现。&lt;a class="link" href="https://qbittorrent-api.readthedocs.io/en/latest/introduction.html" target="_blank" rel="noopener"
->RTD&lt;/a>&lt;/p>
-&lt;p>它支持qBittorrent v4.1.0+版本，基本实现了所有API。&lt;/p>
-&lt;p>支持的版本：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Version&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">versions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Version&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">supported_app_versions&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">versions&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># [&amp;#39;v4.1.0&amp;#39;, &amp;#39;v4.1.1&amp;#39;, &amp;#39;v4.1.2&amp;#39;, &amp;#39;v4.1.3&amp;#39;, &amp;#39;v4.1.4&amp;#39;, &amp;#39;v4.1.5&amp;#39;, &amp;#39;v4.1.6&amp;#39;, &amp;#39;v4.1.7&amp;#39;,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.1.8&amp;#39;, &amp;#39;v4.1.9&amp;#39;, &amp;#39;v4.1.9.1&amp;#39;, &amp;#39;v4.2.0&amp;#39;, &amp;#39;v4.2.1&amp;#39;, &amp;#39;v4.2.2&amp;#39;, &amp;#39;v4.2.3&amp;#39;, &amp;#39;v4.2.4&amp;#39;,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.2.5&amp;#39;, &amp;#39;v4.3.0&amp;#39;, &amp;#39;v4.3.0.1&amp;#39;, &amp;#39;v4.3.1&amp;#39;, &amp;#39;v4.3.2&amp;#39;, &amp;#39;v4.3.3&amp;#39;, &amp;#39;v4.3.4.1&amp;#39;, &amp;#39;v4.3.5&amp;#39;,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#39;v4.3.6&amp;#39;, &amp;#39;v4.3.7&amp;#39;, &amp;#39;v4.3.8&amp;#39;, &amp;#39;v4.3.9&amp;#39;, &amp;#39;v4.4.0&amp;#39;, &amp;#39;v4.4.1&amp;#39;, &amp;#39;v4.4.2&amp;#39;]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>qBittorrent有许多版本，有些版本API变化很大。&lt;a class="link" href="https://github.com/qbittorrent/qBittorrent/wiki#user-content-webui-api" target="_blank" rel="noopener"
->官方WIKI&lt;/a>中将WebUI API划为三个版本。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>State&lt;/th>
-&lt;th>Version&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Current&lt;/td>
-&lt;td>qBittorrent v4.1+&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Previous&lt;/td>
-&lt;td>qBittorrent v3.2.0-v4.0.4&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Obsolete&lt;/td>
-&lt;td>qBittorrent v3.1.x&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>有一些PT站点限定使用&lt;code>v3.*.*&lt;/code>版本，这样的话，就需要自己更新API了。&lt;/p>
-&lt;p>例如&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>v3.*.*&lt;/code>的login接口为 &lt;code>http://localhost:8080/login&lt;/code>&lt;/li>
-&lt;li>&lt;code>v4.1.*&lt;/code>的login接口为&lt;code>http://localhost:8080/api/v2/auth/login&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>要寻找合适的版本，参考PT站的常见问题和&lt;a class="link" href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/" target="_blank" rel="noopener"
->sourceforge&lt;/a>.&lt;/p>
-&lt;h2 id="skip-hash-detection">Skip hash detection
-&lt;/h2>&lt;h3 id="bug-fix">Bug fix
-&lt;/h3>&lt;p>根据&lt;a class="link" href="https://github.com/7sDream/torrent_parser/issues/11" target="_blank" rel="noopener"
->torrent_parser issue#11&lt;/a>,&lt;/p>
-&lt;p>torrent_parser.py#L46: &lt;code>from typing_extensions import OrderedDict&lt;/code>&lt;/p>
-&lt;p>这一行是误加入，运行前应该手动在源码中删除。&lt;/p>
-&lt;p>&lt;code>BitTorrent&lt;/code>fastresume文件的解析包&lt;code>bencode&lt;/code>似乎不支持python3了，这里使用&lt;code>bencodepy&lt;/code>作为替代。&lt;/p>
-&lt;h3 id="full-code">Full code
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;span class="lnt">53
-&lt;/span>&lt;span class="lnt">54
-&lt;/span>&lt;span class="lnt">55
-&lt;/span>&lt;span class="lnt">56
-&lt;/span>&lt;span class="lnt">57
-&lt;/span>&lt;span class="lnt">58
-&lt;/span>&lt;span class="lnt">59
-&lt;/span>&lt;span class="lnt">60
-&lt;/span>&lt;span class="lnt">61
-&lt;/span>&lt;span class="lnt">62
-&lt;/span>&lt;span class="lnt">63
-&lt;/span>&lt;span class="lnt">64
-&lt;/span>&lt;span class="lnt">65
-&lt;/span>&lt;span class="lnt">66
-&lt;/span>&lt;span class="lnt">67
-&lt;/span>&lt;span class="lnt">68
-&lt;/span>&lt;span class="lnt">69
-&lt;/span>&lt;span class="lnt">70
-&lt;/span>&lt;span class="lnt">71
-&lt;/span>&lt;span class="lnt">72
-&lt;/span>&lt;span class="lnt">73
-&lt;/span>&lt;span class="lnt">74
-&lt;/span>&lt;span class="lnt">75
-&lt;/span>&lt;span class="lnt">76
-&lt;/span>&lt;span class="lnt">77
-&lt;/span>&lt;span class="lnt">78
-&lt;/span>&lt;span class="lnt">79
-&lt;/span>&lt;span class="lnt">80
-&lt;/span>&lt;span class="lnt">81
-&lt;/span>&lt;span class="lnt">82
-&lt;/span>&lt;span class="lnt">83
-&lt;/span>&lt;span class="lnt">84
-&lt;/span>&lt;span class="lnt">85
-&lt;/span>&lt;span class="lnt">86
-&lt;/span>&lt;span class="lnt">87
-&lt;/span>&lt;span class="lnt">88
-&lt;/span>&lt;span class="lnt">89
-&lt;/span>&lt;span class="lnt">90
-&lt;/span>&lt;span class="lnt">91
-&lt;/span>&lt;span class="lnt">92
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">qbittorrentapi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">LoginFailed&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">torrent_parser&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tp&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">load&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">hashlib&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">bencodepy&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">CLoader&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">Loader&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="ne">ImportError&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">from&lt;/span> &lt;span class="nn">yaml&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Loader&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 获取客户端实例&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Client&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">:&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;ip&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;port&amp;#39;&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">username&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;user&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pwd&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 客户端进行登录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">auth_log_in&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="n">LoginFailed&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输出客户端信息&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;qBittorrent Web API: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">web_api_version&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">qb&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 根据种子路径获取其hash值&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">metainfo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_data&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">metainfo&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">hashlib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sha1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bencodepy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hexdigest&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 加载配置文件&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">load_config&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./config.yml&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">Loader&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Loader&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">data&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取种子文件列表信息&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tp&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse_torrent_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;info&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">keys&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;files&amp;#39;&lt;/span>&lt;span class="p">]:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;path&amp;#39;&lt;/span>&lt;span class="p">]))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_paths&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">file_paths&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 主程序入口&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">user_info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load_config&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_qb&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;qb&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">save_paths&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">user_info&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;save_path&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 输入种子所在目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrents_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;请输入种子保存路径&amp;gt;&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">listdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 循环处理种子信息&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">files&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">endswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.torrent&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;*********************** 当前处理种子文件：&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s2"> ***********************&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrents_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 种子已经存在于客户端，跳过&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hash_value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_hash&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_hashes&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">hash_value&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;当前种子已经存在于客户端，跳出……&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 判断种子文件是否存在于常用的保存路径&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">torrent_files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pars_torrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子文件包含&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">个文件&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">save_path&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">save_paths&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">torrent_file&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">torrent_files&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">isfile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">)):&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1"> 文件不存在，跳出……&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">torrent_file&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">False&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">flag&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">torrents_add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">torrent_files&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">torrent_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">save_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_skip_checking&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_paused&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;种子检验完毕，保存路径为&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">，已经添加！！&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">save_path&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># result
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent: v4.1.4
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">qBittorrent Web API: 2.1.1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*********************** 当前处理种子文件：Severance.S01.1080p.ATVP.WEB-DL.DDP5.1.Atmos.H.264-TEPES.torrent ***********************
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子文件包含9个文件
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">种子检验完毕，保存路径为Y:\Transmission\DOWNLOADS，已经添加！！
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">qb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ip&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;192.168.123.189&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;12345&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admin&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pwd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">adminadmin&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">save_path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="kc">Y&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="l">\Transmission\DOWNLOADS&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书">找到一本电子书
-&lt;/h2>&lt;p>以《&lt;a class="link" href="https://github.com/unknwon/the-way-to-go_ZH_CN" target="_blank" rel="noopener"
->the-way-to-go_ZH_CN&lt;/a>》为例，先&lt;code>clone&lt;/code>下来。&lt;/p>
-&lt;h2 id="预处理">预处理
-&lt;/h2>&lt;p>GitBook使用简单的目录结构，通过 &lt;code>SUMMARY.md&lt;/code> 目录文件来确定哪些文件被转换。原书目录是&lt;code>TOC.md&lt;/code>，因此将&lt;code>TOC.md&lt;/code>改名为&lt;code>SUMMARY.md&lt;/code>。&lt;/p>
-&lt;p>原书的图片链接都带上了&lt;code>?raw=true&lt;/code>参数，导致转换后的PDF文件里图片无法正确显示，需要全部删除&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">grep -rl &lt;span class="s2">&amp;#34;?raw=true&amp;#34;&lt;/span> ./ &lt;span class="p">|&lt;/span> xargs sed -i &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="s1">&amp;#39;s/?raw=true//g&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="开始转换">开始转换
-&lt;/h2>&lt;p>安装&lt;a class="link" href="https://calibre-ebook.com" target="_blank" rel="noopener"
->calibre&lt;/a>，主要是需要&lt;code>ebook-converter&lt;/code>这个命令行工具&lt;/p>
-&lt;ol>
-&lt;li>创建一个符号连接&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;code>/usr/local/bin&lt;/code>可以是&lt;code>$PATH$&lt;/code>中的任何文件夹&lt;/p>
-&lt;ol start="2">
-&lt;li>安装&lt;code>gitbook-cli&lt;/code>，这时会自动编译安装&lt;code>gitbook&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install gitbook-cli -g
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="3">
-&lt;li>转换之&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gitbook pdf ./ ./book.pdf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工具货架 on Country Road</title><link>https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/</link><description>Recent content in 工具货架 on Country Road</description><generator>Hugo</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Tue, 02 Jun 2026 12:00:00 +0800</lastBuildDate><atom:link href="https://wesleyel.github.io/categories/%E5%B7%A5%E5%85%B7%E8%B4%A7%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>Rime + VS Code + Typst：中英输入法自动切换实践</title><link>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</link><pubDate>Tue, 02 Jun 2026 12:00:00 +0800</pubDate><guid>https://wesleyel.github.io/p/rime-vscode-typst-smart-ime/</guid><description>&lt;p&gt;用 &lt;a href="https://typst.app/"&gt;Typst&lt;/a&gt; 写笔记时，一个很常见的节奏是：&lt;strong&gt;正文用中文&lt;/strong&gt;，&lt;strong&gt;公式和符号用英文&lt;/strong&gt;。光标在 &lt;code&gt;$x^2$&lt;/code&gt; 里要英文布局，移出 &lt;code&gt;$...$&lt;/code&gt; 又要立刻回到中文——如果全靠 &lt;code&gt;Shift&lt;/code&gt; 在 Rime 的 ASCII 模式（英文直出）和中文模式之间切换，长时间编辑很容易误触，小指也会很累。&lt;/p&gt;</description></item><item><title>Synology Proxy Config</title><link>https://wesleyel.github.io/p/synology-proxy-config/</link><pubDate>Fri, 03 Jan 2025 21:59:46 +0800</pubDate><guid>https://wesleyel.github.io/p/synology-proxy-config/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;refer: &lt;a href="https://blog.mitsea.com/8c059ad1807e424d8f7059b330525443/"&gt;给群晖 Docker 命令配置代理&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先确保内网里有一个能够访问互联网的代理，随便什么设备，随便什么客户端，只要能起 http 代理就行，注意打开 LAN 访问权限&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;执行下面的命令创建文件夹&lt;/p&gt;</description></item><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;完整文档可以在&lt;a href="https://buildroot.org/downloads/manual/manual.html"&gt;官方网站&lt;/a&gt;找到。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="快速开始一个-buildroot-项目"&gt;快速开始一个 buildroot 项目&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;buildroot_repo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;https://github.com/buildroot/buildroot.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;buildroot_version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;2022.11
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;buildroot_src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;buildroot-&lt;span class="nv"&gt;$buildroot_version&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;buildroot_defcfg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;raspberrypi4_defconfig
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone --branch &lt;span class="nv"&gt;$buildroot_version&lt;/span&gt; --depth &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="nv"&gt;$buildroot_repo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -C &lt;span class="nv"&gt;$buildroot_src&lt;/span&gt; defconfig &lt;span class="nv"&gt;BR2_DEFCONFIG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$buildroot_defcfg&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -C &lt;span class="nv"&gt;$buildroot_src&lt;/span&gt; linux-reconfigure all
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="基本命令"&gt;基本命令&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://buildroot.org/downloads/manual/manual.html#make-tips"&gt;Make 提示&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;make help&lt;/code&gt; 获取所有可用目标的列表。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;命令&lt;/th&gt;
+					&lt;th&gt;描述&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make&lt;/td&gt;
+					&lt;td&gt;构建 rootfs&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make xyz_defconfig&lt;/td&gt;
+					&lt;td&gt;选择配置文件&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make menuconfig&lt;/td&gt;
+					&lt;td&gt;打开配置菜单&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make savedefconfig&lt;/td&gt;
+					&lt;td&gt;将当前配置保存到 defconfig 文件中&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make source&lt;/td&gt;
+					&lt;td&gt;下载包的源代码&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make clean&lt;/td&gt;
+					&lt;td&gt;清理所有构建产品（包括构建目录、主机、暂存和目标树、镜像和工具链）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;make distclean&lt;/td&gt;
+					&lt;td&gt;清理所有内容，包括配置&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="包管理"&gt;包管理&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps"&gt;特定包的 make 目标&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Yocto &amp; Bitbake 速查</title><link>https://wesleyel.github.io/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/yocto-cheetsheet/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;完整文档可以在&lt;a href="https://docs.yoctoproject.org/"&gt;Yocto 文档网站&lt;/a&gt;找到。
+参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet"&gt;yoctoproject-cheatsheet&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="cli-命令"&gt;Cli 命令&lt;/h2&gt;
+&lt;p&gt;需要先通过&lt;code&gt;source setup-environment&lt;/code&gt;设置Bitbake环境&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;命令&lt;/th&gt;
+					&lt;th&gt;描述&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake &lt;image&gt;&lt;/td&gt;
+					&lt;td&gt;编译指定的 image&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -c &lt;task&gt; &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;执行指定的 task。 可选的 task 有: &lt;code&gt;fetch&lt;/code&gt;, &lt;code&gt;unpack&lt;/code&gt;, &lt;code&gt;patch&lt;/code&gt;, &lt;code&gt;configure&lt;/code&gt;, &lt;code&gt;compile&lt;/code&gt;, &lt;code&gt;install&lt;/code&gt;, &lt;code&gt;package&lt;/code&gt;, &lt;code&gt;clean&lt;/code&gt;, &lt;code&gt;cleansstate&lt;/code&gt;, &lt;code&gt;rebuild&lt;/code&gt;, &lt;code&gt;reconfigure&lt;/code&gt;, &lt;code&gt;reinstall&lt;/code&gt;等。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -c cleanall &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;清理指定的 recipe. 包括工作目录和 sstate cache&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -c devshell &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;进入指定 recipe 的 shell 环境&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -c listtasks &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;列出指定 recipe 的所有 task&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -c showappends &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;显示指定 recipe 的所有 append 文件&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -e &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;显示指定 recipe 的所有变量&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -s&lt;/td&gt;
+					&lt;td&gt;列出所有可用的 recipe&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake -S &lt;recipe&gt;&lt;/td&gt;
+					&lt;td&gt;显示指定 recipe 的依赖关系&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake &lt;image&gt; &amp;ndash;graphviz &amp;ndash;ui=depexp&lt;/td&gt;
+					&lt;td&gt;生成&lt;image&gt;的包依赖关系图&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake-layers show-layers&lt;/td&gt;
+					&lt;td&gt;显示所有的 layer&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake-layers show-appends&lt;/td&gt;
+					&lt;td&gt;显示所有的 append 文件&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake-layers show-recipes&lt;/td&gt;
+					&lt;td&gt;显示所有的 recipe&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake-layers show-recipes &amp;ldquo;gdb*&amp;rdquo;&lt;/td&gt;
+					&lt;td&gt;搜索 recipe&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;bitbake-layers show-depends&lt;/td&gt;
+					&lt;td&gt;显示所有的依赖关系&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="变量语法和操作"&gt;变量语法和操作&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html"&gt;Bitbake User Manual&lt;/a&gt;&lt;/p&gt;</description></item><item><title>qbittorrent-api 的一些用法</title><link>https://wesleyel.github.io/p/qbittorrent-api-usage/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/qbittorrent-api-usage/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;大学4年即将结束，回想这段时间。有时一个机缘巧合，我们就会被吸引并走进一个新的世界。PT就是我在大一期间认识到的，这种Freeeee的感觉太好了。后来组了自己的NAS，装入大容量硬盘，开启我的下载做种之路。&lt;/p&gt;</description></item><item><title>通过Gitbook将Markdown电子书转换为PDF格式</title><link>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/convert-gitbook-to-pdf/</guid><description>&lt;h2 id="找到一本电子书"&gt;找到一本电子书&lt;/h2&gt;
+&lt;p&gt;以《&lt;a href="https://github.com/unknwon/the-way-to-go_ZH_CN"&gt;the-way-to-go_ZH_CN&lt;/a&gt;》为例，先&lt;code&gt;clone&lt;/code&gt;下来。&lt;/p&gt;
+&lt;h2 id="预处理"&gt;预处理&lt;/h2&gt;
+&lt;p&gt;GitBook使用简单的目录结构，通过 &lt;code&gt;SUMMARY.md&lt;/code&gt; 目录文件来确定哪些文件被转换。原书目录是&lt;code&gt;TOC.md&lt;/code&gt;，因此将&lt;code&gt;TOC.md&lt;/code&gt;改名为&lt;code&gt;SUMMARY.md&lt;/code&gt;。&lt;/p&gt;</description></item></channel></rss>
