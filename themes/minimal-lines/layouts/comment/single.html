@@ -1,0 +1,23 @@
+{{ define "main" }}
+<article class="comment-single">
+  <header class="comment-header">
+    <h1 class="post-heading">{{ .Title }}</h1>
+    {{- partial "comment-meta.html" . }}
+    {{- partial "pageviews-page.html" . }}
+  </header>
+  {{- with .Params.douban }}
+  <div class="comment-media">
+    {{ partial "douban-card.html" . }}
+  </div>
+  {{- end }}
+  <div class="article-body">
+    {{- partial "toc.html" . }}
+    {{- with .Content }}
+    <div class="post-content">
+      {{ . }}
+    </div>
+    {{- end }}
+  </div>
+  {{- partial "giscus.html" . }}
+</article>
+{{ end }}

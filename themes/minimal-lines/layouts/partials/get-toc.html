@@ -1,0 +1,9 @@
+{{- if isset .Params "toc" -}}
+{{- .Params.toc -}}
+{{- else if eq .Section "post" -}}
+{{- .Site.Params.post.toc | default false -}}
+{{- else if eq .Section "comment" -}}
+{{- .Site.Params.comment.toc | default false -}}
+{{- else -}}
+false
+{{- end -}}

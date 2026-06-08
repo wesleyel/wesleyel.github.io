@@ -1,0 +1,58 @@
+{{ define "main" }}
+{{- $comments := where .Site.RegularPages "Section" "comment" }}
+<section class="reviews-page">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{- with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
+  </header>
+
+  {{- $moviesWatched := where (where $comments "Params.commentType" "movie") "Params.status" "!=" "wishlist" }}
+  {{- $moviesWishlist := where (where $comments "Params.commentType" "movie") "Params.status" "wishlist" }}
+  {{- $musicListened := where (where $comments "Params.commentType" "music") "Params.status" "!=" "wishlist" }}
+  {{- $musicWishlist := where (where $comments "Params.commentType" "music") "Params.status" "wishlist" }}
+
+  {{- with $moviesWatched }}
+  <section class="review-group">
+    <h2 class="review-group-title">电影 · 看过</h2>
+    <ul class="comment-list">
+      {{- range .ByDate.Reverse }}
+      {{- partial "comment-item.html" . }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with $moviesWishlist }}
+  <section class="review-group">
+    <h2 class="review-group-title">电影 · 想看</h2>
+    <ul class="comment-list">
+      {{- range .ByTitle }}
+      {{- partial "comment-item.html" . }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with $musicListened }}
+  <section class="review-group">
+    <h2 class="review-group-title">音乐 · 听过</h2>
+    <ul class="comment-list">
+      {{- range .ByDate.Reverse }}
+      {{- partial "comment-item.html" . }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with $musicWishlist }}
+  <section class="review-group">
+    <h2 class="review-group-title">音乐 · 想听</h2>
+    <ul class="comment-list">
+      {{- range .ByTitle }}
+      {{- partial "comment-item.html" . }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</section>
+{{ end }}

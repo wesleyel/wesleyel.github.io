@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" data-theme="{{ .Site.Params.colorScheme.default | default "auto" }}">
+<head>
+  {{- partial "head.html" . -}}
+</head>
+<body>
+  {{- partial "lines-bg.html" . -}}
+  <div class="site-wrapper">
+    {{- partial "header.html" . -}}
+    <main class="main" id="main">
+      {{- block "main" . }}{{- end }}
+    </main>
+    {{- partial "footer.html" . -}}
+  </div>
+  {{- partial "scripts.html" . -}}
+</body>
+</html>

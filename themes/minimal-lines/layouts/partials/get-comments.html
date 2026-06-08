@@ -1,0 +1,9 @@
+{{- if isset .Params "comments" -}}
+{{- .Params.comments -}}
+{{- else if eq .Section "post" -}}
+{{- .Site.Params.post.comments | default false -}}
+{{- else if eq .Section "comment" -}}
+{{- .Site.Params.comment.comments | default false -}}
+{{- else -}}
+false
+{{- end -}}

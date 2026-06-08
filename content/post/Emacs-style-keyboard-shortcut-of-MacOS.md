@@ -2,15 +2,13 @@
 title: "MacOS 的 Emacs 风格键盘快捷键"
 date: 2022-05-07
 categories:
-  - 苹果生态
+  - Apple
 tags:
   - 速查
   - 快捷键
 description: "众所周知，MacOS有一组键盘快捷键，其中常用方向键控制Web 表单、输入框、纯文本文档等文本字段的编辑。但似乎不太为人所知的是，MacOS还原生支持某些 Emacs 键盘快捷键。"
 slug: emacs-style-keyboard-shortcut-of-macos
 ---
-
-+++
 
 > 译自： [(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X](https://jblevins.org/log/kbd)
 >

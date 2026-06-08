@@ -1,0 +1,22 @@
+{{- $js := resources.Get "js/lines.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- $theme := resources.Get "js/theme.js" | minify | fingerprint }}
+<script src="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}" defer></script>
+{{- if .Page.Store.Get "hasMermaid" }}
+{{- $mermaid := resources.Get "js/mermaid.js" | minify | fingerprint }}
+<script src="{{ $mermaid.RelPermalink }}" integrity="{{ $mermaid.Data.Integrity }}" defer></script>
+{{- end }}
+{{- if or .Params.math .Site.Params.math }}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+{{- end }}
+{{- if and .Site.Params.comments.enabled (eq .Site.Params.comments.provider "giscus") (eq (partial "get-comments.html" . | printf "%v") "true") }}
+{{- $giscusJs := resources.Get "js/giscus.js" | minify | fingerprint }}
+<script src="{{ $giscusJs.RelPermalink }}" integrity="{{ $giscusJs.Data.Integrity }}" defer></script>
+{{- end }}
+{{- with .Site.Params.pageViews }}
+{{- if .enabled }}
+<script async src="{{ .script | default "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" }}"></script>
+{{- end }}
+{{- end }}

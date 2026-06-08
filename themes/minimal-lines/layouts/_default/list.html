@@ -1,0 +1,27 @@
+{{ define "main" }}
+<section class="list-page">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{- with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
+  </header>
+  {{- if .Pages }}
+  {{- $paginator := .Paginate .Pages }}
+  <ul class="post-list">
+    {{- range $paginator.Pages }}
+    <li class="post-item">
+      <article>
+        <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{- partial "post-meta.html" . }}
+        {{- with .Description }}
+        <p class="post-summary">{{ . }}</p>
+        {{- else }}
+        <p class="post-summary">{{ .Summary | plainify | truncate 160 }}</p>
+        {{- end }}
+      </article>
+    </li>
+    {{- end }}
+  </ul>
+  {{- partial "pagination.html" . }}
+  {{- end }}
+</section>
+{{ end }}

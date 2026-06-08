@@ -1,0 +1,12 @@
+<li class="comment-item">
+  <article>
+    <h3 class="comment-title">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h3>
+    {{- partial "comment-meta.html" . }}
+    {{- $excerpt := .Description | default (.Summary | plainify) }}
+    {{- if and $excerpt (ne .Params.status "wishlist") }}
+    <p class="comment-excerpt">{{ $excerpt | truncate 120 }}</p>
+    {{- end }}
+  </article>
+</li>

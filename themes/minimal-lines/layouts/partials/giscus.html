@@ -1,0 +1,19 @@
+{{- $comments := eq (partial "get-comments.html" . | printf "%v") "true" -}}
+{{- if and .Site.Params.comments.enabled $comments -}}
+{{- $g := .Site.Params.comments.giscus }}
+<section class="comments" id="comments">
+  <h2 class="comments-title">评论</h2>
+  <div class="giscus"
+    data-repo="{{ $g.repo }}"
+    data-repo-id="{{ $g.repoID }}"
+    data-category="{{ $g.category }}"
+    data-category-id="{{ $g.categoryID }}"
+    data-mapping="{{ $g.mapping | default "pathname" }}"
+    data-reactions-enabled="{{ $g.reactionsEnabled | default 1 }}"
+    data-emit-metadata="{{ $g.emitMetadata | default 0 }}"
+    data-input-position="{{ $g.inputPosition | default "bottom" }}"
+    data-light-theme="{{ $g.lightTheme | default "light" }}"
+    data-dark-theme="{{ $g.darkTheme | default "dark" }}"
+    data-lang="{{ $g.lang | default "zh-CN" }}"></div>
+</section>
+{{- end -}}

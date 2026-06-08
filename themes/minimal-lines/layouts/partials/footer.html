@@ -1,0 +1,17 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <p class="footer-copy">
+        &copy; {{ with .Site.Params.footer.since }}{{ . }}–{{ end }}{{ now.Year }} {{ .Site.Params.copyright | default .Site.Title }}
+      </p>
+      {{- partial "pageviews-site.html" . }}
+    </div>
+    {{- with .Site.Menus.social }}
+    <ul class="social-list">
+      {{- range . }}
+      <li><a href="{{ .URL }}" target="_blank" rel="noopener noreferrer">{{ .Name }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </div>
+</footer>

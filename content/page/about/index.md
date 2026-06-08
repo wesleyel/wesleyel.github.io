@@ -6,12 +6,6 @@ lastmod: "2020-10-09"
 menu:
   main:
     weight: -90
-    params:
-      icon: user
 ---
 
-# Hi there
-
-My name is WesleyYang, a 26-year-old software engineer.
-
-I like to code, and I am currently learning how to code. Come to see my work!
+希望这里的内容对你有所帮助!

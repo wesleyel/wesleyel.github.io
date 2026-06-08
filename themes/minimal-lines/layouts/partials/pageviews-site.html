@@ -1,0 +1,8 @@
+{{- $pv := .Site.Params.pageViews -}}
+{{- if and $pv.enabled ($pv.site | default true) }}
+<p class="pageviews-site">
+  <span id="busuanzi_container_site_pv">访问 <span id="busuanzi_value_site_pv">–</span></span>
+  <span class="meta-sep">·</span>
+  <span id="busuanzi_container_site_uv">访客 <span id="busuanzi_value_site_uv">–</span></span>
+</p>
+{{- end }}

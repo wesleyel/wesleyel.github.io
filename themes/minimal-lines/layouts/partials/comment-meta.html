@@ -1,0 +1,15 @@
+<div class="comment-meta">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Site.Params.dateFormat.published | default "2006-01-02") }}</time>
+  <span class="meta-sep">·</span>
+  <span class="comment-type">
+    {{- if eq .Params.commentType "music" }}音乐{{ else }}电影{{ end -}}
+  </span>
+  <span class="meta-sep">·</span>
+  <span class="comment-status">
+    {{- if eq .Params.status "wishlist" -}}
+      {{- if eq .Params.commentType "music" }}想听{{ else }}想看{{ end -}}
+    {{- else -}}
+      {{- if eq .Params.commentType "music" }}听过{{ else }}看过{{ end -}}
+    {{- end -}}
+  </span>
+</div>

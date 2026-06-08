@@ -1,0 +1,25 @@
+{{ define "main" }}
+<section class="home">
+  {{- with .Site.Params.description }}
+  <p class="home-desc">{{ . }}</p>
+  {{- end }}
+  {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.mainSections | default (slice "post")) }}
+  {{- $paginator := .Paginate $pages }}
+  <ul class="post-list">
+    {{- range $paginator.Pages }}
+    <li class="post-item">
+      <article>
+        <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{- partial "post-meta.html" . }}
+        {{- with .Description }}
+        <p class="post-summary">{{ . }}</p>
+        {{- else }}
+        <p class="post-summary">{{ .Summary | plainify | truncate 160 }}</p>
+        {{- end }}
+      </article>
+    </li>
+    {{- end }}
+  </ul>
+  {{- partial "pagination.html" . }}
+</section>
+{{ end }}

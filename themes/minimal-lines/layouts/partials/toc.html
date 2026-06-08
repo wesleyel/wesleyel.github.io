@@ -1,0 +1,8 @@
+{{- $enabled := eq (partial "get-toc.html" . | printf "%v") "true" -}}
+{{- $hasItems := gt (len (findRE `<li` .TableOfContents)) 0 -}}
+{{- if and $enabled $hasItems -}}
+<div class="toc">
+  <p class="toc-title">目录</p>
+  {{ .TableOfContents }}
+</div>
+{{- end -}}

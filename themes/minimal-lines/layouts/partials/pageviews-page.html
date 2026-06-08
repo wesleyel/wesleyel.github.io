@@ -1,0 +1,7 @@
+{{- $pv := .Site.Params.pageViews -}}
+{{- $sections := $pv.sections | default (slice "post" "comment") -}}
+{{- if and $pv.enabled ($pv.page | default true) (in $sections .Section) }}
+<p class="pageviews-page-line">
+  <span id="busuanzi_container_page_pv">阅读 <span id="busuanzi_value_page_pv">–</span> 次</span>
+</p>
+{{- end }}

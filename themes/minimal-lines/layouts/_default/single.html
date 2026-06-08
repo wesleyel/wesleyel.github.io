@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-heading">{{ .Title }}</h1>
+    {{- partial "post-meta.html" . }}
+    {{- partial "pageviews-page.html" . }}
+  </header>
+  {{- with .Params.image }}
+  <figure class="post-cover">
+    <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+  </figure>
+  {{- end }}
+  <div class="article-body">
+    {{- partial "toc.html" . }}
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+  </div>
+  {{- partial "giscus.html" . }}
+</article>
+{{ end }}

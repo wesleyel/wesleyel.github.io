@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section class="taxonomy-page">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    <p class="taxonomy-breadcrumb">
+      <a href="{{ "/" | relLangURL }}">首页</a>
+      <span class="meta-sep">/</span>
+      <a href="{{ (printf "/%s/" .Data.Plural) | relLangURL }}">{{ .Data.Plural | humanize }}</a>
+    </p>
+  </header>
+  {{- $paginator := .Paginate .Pages }}
+  <ul class="post-list">
+    {{- range $paginator.Pages }}
+    <li class="post-item">
+      <article>
+        <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{- partial "post-meta.html" . }}
+        {{- with .Description }}
+        <p class="post-summary">{{ . }}</p>
+        {{- else }}
+        <p class="post-summary">{{ .Summary | plainify | truncate 160 }}</p>
+        {{- end }}
+      </article>
+    </li>
+    {{- end }}
+  </ul>
+  {{- partial "pagination.html" . }}
+</section>
+{{ end }}

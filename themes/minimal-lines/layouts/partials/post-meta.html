@@ -1,0 +1,25 @@
+<div class="post-meta">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Site.Params.dateFormat.published | default "2006-01-02") }}</time>
+  {{- with .Params.categories }}
+  <span class="meta-sep">·</span>
+  <span class="post-categories">
+    {{- range $i, $cat := . }}
+    {{- if $i }}, {{ end }}
+    <a href="{{ "/categories/" | relLangURL }}{{ $cat | urlize }}/" class="category-tag">{{ $cat }}</a>
+    {{- end }}
+  </span>
+  {{- end }}
+  {{- with .Params.tags }}
+  <span class="meta-sep">·</span>
+  <span class="post-tags">
+    {{- range $i, $tag := . }}
+    {{- if $i }}, {{ end }}
+    <a href="{{ "/tags/" | relLangURL }}{{ $tag | urlize }}/" class="tag-link">#{{ $tag }}</a>
+    {{- end }}
+  </span>
+  {{- end }}
+  {{- if and .Site.Params.readingTime (.Param "readingTime" | default true) }}
+  <span class="meta-sep">·</span>
+  <span class="reading-time">{{ .ReadingTime }} min</span>
+  {{- end }}
+</div>
