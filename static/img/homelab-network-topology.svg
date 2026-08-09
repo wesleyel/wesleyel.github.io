@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Homelab 网络拓扑示意图</title>
+  <desc id="desc">内网客户端经 DNS 和 Traefik 访问 Docker 容器或 NAS 宿主机服务，部分服务通过代理出网。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#138a72"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .bg{fill:#f6f5f1}.zone{fill:#fff;stroke:#d8ddd9;stroke-width:1.5}.zone-dash{fill:#f9fbfa;stroke:#8ba69c;stroke-width:1.5;stroke-dasharray:7 7}
+      .card{fill:#fff;stroke:#d9dfdc;stroke-width:1.4;filter:url(#shadow)}.primary{fill:#17483d;stroke:#17483d}.soft{fill:#edf4f1;stroke:#bdd2ca}.warm{fill:#f3eee4;stroke:#d9cdb9}
+      .title,.section,.label,.small{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}.title{font-size:28px;font-weight:700;fill:#17201d}.section{font-size:19px;font-weight:700;fill:#24312c}
+      .label{font-size:17px;font-weight:700;fill:#1e2925}.small{font-size:14px;font-weight:400;fill:#63706a}.light{fill:#fff}.light-small{fill:#d8e9e3}
+      .arrow{fill:none;stroke:#64748b;stroke-width:2.2;marker-end:url(#arrow)}.arrow-green{fill:none;stroke:#138a72;stroke-width:2.5;marker-end:url(#arrow-green)}.dashed{stroke-dasharray:7 6}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720" rx="24"/>
+  <text class="title" x="54" y="58">Homelab 网络拓扑</text>
+  <text class="small" x="54" y="84">一台 NAS、一个统一入口、两类后端</text>
+
+  <rect class="zone" x="42" y="112" width="230" height="214" rx="20"/>
+  <text class="section" x="66" y="145">局域网</text>
+  <rect class="card soft" x="66" y="169" width="182" height="58" rx="13"/>
+  <text class="label" x="84" y="194">浏览器 / App</text>
+  <text class="small" x="84" y="214">只使用域名访问</text>
+  <rect class="card" x="66" y="244" width="182" height="58" rx="13"/>
+  <text class="label" x="84" y="269">内网 DNS</text>
+  <text class="small" x="84" y="289">*.lan.example.com</text>
+
+  <rect class="card primary" x="345" y="176" width="220" height="112" rx="18"/>
+  <text class="label light" x="372" y="210">Traefik</text>
+  <text class="small light-small" x="372" y="234">macvlan 独立 LAN 身份</text>
+  <text class="small light-small" x="372" y="257">统一处理 HTTP / HTTPS</text>
+
+  <path class="arrow-green" d="M248 198 H334"/>
+  <text class="small" x="279" y="185">解析</text>
+
+  <rect class="zone-dash" x="642" y="112" width="516" height="328" rx="20"/>
+  <text class="section" x="668" y="145">Docker 内部网络：proxy</text>
+  <text class="small" x="668" y="167">只负责 Traefik 与应用互通，不抢容器默认路由</text>
+
+  <rect class="card" x="670" y="194" width="138" height="78" rx="14"/>
+  <text class="label" x="689" y="224">Homepage</text><text class="small" x="689" y="247">服务入口</text>
+  <rect class="card" x="823" y="194" width="138" height="78" rx="14"/>
+  <text class="label" x="842" y="224">MoviePilot</text><text class="small" x="842" y="247">媒体整理</text>
+  <rect class="card" x="976" y="194" width="154" height="78" rx="14"/>
+  <text class="label" x="995" y="224">qBittorrent</text><text class="small" x="995" y="247">下载服务</text>
+
+  <rect class="card" x="670" y="291" width="138" height="78" rx="14"/>
+  <text class="label" x="689" y="321">mihomo</text><text class="small" x="689" y="344">代理出口</text>
+  <rect class="card" x="823" y="291" width="138" height="78" rx="14"/>
+  <text class="label" x="842" y="321">Sub-Store</text><text class="small" x="842" y="344">订阅管理</text>
+  <rect class="card" x="976" y="291" width="154" height="78" rx="14"/>
+  <text class="label" x="995" y="321">CookieCloud</text><text class="small" x="995" y="344">Cookie 同步</text>
+
+  <path class="arrow" d="M565 218 H631 V233 H658"/>
+  <text class="small" x="584" y="205">Docker provider</text>
+
+  <rect class="zone" x="345" y="496" width="813" height="166" rx="20"/>
+  <text class="section" x="371" y="529">NAS 宿主机</text>
+  <rect class="card warm" x="374" y="554" width="186" height="78" rx="14"/>
+  <text class="label" x="393" y="584">macvlan shim</text>
+  <text class="small" x="393" y="607">补回宿主机通信路径</text>
+  <rect class="card" x="607" y="554" width="180" height="78" rx="14"/>
+  <text class="label" x="626" y="584">DSM</text><text class="small" x="626" y="607">系统管理服务</text>
+  <rect class="card" x="834" y="554" width="238" height="78" rx="14"/>
+  <text class="label" x="853" y="584">Home Assistant</text><text class="small" x="853" y="607">host 网络容器</text>
+
+  <path class="arrow" d="M455 288 V472 H467 V542"/>
+  <text class="small" x="470" y="459">file provider</text>
+  <path class="arrow" d="M560 593 H595"/>
+  <path class="arrow" d="M560 593 H573 V646 H812 V593 H822"/>
+
+  <rect class="card soft" x="42" y="496" width="230" height="166" rx="20"/>
+  <text class="section" x="66" y="529">外部依赖</text>
+  <text class="label" x="66" y="565">DNS-01</text>
+  <text class="small" x="66" y="587">签发内网域名证书</text>
+  <text class="label" x="66" y="620">互联网</text>
+  <text class="small" x="66" y="642">镜像、元数据与订阅</text>
+  <path class="arrow dashed" d="M272 551 H316 V268 H334"/>
+  <path class="arrow dashed" d="M670 330 H615 V638 H284"/>
+
+  <text class="small" x="946" y="697">地址与域名均为占位表示</text>
+</svg>
