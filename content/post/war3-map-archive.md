@@ -24,7 +24,7 @@ hidden: false
 
 ## 解析这一半
 
-代码在 [war3parser](https://github.com/wesleyel/war3parser)，想直接试的话开 [浏览器版](https://wesleyel.github.io/war3parser/) 拖张图进去就行。
+代码在 [war3parser](https://github.com/war3-archive/war3-maps/tree/main/crates/war3parser)，想直接试的话开 [浏览器版](https://war3-archive.github.io/war3-maps/parse) 拖张图进去就行。
 
 魔兽地图的信息文件叫 w3i，带版本号，早期 RoC 测试版是 v8，WC3 2.0 已经到 v33。二十年里字段一层层往后加，没有官方文档，社区靠逆向拼出来的表也各有出入。
 
@@ -34,7 +34,7 @@ hidden: false
 
 ## 硬盘上那 84 GB
 
-归档用的命令和脚本都在 [war3-manager](https://github.com/war3-archive/war3-manager)，从 war3parser fork 出来的。
+归档用的命令和脚本都在 [war3-maps](https://github.com/war3-archive/war3-maps/tree/main/crates/war3-manager-cli)，和解析器同一个仓库。
 
 让它继续下去的是我攒的那堆压缩包。
 
