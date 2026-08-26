@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="page-header-block">
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+</div>
+<div class="page-content">
+  {{ .Content }}
+</div>
+{{- with .Params.links }}
+<ul class="list-plain">
+  {{- range . }}
+  {{- partial "list-row.html" (dict "url" .website "title" .title "pill" .description "target" "_blank") }}
+  {{- end }}
+</ul>
+{{- end }}
+{{ end }}

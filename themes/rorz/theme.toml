@@ -1,0 +1,12 @@
+name = "Rorz"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "A 12-column, sidebar-masthead Hugo theme ported from the rorz.io layout"
+homepage = "https://github.com/wesleyel/wesleyel.github.io"
+tags = ["blog", "minimal", "responsive", "dark mode", "portfolio"]
+features = ["categories", "tags", "pagination", "dark mode", "work section"]
+min_version = "0.128.0"
+
+[author]
+  name = "Wesley Yang"
+  homepage = "https://wesleyel.github.io"

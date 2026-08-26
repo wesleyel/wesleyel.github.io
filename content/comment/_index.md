@@ -2,8 +2,8 @@
 title: 点评
 menu:
   main:
-    name: 点评
-    weight: -80
+    name: Reviews
+    weight: -90
 ---
 
 电影、音乐随记。

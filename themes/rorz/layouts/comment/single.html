@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="comment-article">
+  <a href="{{ "/comment/" | relLangURL }}" class="crumb-link">
+    <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor"><path d="M224 128a8 8 0 0 1-8 8H59.3l58.4 58.3a8 8 0 0 1-11.4 11.4l-72-72a8 8 0 0 1 0-11.4l72-72a8 8 0 0 1 11.4 11.4L59.3 120H216a8 8 0 0 1 8 8Z"></path></svg>
+    <span>点评</span>
+  </a>
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+  <span class="article-meta">{{ partial "comment-pill.html" . }}</span>
+  {{- with .Params.douban }}
+  <div class="db-subject-wrap">
+    {{ partial "douban-card.html" . }}
+  </div>
+  {{- end }}
+  {{- with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{- end }}
+  {{- partial "giscus.html" . }}
+</article>
+{{ end }}

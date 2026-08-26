@@ -1,0 +1,19 @@
+{{- $p := . -}}
+{{- $link := $p.Params.link -}}
+{{- $href := $p.RelPermalink -}}
+{{- if $link }}{{ $href = $link }}{{ end -}}
+<li>
+  <a class="work-card-link" href="{{ $href }}"{{ if $link }} target="_blank" rel="noopener noreferrer"{{ end }}>
+    <article class="work-card">
+      <div class="work-cover">
+        {{- with $p.Params.image }}
+        <img src="{{ . | relURL }}" alt="{{ $p.Title }}" loading="lazy">
+        {{- else }}
+        <span class="work-cover-label">项目封面 3:2</span>
+        {{- end }}
+      </div>
+      <h3 class="work-title stretch-cond">{{ $p.Title }}</h3>
+      <span class="work-byline">{{ $p.Params.description | default $p.Summary }}</span>
+    </article>
+  </a>
+</li>

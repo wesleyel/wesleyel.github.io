@@ -1,7 +1,7 @@
 baseurl: https://wesleyel.github.io/
 title: Country Road
 copyright: Wesley Yang
-theme: minimal-lines
+theme: rorz
 
 defaultContentLanguage: zh-cn
 hasCJKLanguage: true
@@ -31,6 +31,7 @@ menu:
 params:
   mainSections:
     - post
+  author: Wesley Yang
   subtitle: 这世界很美好，值得我们为之奋斗
   math: true
   readingTime: true
@@ -40,7 +41,7 @@ params:
     since: 2022
 
   dateFormat:
-    published: Jan 02, 2006
+    published: 2006年1月2日
 
   colorScheme:
     toggle: true

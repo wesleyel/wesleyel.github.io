@@ -1,0 +1,8 @@
+{{- $p := . -}}
+{{- $type := "电影" -}}
+{{- if eq $p.Params.commentType "music" }}{{ $type = "音乐" }}{{ end -}}
+{{- if eq $p.Params.status "wishlist" -}}
+  {{- if eq $p.Params.commentType "music" }}{{ printf "%s · 想听" $type }}{{ else }}{{ printf "%s · 想看" $type }}{{ end -}}
+{{- else -}}
+  {{ printf "%s · %s" $type ($p.Date.Format ($p.Site.Params.dateFormat.published | default "2006-01-02")) }}
+{{- end -}}
