@@ -1,0 +1,17 @@
+{{- $section := .Section -}}
+{{- $isArchives := eq .RelPermalink (("/archives/" | relLangURL)) -}}
+{{- $isAbout := eq .RelPermalink (("/about/" | relLangURL)) -}}
+{{- $items := slice
+  (dict "name" "Writing" "url" ("/" | relLangURL) "active" (or .IsHome (eq $section "post")))
+  (dict "name" "Work" "url" ("/work/" | relLangURL) "active" (eq $section "work"))
+  (dict "name" "Reviews" "url" ("/comment/" | relLangURL) "active" (eq $section "comment"))
+  (dict "name" "Categories" "url" ("/categories/" | relLangURL) "active" (or (eq $section "categories") (eq $section "tags")))
+  (dict "name" "Archive" "url" ("/archives/" | relLangURL) "active" $isArchives)
+  (dict "name" "About" "url" ("/about/" | relLangURL) "active" $isAbout)
+-}}
+<a href="{{ "/" | relLangURL }}" class="masthead"><span class="stretch-cond">{{ .Site.Params.author | default .Site.Params.copyright | default .Site.Title }}</span></a>
+<nav class="side-nav" aria-label="Main">
+  {{- range $items }}
+  <a href="{{ .url }}"{{ if .active }} class="active" aria-current="page"{{ end }}>{{ .name }}</a>
+  {{- end }}
+</nav>

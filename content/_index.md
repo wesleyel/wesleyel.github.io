@@ -1,6 +1,6 @@
 ---
 menu:
   main:
-    name: 主页
+    name: Writing
     weight: -100
 ---

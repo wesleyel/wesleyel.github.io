@@ -1,0 +1,11 @@
+{{- $url := .url -}}
+{{- $title := .title -}}
+{{- $pill := .pill -}}
+{{- $target := .target -}}
+<li class="list-row-item">
+  <a class="list-row" href="{{ $url }}"{{ with $target }} target="{{ . }}" rel="noopener noreferrer"{{ end }}>
+    <span class="list-row-title">{{ $title }}</span>
+    <span class="list-row-line">&nbsp;</span>
+    <span class="list-row-pill"><span>{{ $pill }}</span></span>
+  </a>
+</li>

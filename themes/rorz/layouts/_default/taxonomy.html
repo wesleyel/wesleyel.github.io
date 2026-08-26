@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="page-header-block">
+  <a href="{{ (printf "/%s/" .Data.Plural) | relLangURL }}" class="crumb-link">
+    <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor"><path d="M224 128a8 8 0 0 1-8 8H59.3l58.4 58.3a8 8 0 0 1-11.4 11.4l-72-72a8 8 0 0 1 0-11.4l72-72a8 8 0 0 1 11.4 11.4L59.3 120H216a8 8 0 0 1 8 8Z"></path></svg>
+    <span>{{ .Data.Plural | humanize }}</span>
+  </a>
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+</div>
+{{- $paginator := .Paginate (.Pages.ByDate.Reverse) }}
+<ul class="list-plain">
+  {{- range $paginator.Pages }}
+  {{- if eq .Section "comment" }}
+  {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (partial "comment-pill.html" .)) }}
+  {{- else }}
+  {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (.Date.Format (site.Params.dateFormat.published | default "2006-01-02"))) }}
+  {{- end }}
+  {{- end }}
+</ul>
+{{- if gt $paginator.TotalPages 1 }}
+<nav class="entry-nav" aria-label="Pagination">
+  {{- if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">&larr; 较新</a>{{- end }}
+  {{- if $paginator.HasNext }}<a class="next" href="{{ $paginator.Next.URL }}">较旧 &rarr;</a>{{- end }}
+</nav>
+{{- end }}
+{{ end }}

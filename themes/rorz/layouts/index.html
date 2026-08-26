@@ -1,0 +1,67 @@
+{{ define "main" }}
+{{- $posts := where site.RegularPages "Section" "post" }}
+{{- $posts = $posts.ByDate.Reverse }}
+{{- $work := where site.RegularPages "Section" "work" }}
+{{- $work = $work.ByDate.Reverse }}
+{{- $comments := where site.RegularPages "Section" "comment" }}
+{{- $comments = $comments.ByDate.Reverse }}
+{{- $catsPage := site.GetPage "categories" }}
+{{- $catTerms := slice }}
+{{- with $catsPage }}{{ $catTerms = .Data.Terms.ByCount.Reverse }}{{ end }}
+
+{{- with $posts }}
+<section class="home-block">
+  <div class="section-head">
+    <a href="{{ "/archives/" | relLangURL }}" class="section-title-link"><h2>文章</h2></a>
+    <a class="view-all" href="{{ "/archives/" | relLangURL }}">查看全部 ({{ len $posts }})</a>
+  </div>
+  <ul class="list-plain">
+    {{- range first 4 $posts }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (.Date.Format (site.Params.dateFormat.published | default "2006-01-02"))) }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $work }}
+<section class="home-block">
+  <div class="section-head">
+    <a href="{{ "/work/" | relLangURL }}" class="section-title-link"><h2>作品</h2></a>
+    <a class="view-all" href="{{ "/work/" | relLangURL }}">查看全部 ({{ len $work }})</a>
+  </div>
+  <ul class="work-grid">
+    {{- range first 3 $work }}
+    {{- partial "work-card.html" . }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $comments }}
+<section class="home-block">
+  <div class="section-head">
+    <a href="{{ "/comment/" | relLangURL }}" class="section-title-link"><h2>点评</h2></a>
+    <a class="view-all" href="{{ "/comment/" | relLangURL }}">查看全部 ({{ len $comments }})</a>
+  </div>
+  <ul class="list-plain">
+    {{- range first 3 $comments }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (partial "comment-pill.html" .)) }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $catTerms }}
+<section class="home-block">
+  <div class="section-head">
+    <a href="{{ "/categories/" | relLangURL }}" class="section-title-link"><h2>分类</h2></a>
+    <a class="view-all" href="{{ "/categories/" | relLangURL }}">查看全部 ({{ len $catTerms }})</a>
+  </div>
+  <ul class="list-plain">
+    {{- range first 3 $catTerms }}
+    {{- partial "list-row.html" (dict "url" .Page.RelPermalink "title" .Page.Title "pill" (printf "%d 篇" .Count)) }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{ end }}

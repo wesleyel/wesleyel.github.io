@@ -5,5 +5,6 @@ layout: "archives"
 slug: "archives"
 menu:
   main:
+    name: Archive
     weight: -70
 ---

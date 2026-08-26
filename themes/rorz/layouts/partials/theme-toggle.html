@@ -1,0 +1,15 @@
+{{- if .Site.Params.colorScheme.toggle }}
+<div class="col-toggle">
+  <button type="button" class="theme-toggle-btn" data-theme-value="light" aria-label="浅色" title="浅色">
+    <svg viewBox="0 0 256 256" width="20" height="20" fill="currentColor"><path d="M116 36V20a12 12 0 0 1 24 0v16a12 12 0 0 1-24 0Zm128 80h-16a12 12 0 0 0 0 24h16a12 12 0 0 0 0-24ZM28 116H12a12 12 0 0 0 0 24h16a12 12 0 0 0 0-24Zm100 92a12 12 0 0 0-12 12v16a12 12 0 0 0 24 0v-16a12 12 0 0 0-12-12ZM60.3 43.3a12 12 0 0 0-17 17l11.3 11.3a12 12 0 0 0 17-17Zm-5.7 141.4L43.3 196a12 12 0 0 0 17 17l11.3-11.3a12 12 0 0 0-17-17Zm146.8 0a12 12 0 0 0-17 17L195.7 213a12 12 0 0 0 17-17Zm0-113.4L213 60.3a12 12 0 0 0-17-17l-11.3 11.3a12 12 0 0 0 17 17ZM128 72a56 56 0 1 0 56 56 56.06 56.06 0 0 0-56-56Zm0 88a32 32 0 1 1 32-32 32 32 0 0 1-32 32Z"></path></svg>
+  </button>
+  <button type="button" class="theme-toggle-btn" data-theme-value="dark" aria-label="深色" title="深色">
+    <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor" stroke-width="16"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"></path></svg>
+  </button>
+  <button type="button" class="theme-toggle-btn" data-theme-value="auto" aria-label="跟随系统" title="跟随系统">
+    <svg viewBox="0 0 256 256" width="20" height="20" fill="currentColor"><path d="M128 24a104 104 0 1 0 104 104A104.1 104.1 0 0 0 128 24Zm0 192V40a88 88 0 0 1 0 176Z"></path><path d="M128 40a88 88 0 0 0 0 176Z" opacity="0.35"></path></svg>
+  </button>
+</div>
+{{- else }}
+<div class="col-toggle"></div>
+{{- end }}

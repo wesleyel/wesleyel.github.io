@@ -1,0 +1,56 @@
+{{ define "main" }}
+{{- $comments := where .Site.RegularPages "Section" "comment" }}
+<div class="page-header-block">
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+  {{- with .Content }}<div class="page-lede">{{ . }}</div>{{ end }}
+</div>
+
+{{- $moviesWatched := where (where $comments "Params.commentType" "movie") "Params.status" "!=" "wishlist" }}
+{{- $moviesWishlist := where (where $comments "Params.commentType" "movie") "Params.status" "wishlist" }}
+{{- $musicListened := where (where $comments "Params.commentType" "music") "Params.status" "!=" "wishlist" }}
+{{- $musicWishlist := where (where $comments "Params.commentType" "music") "Params.status" "wishlist" }}
+
+{{- with $moviesWatched }}
+<section class="home-block">
+  <div class="section-head"><h2>电影 · 看过</h2><span class="view-all">{{ len . }} 条</span></div>
+  <ul class="list-plain">
+    {{- range .ByDate.Reverse }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (.Date.Format ($.Site.Params.dateFormat.published | default "2006-01-02"))) }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $moviesWishlist }}
+<section class="home-block">
+  <div class="section-head"><h2>电影 · 想看</h2><span class="view-all">{{ len . }} 条</span></div>
+  <ul class="list-plain">
+    {{- range .ByTitle }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" "想看") }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $musicListened }}
+<section class="home-block">
+  <div class="section-head"><h2>音乐 · 听过</h2><span class="view-all">{{ len . }} 条</span></div>
+  <ul class="list-plain">
+    {{- range .ByDate.Reverse }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" (.Date.Format ($.Site.Params.dateFormat.published | default "2006-01-02"))) }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with $musicWishlist }}
+<section class="home-block">
+  <div class="section-head"><h2>音乐 · 想听</h2><span class="view-all">{{ len . }} 条</span></div>
+  <ul class="list-plain">
+    {{- range .ByTitle }}
+    {{- partial "list-row.html" (dict "url" .RelPermalink "title" .Title "pill" "想听") }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{ end }}

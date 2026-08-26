@@ -1,0 +1,40 @@
+{{ define "main" }}
+<article class="post-article">
+  <a href="{{ "/" | relLangURL }}" class="crumb-link">
+    <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor"><path d="M224 128a8 8 0 0 1-8 8H59.3l58.4 58.3a8 8 0 0 1-11.4 11.4l-72-72a8 8 0 0 1 0-11.4l72-72a8 8 0 0 1 11.4 11.4L59.3 120H216a8 8 0 0 1 8 8Z"></path></svg>
+    <span>文章</span>
+  </a>
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+  <span class="article-meta">
+    {{ .Date.Format (.Site.Params.dateFormat.published | default "2006-01-02") }}
+    {{- with index (.Params.categories | default slice) 0 }} · <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}/">{{ . }}</a>{{ end }}
+  </span>
+  {{- with .Params.image }}
+  <figure class="post-cover">
+    <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+  </figure>
+  {{- end }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  {{- $prev := .PrevInSection }}
+  {{- $next := .NextInSection }}
+  {{- if or $prev $next }}
+  <nav class="entry-nav">
+    {{- with $prev }}
+    <a href="{{ .RelPermalink }}">
+      <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor"><path d="M168 32 72 128l96 96Z"></path></svg>
+      {{ .Title }}
+    </a>
+    {{- end }}
+    {{- with $next }}
+    <a class="next" href="{{ .RelPermalink }}">
+      {{ .Title }}
+      <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor"><path d="M88 32l96 96-96 96Z"></path></svg>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+  {{- partial "giscus.html" . }}
+</article>
+{{ end }}

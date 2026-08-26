@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div class="page-header-block">
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+  {{- with .Content }}<div class="page-lede">{{ . }}</div>{{ end }}
+</div>
+{{- $items := .Pages.ByWeight }}
+{{- $cats := slice }}
+{{- range $items }}
+{{- $c := .Params.category }}
+{{- if and $c (not (in $cats $c)) }}{{ $cats = $cats | append $c }}{{ end }}
+{{- end }}
+{{- if gt (len $cats) 1 }}
+{{- range $cats }}
+{{- $cat := . }}
+<section class="home-block">
+  <div class="section-head"><h2>{{ $cat }}</h2></div>
+  <ul class="work-grid">
+    {{- range where $items "Params.category" $cat }}
+    {{- partial "work-card.html" . }}
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{- else }}
+<ul class="work-grid">
+  {{- range $items }}
+  {{- partial "work-card.html" . }}
+  {{- end }}
+</ul>
+{{- end }}
+{{ end }}

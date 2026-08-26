@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="page-header-block">
+  <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+  {{- with .Content }}<div class="page-lede">{{ . }}</div>{{ end }}
+</div>
+<ul class="list-plain">
+  {{- range .Data.Terms.ByCount.Reverse }}
+  {{- partial "list-row.html" (dict "url" .Page.RelPermalink "title" .Page.Title "pill" (printf "%d" .Count)) }}
+  {{- end }}
+</ul>
+{{- if eq .Section "categories" }}
+{{- $tagsPage := site.GetPage "tags" }}
+{{- with $tagsPage }}
+<section class="home-block">
+  <h2 class="stretch-cond">标签</h2>
+  <ul class="tag-cloud">
+    {{- range .Data.Terms.Alphabetical }}
+    <li><a class="tag-pill" href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{- end }}
+{{ end }}

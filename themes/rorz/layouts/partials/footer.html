@@ -1,0 +1,8 @@
+<footer class="site-footer">
+  <span>
+    {{ .Site.Params.copyright | default .Site.Title }} &copy; {{ with .Site.Params.footer.since }}{{ . }}–{{ end }}{{ now.Year }}.
+    {{- with .Site.Menus.social }}
+    {{- range . }} <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer">{{ .Name }}</a>{{ end }}
+    {{- end }}
+  </span>
+</footer>
