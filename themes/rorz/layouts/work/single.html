@@ -1,0 +1,38 @@
+{{ define "main" }}
+<article class="work-detail">
+  <a href="{{ "/work/" | relLangURL }}" class="crumb-link">
+    <svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M224 128a8 8 0 0 1-8 8H59.3l58.4 58.3a8 8 0 0 1-11.4 11.4l-72-72a8 8 0 0 1 0-11.4l72-72a8 8 0 0 1 11.4 11.4L59.3 120H216a8 8 0 0 1 8 8Z"></path></svg>
+    <span>作品</span>
+  </a>
+
+  <header class="work-detail-head">
+    {{- if or .Params.category .Params.status }}
+    <div class="work-detail-meta">
+      {{- with .Params.category }}<span>{{ . }}</span>{{ end }}
+      {{- with .Params.status }}<span>· {{ . }}</span>{{ end }}
+    </div>
+    {{- end }}
+    <h1 class="page-h1 stretch-cond">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="work-detail-description">{{ . }}</p>{{ end }}
+  </header>
+
+  {{- with .Params.image }}
+  <figure class="work-detail-cover">
+    <img src="{{ . | relURL }}" alt="{{ $.Title }} 项目界面" fetchpriority="high">
+  </figure>
+  {{- end }}
+
+  {{- with .Params.link }}
+  <div class="work-detail-actions">
+    <a class="work-detail-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+      <span>访问项目</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  {{- end }}
+
+  {{- with .Content }}
+  <div class="post-content">{{ . }}</div>
+  {{- end }}
+</article>
+{{ end }}

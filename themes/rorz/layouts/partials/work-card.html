@@ -1,9 +1,6 @@
 {{- $p := . -}}
-{{- $link := $p.Params.link -}}
-{{- $href := $p.RelPermalink -}}
-{{- if $link }}{{ $href = $link }}{{ end -}}
 <li>
-  <a class="work-card-link" href="{{ $href }}"{{ if $link }} target="_blank" rel="noopener noreferrer"{{ end }}>
+  <a class="work-card-link" href="{{ $p.RelPermalink }}">
     <article class="work-card">
       <div class="work-cover">
         {{- with $p.Params.image }}

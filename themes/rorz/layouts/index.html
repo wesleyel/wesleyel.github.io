@@ -2,7 +2,7 @@
 {{- $posts := where site.RegularPages "Section" "post" }}
 {{- $posts = $posts.ByDate.Reverse }}
 {{- $work := where site.RegularPages "Section" "work" }}
-{{- $work = $work.ByDate.Reverse }}
+{{- $work = $work.ByWeight }}
 {{- $comments := where site.RegularPages "Section" "comment" }}
 {{- $comments = $comments.ByDate.Reverse }}
 {{- $catsPage := site.GetPage "categories" }}
@@ -30,7 +30,7 @@
     <a class="view-all" href="{{ "/work/" | relLangURL }}">查看全部 ({{ len $work }})</a>
   </div>
   <ul class="work-grid">
-    {{- range first 3 $work }}
+    {{- range first 6 $work }}
     {{- partial "work-card.html" . }}
     {{- end }}
   </ul>
