@@ -1,0 +1,18 @@
+{{- $friend := . -}}
+<li>
+  <a class="friend-card-link" href="{{ $friend.url }}" target="_blank" rel="noopener noreferrer">
+    <article class="friend-card">
+      <div class="friend-avatar">
+        {{- with $friend.img }}
+        <img src="{{ . }}" alt="{{ $friend.name }}" loading="lazy">
+        {{- end }}
+      </div>
+      <div class="friend-card-body">
+        <h3 class="friend-name stretch-cond">{{ $friend.name }}</h3>
+        {{- with $friend.description }}
+        <p class="friend-description">{{ . }}</p>
+        {{- end }}
+      </div>
+    </article>
+  </a>
+</li>

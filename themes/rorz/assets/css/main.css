@@ -272,6 +272,62 @@ button { font: inherit; }
   line-height: 24px;
 }
 
+/* ── Friend grid / cards ─────────────────────────────────────── */
+.friends-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.friend-card-link { display: block; height: 100%; }
+.friend-card {
+  height: 100%;
+  min-height: 80px;
+  display: flex;
+  border: 1px solid var(--card-border);
+}
+.friend-avatar {
+  flex: 0 0 80px;
+  width: 80px;
+  overflow: hidden;
+  background: var(--border-soft);
+}
+.friend-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.friend-card-body { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.friend-name {
+  margin: 0;
+  padding: 2px 8px;
+  background: var(--accent-bg);
+  color: var(--accent-fg);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.friend-description {
+  margin: 0;
+  padding: 4px 8px;
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--muted-2);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 19px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.friend-card-link:hover,
+.friend-card-link:focus-visible { transform: translateY(-2px); }
+.friend-card-link:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
 /* ── Work detail ────────────────────────────────────────────── */
 .work-detail {
   width: 100%;
@@ -523,4 +579,5 @@ button { font: inherit; }
 
 @media (max-width: 560px) {
   .work-grid { grid-template-columns: 1fr; }
+  .friend-grid { grid-template-columns: 1fr; }
 }
