@@ -1,9 +1,14 @@
 ---
 title: 链接
+slug: links
+showFriends: true
+showFriendExchange: true
 links:
   - title: GitHub
-    description: My GitHub Profile
+    description: "@wesleyel"
     website: https://github.com/wesleyel
-    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  - title: RSS
+    website: /index.xml
+    description: /index.xml
 comments: true
 ---

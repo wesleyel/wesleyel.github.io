@@ -8,7 +8,6 @@ menu:
   main:
     name: About
     weight: -60
-showFriends: true
 links:
   - title: GitHub
     website: https://github.com/wesleyel
