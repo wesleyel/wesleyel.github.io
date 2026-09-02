@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>嵌入式 on Country Road</title><link>https://wesleyel.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</link><description>Recent content in 嵌入式 on Country Road</description><generator>Hugo</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wesleyel.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查</title><link>https://wesleyel.github.io/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/buildroot-cheatsheet/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>嵌入式 on Country Road</title><link>https://def.l.cd/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</link><description>Recent content in 嵌入式 on Country Road</description><generator>Hugo</generator><language>zh-cn</language><copyright>Wesley Yang</copyright><lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://def.l.cd/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/index.xml" rel="self" type="application/rss+xml"/><item><title>Buildroot 速查</title><link>https://def.l.cd/p/buildroot-cheatsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://def.l.cd/p/buildroot-cheatsheet/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;完整文档可以在&lt;a href="https://buildroot.org/downloads/manual/manual.html"&gt;官方网站&lt;/a&gt;找到。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="快速开始一个-buildroot-项目"&gt;快速开始一个 buildroot 项目&lt;/h2&gt;
@@ -53,7 +53,7 @@
 &lt;/table&gt;
 &lt;h3 id="包管理"&gt;包管理&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps"&gt;特定包的 make 目标&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Yocto &amp; Bitbake 速查</title><link>https://wesleyel.github.io/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/yocto-cheetsheet/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://buildroot.org/downloads/manual/manual.html#pkg-build-steps"&gt;特定包的 make 目标&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Yocto &amp; Bitbake 速查</title><link>https://def.l.cd/p/yocto-cheetsheet/</link><pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate><guid>https://def.l.cd/p/yocto-cheetsheet/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;完整文档可以在&lt;a href="https://docs.yoctoproject.org/"&gt;Yocto 文档网站&lt;/a&gt;找到。
 参考自&lt;a href="https://github.com/shantanoo-desai/yoctoproject-cheatsheet"&gt;yoctoproject-cheatsheet&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -131,7 +131,7 @@
 &lt;/table&gt;
 &lt;h2 id="变量语法和操作"&gt;变量语法和操作&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html"&gt;Bitbake User Manual&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Linux Process 的内存布局</title><link>https://wesleyel.github.io/p/linux-process-memory-layout/</link><pubDate>Tue, 25 Jul 2023 00:00:00 +0000</pubDate><guid>https://wesleyel.github.io/p/linux-process-memory-layout/</guid><description>&lt;h2 id="内存布局"&gt;内存布局&lt;/h2&gt;
+&lt;p&gt;参考自&lt;a href="https://docs.yoctoproject.org/bitbake/2.4/bitbake-user-manual/bitbake-user-manual-metadata.html"&gt;Bitbake User Manual&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Linux Process 的内存布局</title><link>https://def.l.cd/p/linux-process-memory-layout/</link><pubDate>Tue, 25 Jul 2023 00:00:00 +0000</pubDate><guid>https://def.l.cd/p/linux-process-memory-layout/</guid><description>&lt;h2 id="内存布局"&gt;内存布局&lt;/h2&gt;
 &lt;p&gt;一般而言，C程序通常由一下几个部分组成。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
